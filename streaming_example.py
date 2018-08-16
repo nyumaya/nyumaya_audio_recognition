@@ -44,7 +44,7 @@ Running = True
 sample_rate= 16000  # Samle Rate: 16000
 window_len = 0.03   # Window Size: 30ms = 480 Samples 960 Bytes
 frame_shift= 0.01   # Frame Shift: 10ms = 160 Samples 320 Bytes
-warmup_steps = 40
+warmup_steps = 20
 melcount = 40 
 recognition_threshold = 0.9
 lower_frequency = 20 
@@ -100,7 +100,7 @@ def label_stream(labels, graph, input_name, output_name, how_many_labels):
 		i = 0
     
 		print("Detection Started")
-		position = 0
+		position = 90
 		while(Running):
 
 			data = s.read(960,320)
@@ -118,7 +118,7 @@ def label_stream(labels, graph, input_name, output_name, how_many_labels):
 				mel_spectrogram[0,mel_start:mel_end] = mel_data[0:melcount]
 
 				i = i+1
-				position += 1
+				position -= 1
 				#Eval every 200 ms, warmup for the first second
 				if(i%prediction_every == 0 and i > warmup_steps):
 					
@@ -136,7 +136,7 @@ def label_stream(labels, graph, input_name, output_name, how_many_labels):
 
 
 					mel_spectrogram = np.roll(mel_spectrogram, -melcount*prediction_every,1)
-					position = 0
+					position = 98-prediction_every
 
 					#end = time.time()
 					#print("Classification done in : " + str(end - start))

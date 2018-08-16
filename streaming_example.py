@@ -44,7 +44,7 @@ Running = True
 sample_rate= 16000  # Samle Rate: 16000
 window_len = 0.03   # Window Size: 30ms = 480 Samples 960 Bytes
 frame_shift= 0.01   # Frame Shift: 10ms = 160 Samples 320 Bytes
-warmup_steps = 100
+warmup_steps = 40
 melcount = 40 
 recognition_threshold = 0.9
 lower_frequency = 20 
@@ -100,9 +100,9 @@ def label_stream(labels, graph, input_name, output_name, how_many_labels):
 		i = 0
     
 		print("Detection Started")
-
+		position = 0
 		while(Running):
-			position = 0
+
 			data = s.read(960,320)
 			if(data):
 				data = np.frombuffer(data, dtype=np.int16) # Volume
@@ -113,14 +113,14 @@ def label_stream(labels, graph, input_name, output_name, how_many_labels):
 				#TODO: Average predictions
 
 				#Copy new mel data
-				mel_start = 3920-(melcount*(position+1))
 				mel_end   = 3920-(melcount*position)
+				mel_start = 3920-(melcount*(position+1))
 				mel_spectrogram[0,mel_start:mel_end] = mel_data[0:melcount]
 
 				i = i+1
 				position += 1
 				#Eval every 200 ms, warmup for the first second
-				if(i%prediction_every == 0 and i > warmup_steps and False):
+				if(i%prediction_every == 0 and i > warmup_steps):
 					
 					#start = time.time()
 					predictions, = sess.run(softmax_tensor, {input_name: mel_spectrogram})

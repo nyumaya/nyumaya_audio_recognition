@@ -1,0 +1,12 @@
+_silence_
+_unknown_
+one
+two
+three
+four
+five
+six
+seven
+eight
+nine
+zero

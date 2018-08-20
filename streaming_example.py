@@ -86,7 +86,7 @@ def label_stream(labels, graph, input_name, output_name, how_many_labels):
 	labels_list = load_labels(labels)
 	load_graph(graph)
    
-	mel = FeatureExtraction(nfilt=melcount,ncep=40,lowerf=lower_frequency,
+	mel = FeatureExtraction(nfilt=melcount,lowerf=lower_frequency,
 		upperf=higher_frequency,samprate=16000,wlen=window_len,nfft=512,datalen=480)
 
 	with tf_Session() as sess:

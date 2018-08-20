@@ -5,7 +5,7 @@ import numpy as np
 
 
    
-mel = FeatureExtraction(nfilt=40,ncep=40,lowerf=20,upperf=8000,samprate=16000,wlen=0.03,nfft=512,datalen=480)
+mel = FeatureExtraction(nfilt=40,lowerf=20,upperf=8000,samprate=16000,wlen=0.03,nfft=512,datalen=480)
 data = np.zeros(480)
 pr = cProfile.Profile()
 pr.enable()

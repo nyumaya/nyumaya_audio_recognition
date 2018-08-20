@@ -10,14 +10,13 @@ def melinv(m):
 	return 700. * (numpy.power(10., m / 2595.) - 1.)
 
 class FeatureExtraction(object):
-	def __init__(self, nfilt=17, ncep=40,lowerf=20, upperf=4000,
+	def __init__(self, nfilt=17,lowerf=20, upperf=4000,
 		samprate=16000, wlen=0.03,nfft=512,datalen=512,shift=0.01):
 
 		# Store parameters
 		self.lowerf = lowerf
 		self.upperf = upperf
 		self.nfft = nfft
-		self.ncep = ncep
 		self.nfilt = nfilt
 		self.datalen = datalen
 		self.shift = samprate*shift

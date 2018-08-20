@@ -19,13 +19,13 @@ Because models constantly improve and I don't want this repository to get bloate
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 Model Architectures
--conv_res-mini-narrow
--conv_res-mini
--conv_res-full
--conv_res-huge
+- conv_res-mini-narrow
+- conv_res-mini
+- conv_res-full
+- conv_res-huge
 
 
 Applications:
--speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
--speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
--marvin_hotword (marvin)
+- speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
+- speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
+- marvin_hotword (marvin)

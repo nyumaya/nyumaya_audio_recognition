@@ -43,14 +43,16 @@ Running = True
 
 sample_rate= 16000  # Samle Rate: 16000
 window_len = 0.03   # Window Size: 30ms = 480 Samples 960 Bytes
-frame_shift= 0.01   # Frame Shift: 10ms = 160 Samples 320 Bytes
+frame_shift_ms= 0.01   # Frame Shift: 10ms = 160 Samples 320 Bytes
 warmup_steps = 20
 melcount = 40 
+frame_shift = int(frame_shift_ms*sample_rate)
+
 recognition_threshold = 0.9
 lower_frequency = 20 
 higher_frequency = 8000
 prediction_every = 20 #Number of mel steps between predictions
-volume = (1.0/32768.0)*256.0 # Int to Float conversion included
+volume = (1.0/32768.0)*1 # Int to Float conversion included
 # MFCC Window length = 1 second = 1000 Shifts
 
 
@@ -100,46 +102,39 @@ def label_stream(labels, graph, input_name, output_name, how_many_labels):
 		i = 0
     
 		print("Detection Started")
-		position = 90
+
 		while(Running):
 
-			data = s.read(960,320)
+			bitsize = 2
+			blocksize = 20
+			data = s.read(blocksize*frame_shift*bitsize,blocksize*frame_shift*bitsize)
+
 			if(data):
-				data = np.frombuffer(data, dtype=np.int16) # Volume
-				mel_data = mel.frame_to_mel(data*volume)
+				data = np.frombuffer(data, dtype=np.int16) 
+				mel_data = mel.signal_to_mel(data*volume)
+				mel_len = len(mel_data)
 
-				#TODO: Remove magic numbers
-				#TODO: Predict only once
-				#TODO: Average predictions
-
-				#Copy new mel data
-				mel_end   = 3920-(melcount*position)
-				mel_start = 3920-(melcount*(position+1))
-				mel_spectrogram[0,mel_start:mel_end] = mel_data[0:melcount]
-
-				i = i+1
-				position -= 1
-				#Eval every 200 ms, warmup for the first second
-				if(i%prediction_every == 0 and i > warmup_steps):
-					
-					#start = time.time()
-					predictions, = sess.run(softmax_tensor, {input_name: mel_spectrogram})
-
-					# Sort to show labels in order of confidence
-					top_k = predictions.argsort()[-how_many_labels:][::-1]
- 
-					for node_id in top_k:
-						human_string = labels_list[node_id]
-						score = predictions[node_id]
-						if(score > recognition_threshold and node_id != 0 and node_id != 1):
-							print('%s (score = %.5f)' % (human_string, score))
+				mel_end   = (melcount*98)
+				mel_start = (melcount*98)-(mel_len)
+				mel_spectrogram[0,mel_start:mel_end] = mel_data[0:mel_len]
 
 
-					mel_spectrogram = np.roll(mel_spectrogram, -melcount*prediction_every,1)
-					position = 98-prediction_every
+				predictions, = sess.run(softmax_tensor, {input_name: mel_spectrogram})
 
-					#end = time.time()
-					#print("Classification done in : " + str(end - start))
+				# Sort to show labels in order of confidence
+				top_k = predictions.argsort()[-how_many_labels:][::-1]
+
+				for node_id in top_k:
+					human_string = labels_list[node_id]
+					score = predictions[node_id]
+					if(score > recognition_threshold and node_id != 0 and node_id != 1):
+						print('%s (score = %.5f)' % (human_string, score))
+
+
+				mel_spectrogram = np.roll(mel_spectrogram, -mel_len,1)
+
+				#end = time.time()
+				#print("Classification done in : " + str(end - start))
 			else:
 				time.sleep(0.1)
 

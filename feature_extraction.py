@@ -63,48 +63,40 @@ class FeatureExtraction(object):
 				freq = freq + 1
 
 
-	def numpy_stft(self,data,fft_size,hop_size):
-		result = numpy.empty(int(fft_size/2+1), dtype=numpy.float32)        # space to hold the result
-		windowed = data * self.window                                       # multiply by the half cosine function
-		spectrum = numpy.fft.rfft(windowed,n=fft_size)                      #/ fft_size
-		autopower = numpy.abs(spectrum * numpy.conj(spectrum))              # find the autopower spectrum
-		result[:] = autopower[:fft_size]                                    # append to the results array
-		return result
 
 	def signal_to_mel(self,signal):
-      
+ 
 		signal_len = len(signal)
 		number_of_frames = int(signal_len / self.shift + 1)
 
-		#FIXME: Frame calculation wrong
-		number_of_frames = 98
-
 		mels = numpy.empty(int(number_of_frames*self.nfilt), dtype=numpy.float32) 
 		frameindex = 0
+		fftarray = []
 		for _ in range(number_of_frames):
 			start = int(round(frameindex * self.shift))
 			end = int(min(signal_len, start + self.datalen))
 			frame = signal[start:end]
+  
 			if len(frame) < self.datalen:
 				frame = numpy.resize(frame,self.datalen)
 				frame[self.datalen:] = 0
-			melframe = self.frame_to_mel(frame)
+			fftarray.append(frame)
 
-			mels[frameindex*self.nfilt:(frameindex+1)*self.nfilt] = melframe[:]
 			frameindex +=1
- 
-		return mels
 
+		windowed = fftarray * self.window            
+		spectrum = numpy.fft.rfft(windowed,n=self.nfft)                      #/ fft_size
+		autopower = numpy.abs(spectrum * numpy.conj(spectrum))              # find the autopower spectrum
 
-	def frame_to_mel(self,frame):
-		spec = self.numpy_stft(frame,self.nfft,self.nfft)
-		melspec = self.linear_to_mel(spec)
-		return melspec
+		result = numpy.empty((number_of_frames,int(self.nfft/2+1)), dtype=numpy.float32)        # space to hold the result
+		result[:,:] = autopower[:,:self.nfft]  
 
-	def linear_to_mel(self,linear):
-		dotproduct = numpy.dot(linear,self.filters)
-		mel = numpy.log(dotproduct+1e-6)
-		return mel 
+		lin = numpy.dot(result,self.filters)
+
+		mel = numpy.log(lin+1e-6)
+
+		return mel.flatten()
+
 
 
 

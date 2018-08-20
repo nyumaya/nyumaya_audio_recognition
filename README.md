@@ -8,7 +8,8 @@ python streaming_example.py --labels models/speech_command/labels.txt --graph mo
 On the Pi Zero Tensorflow takes a few seconds to load. The demo captures audio from the default microphone. 
 Accuracy is not good yet, especially on false positives. This will be improved in the next couple days.
 
-Dependencies: numpy,tensorflow 
+## Dependencies:
+numpy,tensorflow 
 Both can be installed via pip
 
 ```
@@ -18,14 +19,21 @@ pip install tensorflow
 Because models constantly improve and I don't want this repository to get bloated the pretrained models are hosted [here](https://drive.google.com/drive/folders/1wtx00RTPjfZPbcHzpLFwcqfWmslNZXra).
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
-Model Architectures
+## Model Architectures
 - conv_res-mini-narrow
 - conv_res-mini
 - conv_res-full
 - conv_res-huge
 
 
-Applications:
+## Applications:
 - speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
 - speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
 - marvin_hotword (marvin)
+
+## Roadmap:
+- [x] Basic working models
+- [ ] Benchmark accuracy and false recognition rate
+- [ ] Web demo
+- [ ] Improve Architectures
+- [ ] More Applications 

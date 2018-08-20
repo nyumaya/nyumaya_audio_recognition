@@ -44,7 +44,6 @@ Running = True
 sample_rate= 16000  # Samle Rate: 16000
 window_len = 0.03   # Window Size: 30ms = 480 Samples 960 Bytes
 frame_shift_ms= 0.01   # Frame Shift: 10ms = 160 Samples 320 Bytes
-warmup_steps = 20
 melcount = 40 
 frame_shift = int(frame_shift_ms*sample_rate)
 
@@ -87,13 +86,13 @@ def label_stream(labels, graph, input_name, output_name, how_many_labels):
 	load_graph(graph)
    
 	mel = FeatureExtraction(nfilt=melcount,lowerf=lower_frequency,
-		upperf=higher_frequency,samprate=16000,wlen=window_len,nfft=512,datalen=480)
+		upperf=higher_frequency,samprate=sample_rate,wlen=window_len,nfft=512,datalen=480)
 
 	with tf_Session() as sess:
 		softmax_tensor = sess.graph.get_tensor_by_name(output_name) 
 		np.set_printoptions(precision=2)
 
-		mel_spectrogram = np.zeros((1,3920), dtype=np.float32) 
+		mel_spectrogram = np.zeros((1,melcount*98), dtype=np.float32) 
 
 		#Run one time with dummy data to warm up
 		predictions, = sess.run(softmax_tensor, {input_name: mel_spectrogram})

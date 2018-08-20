@@ -10,7 +10,7 @@ data = np.zeros(480)
 pr = cProfile.Profile()
 pr.enable()
 for i in range (10000):
-	mel_data = mel.frame_to_mel(data) 
+	mel_data = mel.signal_to_mel(data) 
  
 pr.disable()
  

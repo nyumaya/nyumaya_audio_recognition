@@ -35,5 +35,5 @@ For each application, different model architectures are available which are a tr
 - [x] Basic working models
 - [ ] Benchmark accuracy and false recognition rate
 - [ ] Web demo
-- [ ] Improve Architectures
+- [ ] Improve Architectures (including RNN and Attention)
 - [ ] More Applications 

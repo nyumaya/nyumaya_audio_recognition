@@ -34,6 +34,7 @@ For each application, different model architectures are available which are a tr
 ## Roadmap:
 - [x] Basic working models
 - [ ] Benchmark accuracy and false recognition rate
+- [ ] Average output predictions
 - [ ] Web demo
 - [ ] Improve Architectures (including RNN and Attention)
 - [ ] More Applications 

@@ -6,7 +6,8 @@ Audio classification using Tensorflow. To run the demo:
 python streaming_example.py --labels models/speech_command/labels.txt --graph models/speech_command/conv-res-mini_frozen.pb
 
 On the Pi Zero Tensorflow takes a few seconds to load. The demo captures audio from the default microphone. 
-Accuracy is not good yet, especially on false positives. This will be improved in the next couple days.
+
+Accuracy is not perfect yet, especially on false positives.
 
 ## Dependencies:
 numpy,tensorflow 
@@ -35,6 +36,7 @@ For each application, different model architectures are available which are a tr
 - [x] Basic working models
 - [ ] Benchmark accuracy and false recognition rate
 - [ ] Average output predictions
+- [ ] Provide TensorflowLite and TensorflowJS models
 - [ ] Web demo
 - [ ] Improve Architectures (including RNN and Attention)
 - [ ] More Applications 

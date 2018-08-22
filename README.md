@@ -21,10 +21,10 @@ Because models constantly improve and I don't want this repository to get bloate
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures
-- conv_res-mini-narrow
-- conv_res-mini
-- conv_res-full
-- conv_res-huge
+- conv_res-mini-narrow (CPU_PI0 34%)
+- conv_res-mini        (CPU_PI0 55%)
+- conv_res-full        (CPU_PI0 90%)
+- conv_res-huge        (CPU_PI0 nan)
 
 
 ## Applications:

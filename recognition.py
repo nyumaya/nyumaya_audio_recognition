@@ -1,174 +1,169 @@
-# Copyright 2017 The TensorFlow Authors. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
-r"""Runs a trained audio graph against a WAVE file and reports the results.
+#Nyumaya Audio Classifier
 
-The model, labels and .wav file specified in the arguments will be loaded, and
-then the predictions from running the model against the audio data will be
-printed to the console. This is a useful script for sanity checking trained
-models, and as an example of how to use an audio model from Python.
-
-Here's an example of running it:
-
-python tensorflow/examples/speech_commands/label_wav.py \
---graph=/tmp/my_frozen_graph.pb \
---labels=/tmp/speech_commands_train/conv_labels.txt \
---wav=/tmp/speech_dataset/left/a5d485dc_nohash_0.wav
-
-"""
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
-import argparse
-import sys
 import numpy as np
-import tensorflow as tf
-from record import AudiostreamSource
-from record import RingBuffer
+print("Loading Tensorflow")
+from tensorflow import import_graph_def as tf_import_graph_def
+from tensorflow import Session as tf_Session
+from tensorflow import GraphDef as tf_GraphDef
+from tensorflow import logging as tf_logging
+print("Tensorflow loaded")
+from feature_extraction import FeatureExtraction
+import logging
 
-import time
-import os
-from mfcc import MFCC
-import wave
-
-
-s = AudiostreamSource()
-
-Running = True
-FLAGS = None
-
-# Window Size: 30ms = 480 Samples 960 Bytes
-# Frame Shift: 10ms = 160 Samples 320 Bytes
-# Samle Rate: 16000
-# MFCC Window length = 1 second = 1000 Shifts
-
-def shift_one(xs):
-    e = np.empty_like(xs)
-    e[1:] = xs[:-1]
-    return e
-
-def load_graph(filename):
-  """Unpersists graph from file as default graph."""
-  with tf.gfile.FastGFile(filename, 'rb') as f:
-    graph_def = tf.GraphDef()
-    graph_def.ParseFromString(f.read())
-    tf.import_graph_def(graph_def, name='')
+class Detector():
 
 
-def load_labels(filename):
-  """Read in labels, one label per line."""
-  return [line for line in tf.gfile.GFile(filename)]
+	def __init__(self,graph_path,label_path):
+		self.graph_path = graph_path
+		self.label_path = label_path
+
+		self.sample_rate= 16000  # Samle Rate: 16000
+		self.window_len = 0.03   # Window Size: 30ms = 480 Samples 960 Bytes
+		self.frame_shift_ms= 0.01   # Frame Shift: 10ms = 160 Samples 320 Bytes
+		self.melcount = 40 
+		self.frame_shift = int(self.frame_shift_ms*self.sample_rate)
+		self.bitsize = 2
+		self.blocksize = 20
+		self.recognition_threshold = 0.9
+		self.lower_frequency = 20 
+		self.higher_frequency = 8000
+		self.prediction_every = 20 #Number of mel steps between predictions
+		self.gain = 1.0
+		self.detection_cooldown = 8
+		self.cooldown = 0
+		self.mel_spectrogram = np.zeros((1,self.melcount*98), dtype=np.float32) 
+		self.mel = FeatureExtraction(nfilt=self.melcount,lowerf=self.lower_frequency,upperf=self.higher_frequency,
+			samprate=self.sample_rate,wlen=self.window_len,nfft=512,datalen=480)
+
+		self.input_name = "fingerprint_input:0"
+		self.output_name = "labels_softmax:0"
+
+		self.sess = tf_Session()
+
+		self.labels_list = self._load_labels(label_path)
+		self._load_graph(graph_path)
+
+		self.last_frames = {}
+
+		self.softmax_tensor = self.sess.graph.get_tensor_by_name(self.output_name) 
+		self._warmup()
 
 
-
-def label_stream(labels, graph, input_name, output_name, how_many_labels):
-  """Loads the model and labels, and runs the inference to print predictions."""
-
-  if not labels or not tf.gfile.Exists(labels):
-    tf.logging.fatal('Labels file does not exist %s', labels)
-
-  if not graph or not tf.gfile.Exists(graph):
-    tf.logging.fatal('Graph file does not exist %s', graph)
-
-  labels_list = load_labels(labels)
-  load_graph(graph)
-   
-  mel = MFCC(nfilt=40,ncep=40,lowerf=20,upperf=8000,samprate=16000,wlen=0.03,nfft=512,datalen=480)
+	def set_sensitivity(self,sensitivity):
+		self.sensitivity = sensitivity
 
 
-  with tf.Session() as sess:
-    softmax_tensor = sess.graph.get_tensor_by_name(output_name) 
-    np.set_printoptions(precision=2)
+	#Returns the number of bytes to pass to the recognizer
+	def input_data_size(self):
+		return self.blocksize*self.frame_shift*self.bitsize
 
-    #Run one time with dummy data
-    mel_spectrogram = np.zeros((1,40*98), dtype=np.float32) 
+	#Run a prediction on given frame encoded as 16kHz 16bit mono integer pcm samples
+	def recognize(self,frame):
+	
+		if(not frame):
+			return None
 
-    predictions, = sess.run(softmax_tensor, {input_name: mel_spectrogram})
-    s.start()
-    i = 0
-    
-    print("Detection Started")
+		if(self.cooldown > 0):
+			self.cooldown -= 1
 
-    while(Running):
+		volume = (1.0/32768.0)*self.gain # Int to Float conversion including volume
 
-      if (i == 100000):
-        break
- 
+		data = np.frombuffer(frame, dtype=np.int16) 
+		mel_data = self.mel.signal_to_mel(data*volume)
+		mel_len = len(mel_data)
 
-      data = s.read(960,320)
-      if(data):
-        data = np.frombuffer(data, dtype=np.int16) # Volume
-        mel_data = mel.frame_to_mel(data/1024.0)     
-        mel_spectrogram = np.roll(mel_spectrogram, -40,1)
-        mel_spectrogram[0,3880:3920] = mel_data[0:40]
+		mel_end   = (self.melcount*98)
+		mel_start = (self.melcount*98)-(mel_len)
+		self.mel_spectrogram[0,mel_start:mel_end] = mel_data[0:mel_len]
 
-        #TODO: We can roll 30 times less if we just roll on prediction
-        #TODO: Predict only once
-        #TODO: Average predictions
+		predictions, = self.sess.run(self.softmax_tensor, {self.input_name: self.mel_spectrogram})
+		result = self._smooth_detection(predictions)
 
-
-        i = i+1
-
-	#Eval every 100 ms, warmup for the first second
-        if(i%10 ==0 and i > 100):
-          #start = time.time()
-          predictions, = sess.run(softmax_tensor, {input_name: mel_spectrogram})
-
-          # Sort to show labels in order of confidence
-          top_k = predictions.argsort()[-how_many_labels:][::-1]
- 
-          for node_id in top_k:
-            human_string = labels_list[node_id]
-            score = predictions[node_id]
-            if(score > 0.7 and node_id != 0 and node_id != 1):
-                print('%s (score = %.5f)' % (human_string, score))
-          #end = time.time()
-          #print("Classification done in : " + str(end - start))
-      else:
-        time.sleep(0.1)
+		self.mel_spectrogram = np.roll(self.mel_spectrogram, -mel_len,1)
+		return result
 
 
+	#Just simple threshold and maximum of one prediction every n frames
+	def _hotword_detection(self,predictions):
+		prediction = predictions.argsort()[-1:][::-1][0]
+		label = self.labels_list[prediction]
+		score = predictions[prediction]
+
+		if label == '_silence_':
+			return None
+
+		if label == '_unknown_':
+			return None
+
+		if(score > self.recognition_threshold and self.cooldown == 0):
+			self.cooldown = self.detection_cooldown
+			return label
+		else: 
+			return None
 
 
+	# Accumulate scores over longer timeframes. This can be useful for better detecting longer events like footsteps,
+	# crying babies, acoustic scenes
+	def _ongoing_detection(self,predictions):
+		pass
 
-def main(_):
+	# Accumulate scores. Scores are decayed over time. A event is usally 1 second maximum 
+	# so after one second of no activity score should be close to zero. 
+	# Maximum one prediction every n frames.
+	def _smooth_detection(self,predictions):
+		
 
- label_stream(FLAGS.labels, FLAGS.graph, FLAGS.input_name,FLAGS.output_name, FLAGS.how_many_labels)
+		for key in self.last_frames:
+			self.last_frames[key] *= 0.7
 
-if __name__ == '__main__':
-  parser = argparse.ArgumentParser()
+		how_many_labels = 3
+		top_k = predictions.argsort()[-how_many_labels:][::-1]
 
-  parser.add_argument(
-      '--graph', type=str, default='./conv-res-mini-narrow_frozen.pb', help='Model to use for identification.')
-  parser.add_argument(
-      '--labels', type=str, default='./conv_labels.txt', help='Path to file containing labels.')
-  parser.add_argument(
-      '--input_name',
-      type=str,
-      default='fingerprint_input:0',
-      help='Name of WAVE data input node in model.')
-  parser.add_argument(
-      '--output_name',
-      type=str,
-      default='labels_softmax:0',
-      help='Name of node outputting a prediction in the model.')
-  parser.add_argument(
-      '--how_many_labels',
-      type=int,
-      default=1,
-      help='Number of results to show.')
+		for node_id in top_k:
+			label_string = self.labels_list[node_id]
+			score = predictions[node_id]
 
-  FLAGS, unparsed = parser.parse_known_args()
-  tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)
+			# Init Dict
+			if(not label_string in self.last_frames):
+				self.last_frames[label_string] = 0.0
+
+
+			if(score > 0.70):
+				self.last_frames[label_string] += score
+
+
+		#we don't want to detect unknown or silence
+		self.last_frames['_unknown_'] = 0
+		self.last_frames['_silence_'] = 0
+
+
+		#Check if the biggest score in last frames is over the threshold
+		biggest_score = 0
+		biggest_score_key = None
+		for key in self.last_frames:
+			if(self.last_frames[key] > biggest_score):
+				biggest_score  = self.last_frames[key]
+				biggest_score_key = key
+
+
+		if(biggest_score > 0.95 and self.cooldown == 0):
+			self.cooldown = self.detection_cooldown
+			return biggest_score_key
+		return None
+
+
+	def _warmup(self):
+		predictions, = self.sess.run(self.softmax_tensor, {self.input_name: self.mel_spectrogram})
+
+	def _load_graph(self,filename):
+		with open(filename, 'rb') as f:
+			graph_def = tf_GraphDef()
+			graph_def.ParseFromString(f.read())
+			tf_import_graph_def(graph_def, name='')
+
+
+	def _load_labels(self,filename):
+		with open(filename,'r') as f:  
+			return [line.strip() for line in f]
+
+

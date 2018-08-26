@@ -36,6 +36,7 @@ For each application, different model architectures are available which are a tr
 - [x] Basic working models
 - [X] Average output predictions
 - [ ] Benchmark accuracy and false recognition rate
+- [ ] Voice activity detection
 - [ ] Provide TensorflowLite and TensorflowJS models
 - [ ] Web demo
 - [ ] Improve Architectures (including RNN and Attention)

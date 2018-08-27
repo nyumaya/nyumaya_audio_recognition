@@ -29,11 +29,11 @@ class Detector():
 		self.higher_frequency = 8000
 		self.prediction_every = 20 #Number of mel steps between predictions
 		self.gain = 1.0
-		self.detection_cooldown = 8
+		self.detection_cooldown = 10
 		self.cooldown = 0
 		self.mel_spectrogram = np.zeros((1,self.melcount*98), dtype=np.float32) 
 		self.mel = FeatureExtraction(nfilt=self.melcount,lowerf=self.lower_frequency,upperf=self.higher_frequency,
-			samprate=self.sample_rate,wlen=self.window_len,nfft=512,datalen=480)
+			samprate=self.sample_rate,wlen=self.window_len,nfft=512,datalen=512)
 
 		self.input_name = "fingerprint_input:0"
 		self.output_name = "labels_softmax:0"
@@ -89,13 +89,11 @@ class Detector():
 		label = self.labels_list[prediction]
 		score = predictions[prediction]
 
-		if label == '_silence_':
-			return None
 
 		if label == '_unknown_':
 			return None
 
-		if(score > self.recognition_threshold and self.cooldown == 0):
+		if(score > 0.5): #and self.cooldown == 0):
 			self.cooldown = self.detection_cooldown
 			return label
 		else: 
@@ -114,7 +112,7 @@ class Detector():
 		
 
 		for key in self.last_frames:
-			self.last_frames[key] *= 0.7
+			self.last_frames[key] *= 0.8
 
 		how_many_labels = 3
 		top_k = predictions.argsort()[-how_many_labels:][::-1]
@@ -128,14 +126,12 @@ class Detector():
 				self.last_frames[label_string] = 0.0
 
 
-			if(score > 0.70):
+			if(score > 0.15):
 				self.last_frames[label_string] += score
 
 
-		#we don't want to detect unknown or silence
+		#we don't want to detect unknown 
 		self.last_frames['_unknown_'] = 0
-		self.last_frames['_silence_'] = 0
-
 
 		#Check if the biggest score in last frames is over the threshold
 		biggest_score = 0
@@ -146,8 +142,10 @@ class Detector():
 				biggest_score_key = key
 
 
-		if(biggest_score > 0.95 and self.cooldown == 0):
+		if(biggest_score > 0.90 and self.cooldown == 0):
 			self.cooldown = self.detection_cooldown
+			for key in self.last_frames:
+				 self.last_frames[key] = 0
 			return biggest_score_key
 		return None
 

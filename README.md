@@ -32,6 +32,11 @@ For each application, different model architectures are available which are a tr
 - speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
 - marvin_hotword (marvin)
 
+
+## Pretrained models:
+
+- [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1sBml8VnnrjsleY8EQagoAzddwQCSayUP) : Accuracy 0.92 @ 3.8 false predictions per hour
+
 ## Roadmap:
 - [x] Basic working models
 - [X] Average output predictions

@@ -17,7 +17,7 @@ Both can be installed via pip
 pip install numpy
 pip install tensorflow
 ```
-Because models constantly improve and I don't want this repository to get bloated the pretrained models are hosted [here](https://drive.google.com/open?id=1cv4R_zrfr88q7AcNxd5OsXVIxOyFwLOu).
+Because models constantly improve and I don't want this repository to get bloated the pretrained models are hosted on a google drive.
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures

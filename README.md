@@ -32,6 +32,12 @@ For each application, different model architectures are available which are a tr
 - speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
 - marvin_hotword (marvin)
 - sheila_hotword (sheila)
+- voice-gender (female,male,nospeech)
+- baby-monitor (cry, babble, door-open, music, glass-break, footsteps, fire-alarm)
+- impulse-response (Play tone and interpret echo: Bedroom, Kitchen, Bathroom, Outdoor, Hall, Living Room, Basement)
+- alarm-system (door-open, glass-break, footsteps, fire-alarm, voice)
+- door-monitor (door bell, door knocking, voice)
+
 
 ## Pretrained models:
 

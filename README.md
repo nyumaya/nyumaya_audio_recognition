@@ -38,7 +38,6 @@ For each application, different model architectures are available which are a tr
 - alarm-system (door-open, glass-break, footsteps, fire-alarm, voice)
 - door-monitor (door bell, door knocking, voice)
 - weather (thunder, rain, storm, hail)
-- facility-management (vaccuum cleaner, Fire alarm,
 
 ## Pretrained models:
 

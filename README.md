@@ -31,7 +31,7 @@ For each application, different model architectures are available which are a tr
 - speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
 - speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
 - marvin_hotword (marvin)
-
+- sheila_hotword (sheila)
 
 ## Pretrained models:
 

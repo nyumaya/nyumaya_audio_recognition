@@ -66,7 +66,7 @@ class FeatureExtraction(object):
 	def signal_to_mel(self,signal):
  
 		signal_len = len(signal)
-		number_of_frames = int(signal_len / self.shift + 1)
+		number_of_frames = int(signal_len / self.shift)
 
 		mels = numpy.empty(int(number_of_frames*self.nfilt), dtype=numpy.float32) 
 		frameindex = 0

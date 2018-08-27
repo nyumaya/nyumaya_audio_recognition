@@ -17,7 +17,7 @@ Both can be installed via pip
 pip install numpy
 pip install tensorflow
 ```
-Because models constantly improve and I don't want this repository to get bloated the pretrained models are hosted [here](https://drive.google.com/open?id=1cv4R_zrfr88q7AcNxd5OsXVIxOyFwLOu).
+Because models constantly improve and I don't want this repository to get bloated the pretrained models are hosted on a google drive.
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures
@@ -31,6 +31,17 @@ For each application, different model architectures are available which are a tr
 - speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
 - speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
 - marvin_hotword (marvin)
+- sheila_hotword (sheila)
+- voice-gender (female,male,nospeech)
+- baby-monitor (cry, babble, door-open, music, glass-break, footsteps, fire-alarm)
+- impulse-response (Play tone and interpret echo: Bedroom, Kitchen, Bathroom, Outdoor, Hall, Living Room, Basement)
+- alarm-system (door-open, glass-break, footsteps, fire-alarm, voice)
+- door-monitor (door bell, door knocking, voice)
+- weather (thunder, rain, storm, hail)
+
+## Pretrained models:
+
+- [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1sBml8VnnrjsleY8EQagoAzddwQCSayUP) : Accuracy 0.92 @ 3.8 false predictions per hour
 
 ## Roadmap:
 - [x] Basic working models

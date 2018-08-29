@@ -19,11 +19,14 @@ def label_stream(labels, graph):
 	try:
 		while(True):
 			frame = audio_stream.read(bufsize,bufsize)
-			prediction = detector.recognize(frame)
-			if(not prediction):
+			if(not frame):
 				time.sleep(0.01)
-			else: 	
+				continue
+
+			prediction = detector.recognize(frame)
+			if(prediction):
 				print(prediction)
+
 	except KeyboardInterrupt:
 		print("Terminating")
 		audio_stream.stop()

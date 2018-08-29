@@ -43,8 +43,17 @@ For each application, different model architectures are available which are a tr
 **Accuracy Results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.***
 
 - [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1sBml8VnnrjsleY8EQagoAzddwQCSayUP) 
-Accuracy 0.92 @ 3.8 false predictions per hour
-
+```
+Sens: 0.1 Accuracy: 0.40077569489334197 False per hour 3.1925195719185897
+Sens: 0.2 Accuracy: 0.4886877828054299 False per hour 4.25669276255812
+Sens: 0.3 Accuracy: 0.5307045895281189 False per hour 6.385039143837179
+Sens: 0.4 Accuracy: 0.5656108597285068 False per hour 7.981298929796474
+Sens: 0.5 Accuracy: 0.7795733678086619 False per hour 24.47598338470919
+Sens: 0.6 Accuracy: 0.7963800904977376 False per hour 31.925195719185897
+Sens: 0.7 Accuracy: 0.8093083387201034 False per hour 33.52145550514519
+Sens: 0.8 Accuracy: 0.8170652876535229 False per hour 39.906494648982374
+Sens: 0.9 Accuracy: 0.8241758241758241 False per hour 44.16318741154049
+```
 - [Marvin-conv_res-huge](https://drive.google.com/open?id=1npTbW0iNZoEgtE2SolvmLWIFDDkyKfPX)
 ```
 Sens: 0.1 Accuracy: 0.9967679379444085 False per hour 6.683523999420757

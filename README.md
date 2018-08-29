@@ -1,5 +1,5 @@
 # nyumaya_audio_recognition
-Classify audio with neural nets on embedded systems like the Raspberry Pi
+Classify audio with neural nets on embedded systems like the Raspberry Pi. This should run on any Linux system fine, on other systems at least the recording implementation has to be changed.
 
 
 Audio classification using Tensorflow. To run the demo:

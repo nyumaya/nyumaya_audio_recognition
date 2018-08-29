@@ -38,9 +38,10 @@ For each application, different model architectures are available which are a tr
 - alarm-system (door-open, glass-break, footsteps, fire-alarm, voice)
 - door-monitor (door bell, door knocking, voice)
 - weather (thunder, rain, storm, hail)
+- language detection
 
 ## Pretrained models:
-**Accuracy Results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.***
+**Accuracy Results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.**
 
 - [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1offSK9sRVc3R5rJiEPTtlxLPgy07CSZz) 
 ```

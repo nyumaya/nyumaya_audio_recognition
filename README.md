@@ -66,7 +66,7 @@ Sens: 0.7 Accuracy: 0.9993535875888817 False per hour 18.37969099840708
 Sens: 0.8 Accuracy: 0.9993535875888817 False per hour 20.05057199826227
 Sens: 0.9 Accuracy: 0.9993535875888817 False per hour 21.72145299811746
 ```
-- [Sheila-conv_res-huge](https://drive.google.com/open?id=1gnjww5741tDX5J1pqcz_w6aw3yAR747T)
+- [Sheila-conv_res-huge](https://drive.google.com/open?id=1gEwY6TGylaWiqn8RHvCE1D-7n71N3vvj)
 ```
 Sens: 0.1 Accuracy: 1.0 False per hour 0.0
 Sens: 0.2 Accuracy: 1.0 False per hour 0.0
@@ -78,6 +78,19 @@ Sens: 0.7 Accuracy: 1.0 False per hour 5.012642999565568
 Sens: 0.8 Accuracy: 1.0 False per hour 5.012642999565568
 Sens: 0.9 Accuracy: 1.0 False per hour 5.012642999565568
 ```
+- [Sheila-conv_res-mini-narrow](https://drive.google.com/open?id=1sa4ZOqwmVges7dsDX5LG5mXOOHMiyp8t)
+```
+Sens: 0.1 Accuracy: 0.5492227979274611 False per hour 1.06417319063953
+Sens: 0.2 Accuracy: 0.6321243523316062 False per hour 2.12834638127906
+Sens: 0.3 Accuracy: 0.6632124352331606 False per hour 2.6604329765988246
+Sens: 0.4 Accuracy: 0.7098445595854923 False per hour 4.25669276255812
+Sens: 0.5 Accuracy: 0.8704663212435233 False per hour 20.219290622151068
+Sens: 0.6 Accuracy: 0.8808290155440415 False per hour 26.604329765988247
+Sens: 0.7 Accuracy: 0.8911917098445596 False per hour 30.328935933226603
+Sens: 0.8 Accuracy: 0.8911917098445596 False per hour 31.393109123866132
+Sens: 0.9 Accuracy: 0.9015544041450777 False per hour 31.393109123866132
+```
+
 - [Number-conv_res-huge](https://drive.google.com/open?id=1bPx9c84pZ3GcjlK-c4-MvYz9lyaKPvhW)
 ```
 Sens: 0.1 Accuracy: 0.9218472468916519 False per hour 15.200990879405474

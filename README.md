@@ -1,5 +1,5 @@
 # nyumaya_audio_recognition
-Classify audio with neural nets on embedded systems like the Raspberry Pi
+Classify audio with neural nets on embedded systems like the Raspberry Pi. This should run on any Linux system fine, on other systems at least the recording implementation has to be changed.
 
 
 Audio classification using Tensorflow. To run the demo:
@@ -40,8 +40,47 @@ For each application, different model architectures are available which are a tr
 - weather (thunder, rain, storm, hail)
 
 ## Pretrained models:
+**Accuracy Results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.***
 
-- [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1sBml8VnnrjsleY8EQagoAzddwQCSayUP) : Accuracy 0.92 @ 3.8 false predictions per hour
+- [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1sBml8VnnrjsleY8EQagoAzddwQCSayUP) 
+Accuracy 0.92 @ 3.8 false predictions per hour
+
+- [Marvin-conv_res-huge](https://drive.google.com/open?id=1npTbW0iNZoEgtE2SolvmLWIFDDkyKfPX)
+```
+Sens: 0.1 Accuracy: 0.9967679379444085 False per hour 6.683523999420757
+Sens: 0.2 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
+Sens: 0.3 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
+Sens: 0.4 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
+Sens: 0.5 Accuracy: 0.9993535875888817 False per hour 15.037928998696703
+Sens: 0.6 Accuracy: 0.9993535875888817 False per hour 16.708809998551892
+Sens: 0.7 Accuracy: 0.9993535875888817 False per hour 18.37969099840708
+Sens: 0.8 Accuracy: 0.9993535875888817 False per hour 20.05057199826227
+Sens: 0.9 Accuracy: 0.9993535875888817 False per hour 21.72145299811746
+```
+- [Sheila-conv_res-huge](https://drive.google.com/open?id=1gnjww5741tDX5J1pqcz_w6aw3yAR747T)
+```
+Sens: 0.1 Accuracy: 1.0 False per hour 0.0
+Sens: 0.2 Accuracy: 1.0 False per hour 0.0
+Sens: 0.3 Accuracy: 1.0 False per hour 0.0
+Sens: 0.4 Accuracy: 1.0 False per hour 0.0
+Sens: 0.5 Accuracy: 1.0 False per hour 1.6708809998551892
+Sens: 0.6 Accuracy: 1.0 False per hour 3.3417619997103785
+Sens: 0.7 Accuracy: 1.0 False per hour 5.012642999565568
+Sens: 0.8 Accuracy: 1.0 False per hour 5.012642999565568
+Sens: 0.9 Accuracy: 1.0 False per hour 5.012642999565568
+```
+- [Number-conv_res-huge](https://drive.google.com/open?id=1bPx9c84pZ3GcjlK-c4-MvYz9lyaKPvhW)
+```
+Sens: 0.1 Accuracy: 0.9218472468916519 False per hour 15.200990879405474
+Sens: 0.2 Accuracy: 0.9406242070540471 False per hour 18.578988852606688
+Sens: 0.3 Accuracy: 0.9507739152499366 False per hour 20.267987839207297
+Sens: 0.4 Accuracy: 0.9540725704136006 False per hour 23.645985812408515
+Sens: 0.5 Accuracy: 0.9743719868053794 False per hour 81.07195135682919
+Sens: 0.6 Accuracy: 0.9766556711494545 False per hour 89.51694628983223
+Sens: 0.7 Accuracy: 0.9784318700837351 False per hour 99.65094020943589
+Sens: 0.8 Accuracy: 0.9794468409033240 False per hour 109.78493412903953
+Sens: 0.9 Accuracy: 0.9802080690180157 False per hour 121.60792703524379
+```
 
 ## Roadmap:
 - [x] Basic working models

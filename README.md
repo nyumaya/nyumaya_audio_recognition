@@ -40,6 +40,7 @@ For each application, different model architectures are available which are a tr
 - weather (thunder, rain, storm, hail)
 
 ## Pretrained models:
+**Accuracy Results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.***
 
 - [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1sBml8VnnrjsleY8EQagoAzddwQCSayUP) 
 Accuracy 0.92 @ 3.8 false predictions per hour
@@ -55,6 +56,18 @@ Sens: 0.6 Accuracy: 0.9993535875888817 False per hour 16.708809998551892
 Sens: 0.7 Accuracy: 0.9993535875888817 False per hour 18.37969099840708
 Sens: 0.8 Accuracy: 0.9993535875888817 False per hour 20.05057199826227
 Sens: 0.9 Accuracy: 0.9993535875888817 False per hour 21.72145299811746
+```
+- [Sheila-conv_res-huge](https://drive.google.com/open?id=1gnjww5741tDX5J1pqcz_w6aw3yAR747T)
+```
+Sens: 0.1 Accuracy: 1.0 False per hour 0.0
+Sens: 0.2 Accuracy: 1.0 False per hour 0.0
+Sens: 0.3 Accuracy: 1.0 False per hour 0.0
+Sens: 0.4 Accuracy: 1.0 False per hour 0.0
+Sens: 0.5 Accuracy: 1.0 False per hour 1.6708809998551892
+Sens: 0.6 Accuracy: 1.0 False per hour 3.3417619997103785
+Sens: 0.7 Accuracy: 1.0 False per hour 5.012642999565568
+Sens: 0.8 Accuracy: 1.0 False per hour 5.012642999565568
+Sens: 0.9 Accuracy: 1.0 False per hour 5.012642999565568
 ```
 - [Number-conv_res-huge](https://drive.google.com/open?id=1bPx9c84pZ3GcjlK-c4-MvYz9lyaKPvhW)
 ```

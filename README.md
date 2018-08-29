@@ -42,7 +42,7 @@ For each application, different model architectures are available which are a tr
 ## Pretrained models:
 **Accuracy Results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.***
 
-- [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1sBml8VnnrjsleY8EQagoAzddwQCSayUP) 
+- [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1offSK9sRVc3R5rJiEPTtlxLPgy07CSZz) 
 ```
 Sens: 0.1 Accuracy: 0.40077569489334197 False per hour 3.1925195719185897
 Sens: 0.2 Accuracy: 0.4886877828054299 False per hour 4.25669276255812

@@ -104,6 +104,20 @@ Sens: 0.7 Accuracy: 0.9784318700837351 False per hour 99.65094020943589
 Sens: 0.8 Accuracy: 0.9794468409033240 False per hour 109.78493412903953
 Sens: 0.9 Accuracy: 0.9802080690180157 False per hour 121.60792703524379
 ```
+- [Number-conv_res-mini-narrow](https://drive.google.com/open?id=1QhpafpjpAdrgwi04NMH5yNUx8wi9Fiko)
+```
+Sens: 0.1 Accuracy: 0.7132707434661254 False per hour 28.05008738681066
+Sens: 0.2 Accuracy: 0.7663029687896473 False per hour 50.16650244179599
+Sens: 0.3 Accuracy: 0.796244607967521 False per hour 63.652121377762654
+Sens: 0.4 Accuracy: 0.818066480588683 False per hour 71.74349273934266
+Sens: 0.5 Accuracy: 0.9007866023851814 False per hour 248.13538842178662
+Sens: 0.6 Accuracy: 0.9152499365643237 False per hour 292.90764328919596
+Sens: 0.7 Accuracy: 0.9210860187769602 False per hour 328.5096772801479
+Sens: 0.8 Accuracy: 0.9266683582846993 False per hour 353.3232161223266
+Sens: 0.9 Accuracy: 0.931743212382644 False per hour 374.3607816624346
+```
+
+
 
 ## Roadmap:
 - [x] Basic working models

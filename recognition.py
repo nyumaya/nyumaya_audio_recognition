@@ -1,6 +1,7 @@
 #Nyumaya Audio Classifier
 
 import numpy as np
+
 print("Loading Tensorflow")
 from tensorflow import import_graph_def as tf_import_graph_def
 from tensorflow import Session as tf_Session
@@ -29,8 +30,9 @@ class Detector():
 		self.higher_frequency = 8000
 		self.prediction_every = 20 #Number of mel steps between predictions
 		self.gain = 1.0
-		self.detection_cooldown = 10
+		self.detection_cooldown = 5
 		self.cooldown = 0
+		self.sensitivity = 0.5
 		self.mel_spectrogram = np.zeros((1,self.melcount*98), dtype=np.float32) 
 		self.mel = FeatureExtraction(nfilt=self.melcount,lowerf=self.lower_frequency,upperf=self.higher_frequency,
 			samprate=self.sample_rate,wlen=self.window_len,nfft=512,datalen=512)
@@ -50,7 +52,7 @@ class Detector():
 
 
 	def set_sensitivity(self,sensitivity):
-		self.sensitivity = sensitivity
+		self.sensitivity = 1- sensitivity
 
 
 	#Returns the number of bytes to pass to the recognizer
@@ -78,6 +80,7 @@ class Detector():
 
 		predictions, = self.sess.run(self.softmax_tensor, {self.input_name: self.mel_spectrogram})
 		result = self._smooth_detection(predictions)
+		#result = self._hotword_detection(predictions)
 
 		self.mel_spectrogram = np.roll(self.mel_spectrogram, -mel_len,1)
 		return result
@@ -93,7 +96,7 @@ class Detector():
 		if label == '_unknown_':
 			return None
 
-		if(score > 0.5): #and self.cooldown == 0):
+		if(score > 0.98 and self.cooldown == 0):
 			self.cooldown = self.detection_cooldown
 			return label
 		else: 
@@ -110,11 +113,12 @@ class Detector():
 	# Maximum one prediction every n frames.
 	def _smooth_detection(self,predictions):
 		
-
 		for key in self.last_frames:
-			self.last_frames[key] *= 0.8
+			if len(self.last_frames[key]) >= 5:
+				#print(self.last_frames[key])
+				self.last_frames[key].pop(0)
 
-		how_many_labels = 3
+		how_many_labels = len(self.labels_list)
 		top_k = predictions.argsort()[-how_many_labels:][::-1]
 
 		for node_id in top_k:
@@ -123,29 +127,27 @@ class Detector():
 
 			# Init Dict
 			if(not label_string in self.last_frames):
-				self.last_frames[label_string] = 0.0
+				self.last_frames[label_string] = []
 
+			if(label_string != "_unknown_"):
+				if(score > 0.85 + 0.149999*self.sensitivity):
+					self.last_frames[label_string].append(score)
+				else: 
+					self.last_frames[label_string].append(0)
 
-			if(score > 0.15):
-				self.last_frames[label_string] += score
-
-
-		#we don't want to detect unknown 
-		self.last_frames['_unknown_'] = 0
 
 		#Check if the biggest score in last frames is over the threshold
 		biggest_score = 0
 		biggest_score_key = None
 		for key in self.last_frames:
-			if(self.last_frames[key] > biggest_score):
-				biggest_score  = self.last_frames[key]
+			score = sum(self.last_frames[key])
+			
+			if(score > biggest_score):
+				biggest_score  = score
 				biggest_score_key = key
-
-
-		if(biggest_score > 0.90 and self.cooldown == 0):
+		
+		if(biggest_score >  (0.9 + 2.0*self.sensitivity) and self.cooldown == 0):
 			self.cooldown = self.detection_cooldown
-			for key in self.last_frames:
-				 self.last_frames[key] = 0
 			return biggest_score_key
 		return None
 

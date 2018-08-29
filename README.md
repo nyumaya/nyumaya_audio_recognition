@@ -44,6 +44,18 @@ For each application, different model architectures are available which are a tr
 - [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1sBml8VnnrjsleY8EQagoAzddwQCSayUP) 
 Accuracy 0.92 @ 3.8 false predictions per hour
 
+- [Marvin-conv_res-huge](https://drive.google.com/open?id=1npTbW0iNZoEgtE2SolvmLWIFDDkyKfPX)
+```
+Sens: 0.1 Accuracy: 0.9967679379444085 False per hour 6.683523999420757
+Sens: 0.2 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
+Sens: 0.3 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
+Sens: 0.4 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
+Sens: 0.5 Accuracy: 0.9993535875888817 False per hour 15.037928998696703
+Sens: 0.6 Accuracy: 0.9993535875888817 False per hour 16.708809998551892
+Sens: 0.7 Accuracy: 0.9993535875888817 False per hour 18.37969099840708
+Sens: 0.8 Accuracy: 0.9993535875888817 False per hour 20.05057199826227
+Sens: 0.9 Accuracy: 0.9993535875888817 False per hour 21.72145299811746
+```
 - [Number-conv_res-huge](https://drive.google.com/open?id=1bPx9c84pZ3GcjlK-c4-MvYz9lyaKPvhW)
 ```
 Sens: 0.1 Accuracy: 0.9218472468916519 False per hour 15.200990879405474

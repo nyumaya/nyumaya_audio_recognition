@@ -13,6 +13,7 @@ from record import RingBuffer
 def label_stream(labels, graph):
 	audio_stream = AudiostreamSource()
 	detector = Detector(graph,labels)
+	detector.set_sensitivity(0.5)
 	bufsize = detector.input_data_size()
 	audio_stream.start()
 	try:
@@ -43,8 +44,5 @@ if __name__ == '__main__':
 
 	FLAGS, unparsed = parser.parse_known_args()
 
-
 	label_stream(FLAGS.labels, FLAGS.graph)
-
-	
 

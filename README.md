@@ -45,7 +45,8 @@ For each application, different model architectures are available which are a tr
 Accuracy 0.92 @ 3.8 false predictions per hour
 
 - [Number-conv_res-huge](https://drive.google.com/open?id=1bPx9c84pZ3GcjlK-c4-MvYz9lyaKPvhW)
-```Sens: 0.1 Accuracy: 0.9218472468916519 False per hour 15.200990879405474
+```
+Sens: 0.1 Accuracy: 0.9218472468916519 False per hour 15.200990879405474
 Sens: 0.2 Accuracy: 0.9406242070540471 False per hour 18.578988852606688
 Sens: 0.3 Accuracy: 0.9507739152499366 False per hour 20.267987839207297
 Sens: 0.4 Accuracy: 0.9540725704136006 False per hour 23.645985812408515

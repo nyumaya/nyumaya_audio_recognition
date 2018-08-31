@@ -2,12 +2,12 @@
 Classify audio with neural nets on embedded systems like the Raspberry Pi. This should run on any Linux system fine, on other systems at least the recording implementation has to be changed.
 
 
-Audio classification using Tensorflow. To run the demo:
+Audio classification using Tensorflow. To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff. 
+
 python streaming_example.py --labels models/speech_command/labels.txt --graph models/speech_command/conv-res-mini_frozen.pb
 
 On the Pi Zero Tensorflow takes a few seconds to load. The demo captures audio from the default microphone. 
 
-Accuracy is not perfect yet, especially on false positives.
 
 ## Dependencies:
 numpy,tensorflow 
@@ -41,7 +41,7 @@ For each application, different model architectures are available which are a tr
 - language detection
 
 ## Pretrained models:
-**Accuracy Results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.**
+**Accuracy results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.**
 
 - [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1offSK9sRVc3R5rJiEPTtlxLPgy07CSZz) 
 ```
@@ -136,7 +136,7 @@ Sens: 0.9 Accuracy: 0.931743212382644 False per hour 374.3607816624346
 ## Roadmap:
 - [x] Basic working models
 - [X] Average output predictions
-- [ ] Benchmark accuracy and false recognition rate
+- [X] Benchmark accuracy and false recognition rate
 - [ ] Voice activity detection
 - [ ] Provide TensorflowLite and TensorflowJS models
 - [ ] Web demo

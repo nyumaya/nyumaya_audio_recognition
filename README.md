@@ -104,6 +104,20 @@ Sens: 0.7 Accuracy: 0.9784318700837351 False per hour 99.65094020943589
 Sens: 0.8 Accuracy: 0.9794468409033240 False per hour 109.78493412903953
 Sens: 0.9 Accuracy: 0.9802080690180157 False per hour 121.60792703524379
 ```
+
+- [Number-conv_res-mini](https://drive.google.com/open?id=1r3E_vcT57XcNvKddANRYLsY_kw5lpLda)
+```
+Sens: 0.1 Accuracy: 0.8299923877188531 False per hour 11.867344663650664
+Sens: 0.2 Accuracy: 0.8627251966505963 False per hour 14.564468450843997
+Sens: 0.3 Accuracy: 0.8787109870591221 False per hour 16.722167480598664
+Sens: 0.4 Accuracy: 0.8896219233697031 False per hour 19.95871602523066
+Sens: 0.5 Accuracy: 0.9449378330373002 False per hour 85.22911167530931
+Sens: 0.6 Accuracy: 0.9492514590205532 False per hour 98.71473061127598
+Sens: 0.7 Accuracy: 0.9515351433646283 False per hour 101.41185439846932
+Sens: 0.8 Accuracy: 0.9558487693478812 False per hour 111.66092478980397
+Sens: 0.9 Accuracy: 0.9578787109870591 False per hour 116.51574760675197
+```
+
 - [Number-conv_res-mini-narrow](https://drive.google.com/open?id=1QhpafpjpAdrgwi04NMH5yNUx8wi9Fiko)
 ```
 Sens: 0.1 Accuracy: 0.7132707434661254 False per hour 28.05008738681066

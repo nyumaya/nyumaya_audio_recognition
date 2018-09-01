@@ -138,6 +138,7 @@ Sens: 0.9 Accuracy: 0.931743212382644 False per hour 374.3607816624346
 - [X] Average output predictions
 - [X] Benchmark accuracy and false recognition rate
 - [ ] Noisy Benchmark, use more diverse test set
+- [ ] Benchmark latency
 - [ ] Voice activity detection
 - [ ] Provide TensorflowLite and TensorflowJS models
 - [ ] Web demo

@@ -133,15 +133,15 @@ Sens: 0.9 Accuracy: 0.931743212382644 False per hour 374.3607816624346
 
 -[BabyCry-conv_res-mini](https://drive.google.com/open?id=15i4O9ulStvwk0nya-T4UOZEaOD0d3dV7)
 ```
-Sens: 0.1 Accuracy: 0.75 False per hour 0.0
-Sens: 0.2 Accuracy: 0.75 False per hour 0.0
-Sens: 0.3 Accuracy: 0.7596153846153846 False per hour 0.0
-Sens: 0.4 Accuracy: 0.7596153846153846 False per hour 0.0
-Sens: 0.5 Accuracy: 0.875 False per hour 1.06417319063953
-Sens: 0.6 Accuracy: 0.8846153846153846 False per hour 2.12834638127906
-Sens: 0.7 Accuracy: 0.9134615384615384 False per hour 2.6604329765988246
-Sens: 0.8 Accuracy: 0.9230769230769231 False per hour 2.6604329765988246
-Sens: 0.9 Accuracy: 0.9326923076923077 False per hour 3.1925195719185897
+Sens: 0.1 Accuracy: 0.7981651376146789 False per hour 0.0
+Sens: 0.2 Accuracy: 0.8440366972477065 False per hour 0.0
+Sens: 0.3 Accuracy: 0.8623853211009174 False per hour 0.0
+Sens: 0.4 Accuracy: 0.8715596330275229 False per hour 0.0
+Sens: 0.5 Accuracy: 1.0 False per hour 2.12834638127906
+Sens: 0.6 Accuracy: 1.0 False per hour 2.12834638127906
+Sens: 0.7 Accuracy: 1.0 False per hour 2.6604329765988246
+Sens: 0.8 Accuracy: 1.0 False per hour 2.6604329765988246
+Sens: 0.9 Accuracy: 1.0 False per hour 2.6604329765988246
 ```
 
 ## Roadmap:

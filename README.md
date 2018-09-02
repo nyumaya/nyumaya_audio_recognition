@@ -143,6 +143,19 @@ Sens: 0.7 Accuracy: 1.0 False per hour 2.6604329765988246
 Sens: 0.8 Accuracy: 1.0 False per hour 2.6604329765988246
 Sens: 0.9 Accuracy: 1.0 False per hour 2.6604329765988246
 ```
+-[BabyCry-conv_res-huge](https://drive.google.com/open?id=1OgpkGeXQmLQ7tYhsOQXvzOxbE2U-ZRmi)
+```
+Sens: 0.1 Accuracy: 0.9636363636363636 False per hour 0.0
+Sens: 0.2 Accuracy: 0.9636363636363636 False per hour 0.0
+Sens: 0.3 Accuracy: 0.9727272727272728 False per hour 0.0
+Sens: 0.4 Accuracy: 0.9727272727272728 False per hour 0.0
+Sens: 0.5 Accuracy: 0.990909090909091 False per hour 2.12834638127906
+Sens: 0.6 Accuracy: 0.990909090909091 False per hour 2.6604329765988246
+Sens: 0.7 Accuracy: 0.990909090909091 False per hour 2.6604329765988246
+Sens: 0.8 Accuracy: 0.990909090909091 False per hour 3.1925195719185897
+Sens: 0.9 Accuracy: 0.990909090909091 False per hour 3.724606167238355
+```
+
 
 ## Roadmap:
 - [x] Basic working models

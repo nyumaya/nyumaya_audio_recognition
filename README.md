@@ -42,7 +42,7 @@ To download all models use this [zip file](https://www.dropbox.com/s/lu3tgxrc49t
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures
-- conv_res-mini-narrow (CPU_PI0 34%)
+- conv_res-mini-narrow (CPU_PI0 34%, CPU_PI3 24% one core)
 - conv_res-mini        (CPU_PI0 55%)
 - conv_res-full        (CPU_PI0 90%)
 - conv_res-huge        (CPU_PI0 nan)

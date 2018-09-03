@@ -131,6 +131,43 @@ Sens: 0.8 Accuracy: 0.9266683582846993 False per hour 353.3232161223266
 Sens: 0.9 Accuracy: 0.931743212382644 False per hour 374.3607816624346
 ```
 
+- [BabyCry-conv_res-mini](https://drive.google.com/open?id=1I1STGHmrBLzwXEOZcv9qRVUP5F80L57U)
+```
+Sens: 0.1 Accuracy: 0.9 False per hour 0.0
+Sens: 0.2 Accuracy: 0.9 False per hour 0.0
+Sens: 0.3 Accuracy: 0.9181818181818182 False per hour 0.0
+Sens: 0.4 Accuracy: 0.9272727272727272 False per hour 0.0
+Sens: 0.5 Accuracy: 0.9636363636363636 False per hour 0.0
+Sens: 0.6 Accuracy: 0.9727272727272728 False per hour 0.0
+Sens: 0.7 Accuracy: 0.9727272727272728 False per hour 0.0
+Sens: 0.8 Accuracy: 0.9727272727272728 False per hour 0.0
+Sens: 0.9 Accuracy: 0.9727272727272728 False per hour 0.0
+```
+- [BabyCry-conv_res-huge](https://drive.google.com/open?id=1OgpkGeXQmLQ7tYhsOQXvzOxbE2U-ZRmi)
+```
+Sens: 0.1 Accuracy: 0.9636363636363636 False per hour 0.0
+Sens: 0.2 Accuracy: 0.9636363636363636 False per hour 0.0
+Sens: 0.3 Accuracy: 0.9727272727272728 False per hour 0.0
+Sens: 0.4 Accuracy: 0.9727272727272728 False per hour 0.0
+Sens: 0.5 Accuracy: 0.990909090909091 False per hour 2.12834638127906
+Sens: 0.6 Accuracy: 0.990909090909091 False per hour 2.6604329765988246
+Sens: 0.7 Accuracy: 0.990909090909091 False per hour 2.6604329765988246
+Sens: 0.8 Accuracy: 0.990909090909091 False per hour 3.1925195719185897
+Sens: 0.9 Accuracy: 0.990909090909091 False per hour 3.724606167238355
+```
+
+- [Speech-Command-Subset-conv_res-huge](https://drive.google.com/open?id=1SZrFPYf_pBBV6ymyWi7zf4NjpLRG5CSC)
+```
+Sens: 0.1 Accuracy: 0.9265113699389905 False per hour 2.7370065177248493
+Sens: 0.2 Accuracy: 0.9431503050471437 False per hour 2.7370065177248493
+Sens: 0.3 Accuracy: 0.9506378258458126 False per hour 3.831809124814789
+Sens: 0.4 Accuracy: 0.9556295063782585 False per hour 3.831809124814789
+Sens: 0.5 Accuracy: 0.9786466999445369 False per hour 19.706446927618913
+Sens: 0.6 Accuracy: 0.9828064337215752 False per hour 21.896052141798794
+Sens: 0.7 Accuracy: 0.9847476428175264 False per hour 27.91746648079346
+Sens: 0.8 Accuracy: 0.9861342207432058 False per hour 29.0122690878834
+Sens: 0.9 Accuracy: 0.9869661674986134 False per hour 31.20187430206328
+```
 
 
 ## Roadmap:

@@ -14,9 +14,21 @@ numpy,tensorflow
 Both can be installed via pip
 
 ```
-pip install numpy
-pip install tensorflow
+sudo apt-get install python3-pip
+sudo apt install libatlas-base-dev
+sudo pip3 install tensorflow
 ```
+To get all models
+
+```
+wget https://www.dropbox.com/s/lu3tgxrc49tyhea/models.zip?dl=0 -o models.zip
+unzip models.zip
+```
+To run an example
+```
+python3 streaming_example.py --graph models/Marvin/Conv-Res-Huge/conv-res-huge_frozen.pb  --labels models/Marvin/Conv-Res-Huge/labels.txt  --sens 0.5
+```
+
 Because models constantly improve and I don't want this repository to get bloated the pretrained models are hosted seperately.
 To download all models use this [zip file](https://www.dropbox.com/s/lu3tgxrc49tyhea/models.zip?dl=0)
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.

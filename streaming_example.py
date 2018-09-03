@@ -10,10 +10,10 @@ from record import RingBuffer
 
 
 
-def label_stream(labels, graph):
+def label_stream(labels, graph,sensitivity):
 	audio_stream = AudiostreamSource()
 	detector = Detector(graph,labels)
-	detector.set_sensitivity(0.5)
+	detector.set_sensitivity(sensitivity)
 	bufsize = detector.input_data_size()
 	audio_stream.start()
 	try:
@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--graph', type=str,
-		default='./models/marvin_hotword/conv-res-mini_frozen.pb', 
+		default='./models/marvin_hotword/conv-res-mini_frozen.pb',
 		help='Model to use for identification.')
 
 	parser.add_argument(
@@ -45,7 +45,12 @@ if __name__ == '__main__':
 		default='./models/marvin_hotword/labels.txt',
 		help='Path to file containing labels.')
 
+	parser.add_argument(
+		'--sens', type=float,
+		default='0.5',
+		help='Sensitivity for detection')
+
 	FLAGS, unparsed = parser.parse_known_args()
 
-	label_stream(FLAGS.labels, FLAGS.graph)
+	label_stream(FLAGS.labels, FLAGS.graph, FLAGS.sens)
 

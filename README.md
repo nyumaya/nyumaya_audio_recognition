@@ -21,8 +21,8 @@ sudo pip3 install tensorflow
 To get all models
 
 ```
-wget https://www.dropbox.com/s/lu3tgxrc49tyhea/models.zip?dl=0 -o models.zip
-unzip models.zip
+wget https://www.dropbox.com/s/lu3tgxrc49tyhea/models.zip?dl=0
+unzip models.zip?dl=0
 ```
 To run an example
 ```

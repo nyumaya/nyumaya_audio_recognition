@@ -15,10 +15,6 @@ sudo pip install --no-cache-dir https://github.com/lhelontra/tensorflow-on-arm/r
 
 Audio classification using Tensorflow. To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff. 
 
-python streaming_example.py --labels models/speech_command/labels.txt --graph models/speech_command/conv-res-mini_frozen.pb
-
-On the Pi Zero Tensorflow takes a few seconds to load. The demo captures audio from the default microphone. 
-
 
 ## Dependencies:
 numpy,tensorflow 
@@ -39,6 +35,7 @@ To run an example
 ```
 python3 streaming_example.py --graph models/Marvin/Conv-Res-Huge/conv-res-huge_frozen.pb  --labels models/Marvin/Conv-Res-Huge/labels.txt  --sens 0.5
 ```
+On the Pi Zero Tensorflow takes a few seconds to load. The demo captures audio from the default microphone. 
 
 Because models constantly improve and I don't want this repository to get bloated the pretrained models are hosted seperately.
 To download all models use this [zip file](https://www.dropbox.com/s/lu3tgxrc49tyhea/models.zip?dl=0)

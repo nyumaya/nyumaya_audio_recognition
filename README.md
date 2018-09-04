@@ -32,7 +32,7 @@ unzip models.zip?dl=0
 ```
 To run an example
 ```
-python3 streaming_example.py --graph models/Marvin/Conv-Res-Huge/conv-res-huge_frozen.pb  --labels models/Marvin/Conv-Res-Huge/labels.txt  --sens 0.5
+python streaming_example.py --graph models/Marvin/Conv-Res-Huge/conv-res-huge_frozen.pb  --labels models/Marvin/Conv-Res-Huge/labels.txt  --sens 0.5
 ```
 On the Pi Zero Tensorflow takes a few seconds to load. The demo captures audio from the default microphone. 
 

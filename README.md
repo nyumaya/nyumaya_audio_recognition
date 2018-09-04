@@ -33,7 +33,7 @@ python streaming_example.py --graph models/Marvin/Conv-Res-Huge/conv-res-huge_fr
 On the Pi Zero Tensorflow takes a few seconds to load. The demo captures audio from the default microphone. 
 
 Because models constantly improve and I don't want this repository to get bloated the pretrained models are hosted seperately.
-To download all models use this [zip file](https://www.dropbox.com/s/lu3tgxrc49tyhea/models.zip?dl=0)
+To download all models use this [zip file](https://www.dropbox.com/s/lu3tgxrc49tyhea/models.zip?dl=0) This file may not always be up to date.
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures
@@ -73,15 +73,15 @@ Sens: 0.9 Accuracy: 0.9922430510665805 False per hour 4.25669276255812
 ```
 - [Marvin-conv_res-huge](https://drive.google.com/open?id=1npTbW0iNZoEgtE2SolvmLWIFDDkyKfPX)
 ```
-Sens: 0.1 Accuracy: 0.9967679379444085 False per hour 6.683523999420757
-Sens: 0.2 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
-Sens: 0.3 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
-Sens: 0.4 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
-Sens: 0.5 Accuracy: 0.9993535875888817 False per hour 15.037928998696703
-Sens: 0.6 Accuracy: 0.9993535875888817 False per hour 16.708809998551892
-Sens: 0.7 Accuracy: 0.9993535875888817 False per hour 18.37969099840708
-Sens: 0.8 Accuracy: 0.9993535875888817 False per hour 20.05057199826227
-Sens: 0.9 Accuracy: 0.9993535875888817 False per hour 21.72145299811746
+Sens: 0.1 Accuracy: 0.9961215255332903 False per hour 0.9687252844186266
+Sens: 0.2 Accuracy: 0.9974143503555268 False per hour 1.9374505688372532
+Sens: 0.3 Accuracy: 0.9980607627666451 False per hour 2.4218132110465667
+Sens: 0.4 Accuracy: 0.9987071751777634 False per hour 2.6639945321512233
+Sens: 0.5 Accuracy: 0.9993535875888817 False per hour 4.35926377988382
+Sens: 0.6 Accuracy: 0.9993535875888817 False per hour 5.327989064302447
+Sens: 0.7 Accuracy: 0.9993535875888817 False per hour 6.054533027616416
+Sens: 0.8 Accuracy: 0.9993535875888817 False per hour 6.296714348721073
+Sens: 0.9 Accuracy: 1.0 False per hour 6.296714348721073
 ```
 - [Sheila-conv_res-huge](https://drive.google.com/open?id=1gEwY6TGylaWiqn8RHvCE1D-7n71N3vvj)
 ```

@@ -73,6 +73,18 @@ Sens: 0.7 Accuracy: 0.9915966386554622 False per hour 2.12834638127906
 Sens: 0.8 Accuracy: 0.9922430510665805 False per hour 3.724606167238355
 Sens: 0.9 Accuracy: 0.9922430510665805 False per hour 4.25669276255812
 ```
+- [Marvin-conv_res-mini](https://drive.google.com/open?id=15pwmofH_XeB4HeRuYqiceKA4lYg2Oifx) 
+```
+Sens: 0.1 Accuracy: 0.9541047188106012 False per hour 0.0
+Sens: 0.2 Accuracy: 0.9689722042663219 False per hour 0.0
+Sens: 0.3 Accuracy: 0.9722042663219134 False per hour 0.24218132110465665
+Sens: 0.4 Accuracy: 0.9747899159663865 False per hour 0.24218132110465665
+Sens: 0.5 Accuracy: 0.9922430510665805 False per hour 0.9687252844186266
+Sens: 0.6 Accuracy: 0.9948287007110537 False per hour 0.9687252844186266
+Sens: 0.7 Accuracy: 0.9948287007110537 False per hour 0.9687252844186266
+Sens: 0.8 Accuracy: 0.9961215255332903 False per hour 0.9687252844186266
+Sens: 0.9 Accuracy: 0.9961215255332903 False per hour 0.9687252844186266
+```
 - [Marvin-conv_res-huge](https://drive.google.com/open?id=1npTbW0iNZoEgtE2SolvmLWIFDDkyKfPX)
 ```
 Sens: 0.1 Accuracy: 0.9961215255332903 False per hour 0.9687252844186266

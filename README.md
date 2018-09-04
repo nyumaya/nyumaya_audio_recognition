@@ -3,6 +3,8 @@ Classify audio with neural nets on embedded systems like the Raspberry Pi using 
 
 To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff. 
 
+If you need a special combination of audio classes or model architecture trained create an issue and I will try to prioritize or train it.
+
 ## Dependencies:
 numpy,tensorflow 
 

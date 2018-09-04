@@ -190,6 +190,20 @@ Sens: 0.8 Accuracy: 0.9861342207432058 False per hour 29.0122690878834
 Sens: 0.9 Accuracy: 0.9869661674986134 False per hour 31.20187430206328
 ```
 
+- [Speech-Command-Subset-conv_res-mini](https://drive.google.com/open?id=1SjwEd888qF9nmdkpdkUh9YEbrgLVnIQL)
+```
+Sens: 0.1 Accuracy: 0.8333333333333334 False per hour 3.831809124814789
+Sens: 0.2 Accuracy: 0.8721575152523572 False per hour 6.568815642539638
+Sens: 0.3 Accuracy: 0.8926788685524126 False per hour 8.211019553174548
+Sens: 0.4 Accuracy: 0.9059900166389351 False per hour 9.853223463809456
+Sens: 0.5 Accuracy: 0.9486966167498614 False per hour 45.981709497777466
+Sens: 0.6 Accuracy: 0.9572933998890738 False per hour 53.09792644386207
+Sens: 0.7 Accuracy: 0.9606211869107044 False per hour 61.30894599703662
+Sens: 0.8 Accuracy: 0.9625623960066556 False per hour 64.59335381830644
+Sens: 0.9 Accuracy: 0.9656128674431503 False per hour 70.06736685375614
+```
+
+
 
 ## Roadmap:
 - [x] Basic working models

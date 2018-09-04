@@ -1,6 +1,15 @@
 # nyumaya_audio_recognition
 Classify audio with neural nets on embedded systems like the Raspberry Pi. This should run on any Linux system fine, on other systems at least the recording implementation has to be changed.
 
+
+ 
+
+Audio classification using Tensorflow. To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff. 
+
+
+## Dependencies:
+numpy,tensorflow 
+
 **Inference for Conv-Res-Mini-Narrow and Conv-Res-Mini currently seems broken/incompatible on tensorflow versions 1.8.0 and 1.9.0
 To install Tensorflow 1.10.0 on the Raspberry Pi 2/3:**
 ```
@@ -12,18 +21,8 @@ sudo pip install --no-cache-dir https://github.com/lhelontra/tensorflow-on-arm/r
  ```
  **This compiles numpy so it takes about 20 minutes.**
  
-
-Audio classification using Tensorflow. To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff. 
-
-
-## Dependencies:
-numpy,tensorflow 
-Both can be installed via pip
-
 ```
-sudo apt-get install python3-pip
-sudo apt install libatlas-base-dev
-sudo pip3 install tensorflow
+sudo apt-get install python-numpy
 ```
 To get all models
 

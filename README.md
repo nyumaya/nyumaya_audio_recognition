@@ -112,7 +112,7 @@ Sens: 0.9 Accuracy: 1.0 False per hour 5.012642999565568
 
 - [Sheila-conv_mini](https://drive.google.com/open?id=1Bdjem1D3eLjIepN_f54h_olWafBjEyIr)
 ```
-SSens: 0.1 Accuracy: 0.9533678756476685 False per hour 0.24218132110465665
+Sens: 0.1 Accuracy: 0.9533678756476685 False per hour 0.24218132110465665
 Sens: 0.2 Accuracy: 0.9533678756476685 False per hour 0.24218132110465665
 Sens: 0.3 Accuracy: 0.9637305699481865 False per hour 0.24218132110465665
 Sens: 0.4 Accuracy: 0.9689119170984456 False per hour 0.24218132110465665

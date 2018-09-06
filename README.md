@@ -150,15 +150,15 @@ Sens: 0.9 Accuracy: 0.9578787109870591 False per hour 116.51574760675197
 
 - [Number-conv_res-mini-narrow](https://drive.google.com/open?id=1QhpafpjpAdrgwi04NMH5yNUx8wi9Fiko)
 ```
-Sens: 0.1 Accuracy: 0.7132707434661254 False per hour 28.05008738681066
-Sens: 0.2 Accuracy: 0.7663029687896473 False per hour 50.16650244179599
-Sens: 0.3 Accuracy: 0.796244607967521 False per hour 63.652121377762654
-Sens: 0.4 Accuracy: 0.818066480588683 False per hour 71.74349273934266
-Sens: 0.5 Accuracy: 0.9007866023851814 False per hour 248.13538842178662
-Sens: 0.6 Accuracy: 0.9152499365643237 False per hour 292.90764328919596
-Sens: 0.7 Accuracy: 0.9210860187769602 False per hour 328.5096772801479
-Sens: 0.8 Accuracy: 0.9266683582846993 False per hour 353.3232161223266
-Sens: 0.9 Accuracy: 0.931743212382644 False per hour 374.3607816624346
+Sens: 0.1 Accuracy: 0.7921847246891651 False per hour 3.1532598756852566
+Sens: 0.2 Accuracy: 0.8340522709972088 False per hour 5.336285943467358
+Sens: 0.3 Accuracy: 0.855874143618371 False per hour 6.063961299394724
+Sens: 0.4 Accuracy: 0.8713524486171023 False per hour 6.791636655322091
+Sens: 0.5 Accuracy: 0.9286982999238772 False per hour 21.102585321893642
+Sens: 0.6 Accuracy: 0.9363105810707942 False per hour 24.983520553506263
+Sens: 0.7 Accuracy: 0.9408779497589445 False per hour 27.409105073264154
+Sens: 0.8 Accuracy: 0.9456990611519919 False per hour 29.349572689070467
+Sens: 0.9 Accuracy: 0.9497589444303476 False per hour 31.29004030487678
 ```
 
 - [BabyCry-conv_res-mini](https://drive.google.com/open?id=1I1STGHmrBLzwXEOZcv9qRVUP5F80L57U)

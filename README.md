@@ -48,6 +48,7 @@ For each application, different model architectures are available which are a tr
 ## Applications:
 - speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
 - speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
+- german_commands(an,aus,computer,ein,fernseher,garage,jalousie,licht,musik,oeffnen,radio,rollo,schließen,start,stopp)
 - marvin_hotword (marvin)
 - sheila_hotword (sheila)
 - voice-gender (female,male,nospeech)

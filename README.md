@@ -58,6 +58,7 @@ For each application, different model architectures are available which are a tr
 - door-monitor (door bell, door knocking, voice)
 - weather (thunder, rain, storm, hail)
 - language detection
+- swear word detection (imagine some unappropriate words)
 
 ## Pretrained models:
 **Accuracy results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.**

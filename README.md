@@ -46,19 +46,20 @@ For each application, different model architectures are available which are a tr
 
 
 ## Applications:
-- speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
-- speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
-- german_commands(an,aus,computer,ein,fernseher,garage,jalousie,licht,musik,oeffnen,radio,rollo,schließen,start,stopp)
-- marvin_hotword (marvin)
-- sheila_hotword (sheila)
-- voice-gender (female,male,nospeech)
-- baby-monitor (cry, babble, door-open, music, glass-break, footsteps, fire-alarm)
-- impulse-response (Play tone and interpret echo: Bedroom, Kitchen, Bathroom, Outdoor, Hall, Living Room, Basement)
-- alarm-system (door-open, glass-break, footsteps, fire-alarm, voice)
-- door-monitor (door bell, door knocking, voice)
-- weather (thunder, rain, storm, hail)
-- language detection
-- swear word detection (imagine some unappropriate words)
+- Speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
+- Speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
+- German_commands(an,aus,computer,ein,fernseher,garage,jalousie,licht,musik,oeffnen,radio,rollo,schließen,start,stopp)
+- Marvin_hotword (marvin)
+- Sheila_hotword (sheila)
+- Voice-gender (female,male,nospeech)
+- Baby-monitor (cry, babble, door-open, music, glass-break, footsteps, fire-alarm)
+- Impulse-response (Play tone and interpret echo: Bedroom, Kitchen, Bathroom, Outdoor, Hall, Living Room, Basement)
+- Alarm-system (door-open, glass-break, footsteps, fire-alarm, voice)
+- Door-monitor (door bell, door knocking, voice)
+- Weather (thunder, rain, storm, hail)
+- Language detection
+- Swear word detection (imagine some unappropriate words)
+- Crowd monitoring(screaming, shouting, gunshot, siren, explosion)
 
 ## Pretrained models:
 **Accuracy results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.**

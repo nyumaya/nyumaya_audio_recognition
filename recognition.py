@@ -30,7 +30,7 @@ class Detector():
 		self.higher_frequency = 8000
 		self.prediction_every = 20 #Number of mel steps between predictions
 		self.gain = 1.0
-		self.detection_cooldown = 5
+		self.detection_cooldown = 8
 		self.cooldown = 0
 		self.sensitivity = 0.5
 		self.mel_spectrogram = np.zeros((1,self.melcount*98), dtype=np.float32) 
@@ -150,6 +150,8 @@ class Detector():
 		
 		if(biggest_score >  (0.9 + 2.0*self.sensitivity) and self.cooldown == 0):
 			self.cooldown = self.detection_cooldown
+			del self.last_frames[biggest_score_key][:]
+
 			return biggest_score_key
 		return None
 

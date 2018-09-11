@@ -1,5 +1,12 @@
 # nyumaya_audio_recognition
-Classify audio with neural nets on embedded systems like the Raspberry Pi. This should run on any Linux system fine, on other systems at least the recording implementation has to be changed.
+Classify audio with neural nets on embedded systems like the Raspberry Pi using Tensorflow. This should run on any Linux system fine, on other systems at least the recording implementation has to be changed.
+
+To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff. 
+
+If you need a special combination of audio classes or model architecture trained create an issue and I will try to prioritize or train it.
+
+## Dependencies:
+numpy,tensorflow 
 
 **Inference for Conv-Res-Mini-Narrow and Conv-Res-Mini currently seems broken/incompatible on tensorflow versions 1.8.0 and 1.9.0
 To install Tensorflow 1.10.0 on the Raspberry Pi 2/3:**
@@ -12,18 +19,8 @@ sudo pip install --no-cache-dir https://github.com/lhelontra/tensorflow-on-arm/r
  ```
  **This compiles numpy so it takes about 20 minutes.**
  
-
-Audio classification using Tensorflow. To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff. 
-
-
-## Dependencies:
-numpy,tensorflow 
-Both can be installed via pip
-
 ```
-sudo apt-get install python3-pip
-sudo apt install libatlas-base-dev
-sudo pip3 install tensorflow
+sudo apt-get install python-numpy
 ```
 To get all models
 
@@ -33,12 +30,12 @@ unzip models.zip?dl=0
 ```
 To run an example
 ```
-python3 streaming_example.py --graph models/Marvin/Conv-Res-Huge/conv-res-huge_frozen.pb  --labels models/Marvin/Conv-Res-Huge/labels.txt  --sens 0.5
+python streaming_example.py --graph models/Marvin/Conv-Res-Huge/conv-res-huge_frozen.pb  --labels models/Marvin/Conv-Res-Huge/labels.txt  --sens 0.5
 ```
 On the Pi Zero Tensorflow takes a few seconds to load. The demo captures audio from the default microphone. 
 
 Because models constantly improve and I don't want this repository to get bloated the pretrained models are hosted seperately.
-To download all models use this [zip file](https://www.dropbox.com/s/lu3tgxrc49tyhea/models.zip?dl=0)
+To download all models use this [zip file](https://www.dropbox.com/s/lu3tgxrc49tyhea/models.zip?dl=0) This file may not always be up to date.
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures
@@ -49,17 +46,20 @@ For each application, different model architectures are available which are a tr
 
 
 ## Applications:
-- speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
-- speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
-- marvin_hotword (marvin)
-- sheila_hotword (sheila)
-- voice-gender (female,male,nospeech)
-- baby-monitor (cry, babble, door-open, music, glass-break, footsteps, fire-alarm)
-- impulse-response (Play tone and interpret echo: Bedroom, Kitchen, Bathroom, Outdoor, Hall, Living Room, Basement)
-- alarm-system (door-open, glass-break, footsteps, fire-alarm, voice)
-- door-monitor (door bell, door knocking, voice)
-- weather (thunder, rain, storm, hail)
-- language detection
+- Speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
+- Speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
+- German_commands(an,aus,computer,ein,fernseher,garage,jalousie,licht,musik,oeffnen,radio,rollo,schließen,start,stopp)
+- Marvin_hotword (marvin)
+- Sheila_hotword (sheila)
+- Voice-gender (female,male,nospeech)
+- Baby-monitor (cry, babble, door-open, music, glass-break, footsteps, fire-alarm)
+- Impulse-response (Play tone and interpret echo: Bedroom, Kitchen, Bathroom, Outdoor, Hall, Living Room, Basement)
+- Alarm-system (door-open, glass-break, footsteps, fire-alarm, voice)
+- Door-monitor (door bell, door knocking, voice)
+- Weather (thunder, rain, storm, hail)
+- Language detection
+- Swear word detection (imagine some unappropriate words)
+- Crowd monitoring(screaming, shouting, gunshot, siren, explosion)
 
 ## Pretrained models:
 **Accuracy results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.**
@@ -76,17 +76,29 @@ Sens: 0.7 Accuracy: 0.9915966386554622 False per hour 2.12834638127906
 Sens: 0.8 Accuracy: 0.9922430510665805 False per hour 3.724606167238355
 Sens: 0.9 Accuracy: 0.9922430510665805 False per hour 4.25669276255812
 ```
+- [Marvin-conv_res-mini](https://drive.google.com/open?id=15pwmofH_XeB4HeRuYqiceKA4lYg2Oifx) 
+```
+Sens: 0.1 Accuracy: 0.9541047188106012 False per hour 0.0
+Sens: 0.2 Accuracy: 0.9689722042663219 False per hour 0.0
+Sens: 0.3 Accuracy: 0.9722042663219134 False per hour 0.24218132110465665
+Sens: 0.4 Accuracy: 0.9747899159663865 False per hour 0.24218132110465665
+Sens: 0.5 Accuracy: 0.9922430510665805 False per hour 0.9687252844186266
+Sens: 0.6 Accuracy: 0.9948287007110537 False per hour 0.9687252844186266
+Sens: 0.7 Accuracy: 0.9948287007110537 False per hour 0.9687252844186266
+Sens: 0.8 Accuracy: 0.9961215255332903 False per hour 0.9687252844186266
+Sens: 0.9 Accuracy: 0.9961215255332903 False per hour 0.9687252844186266
+```
 - [Marvin-conv_res-huge](https://drive.google.com/open?id=1npTbW0iNZoEgtE2SolvmLWIFDDkyKfPX)
 ```
-Sens: 0.1 Accuracy: 0.9967679379444085 False per hour 6.683523999420757
-Sens: 0.2 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
-Sens: 0.3 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
-Sens: 0.4 Accuracy: 0.9980607627666451 False per hour 6.683523999420757
-Sens: 0.5 Accuracy: 0.9993535875888817 False per hour 15.037928998696703
-Sens: 0.6 Accuracy: 0.9993535875888817 False per hour 16.708809998551892
-Sens: 0.7 Accuracy: 0.9993535875888817 False per hour 18.37969099840708
-Sens: 0.8 Accuracy: 0.9993535875888817 False per hour 20.05057199826227
-Sens: 0.9 Accuracy: 0.9993535875888817 False per hour 21.72145299811746
+Sens: 0.1 Accuracy: 0.9961215255332903 False per hour 0.9687252844186266
+Sens: 0.2 Accuracy: 0.9974143503555268 False per hour 1.9374505688372532
+Sens: 0.3 Accuracy: 0.9980607627666451 False per hour 2.4218132110465667
+Sens: 0.4 Accuracy: 0.9987071751777634 False per hour 2.6639945321512233
+Sens: 0.5 Accuracy: 0.9993535875888817 False per hour 4.35926377988382
+Sens: 0.6 Accuracy: 0.9993535875888817 False per hour 5.327989064302447
+Sens: 0.7 Accuracy: 0.9993535875888817 False per hour 6.054533027616416
+Sens: 0.8 Accuracy: 0.9993535875888817 False per hour 6.296714348721073
+Sens: 0.9 Accuracy: 1.0 False per hour 6.296714348721073
 ```
 - [Sheila-conv_res-huge](https://drive.google.com/open?id=1gEwY6TGylaWiqn8RHvCE1D-7n71N3vvj)
 ```
@@ -100,6 +112,20 @@ Sens: 0.7 Accuracy: 1.0 False per hour 5.012642999565568
 Sens: 0.8 Accuracy: 1.0 False per hour 5.012642999565568
 Sens: 0.9 Accuracy: 1.0 False per hour 5.012642999565568
 ```
+
+- [Sheila-conv_mini](https://drive.google.com/open?id=1Bdjem1D3eLjIepN_f54h_olWafBjEyIr)
+```
+Sens: 0.1 Accuracy: 0.9533678756476685 False per hour 0.24218132110465665
+Sens: 0.2 Accuracy: 0.9533678756476685 False per hour 0.24218132110465665
+Sens: 0.3 Accuracy: 0.9637305699481865 False per hour 0.24218132110465665
+Sens: 0.4 Accuracy: 0.9689119170984456 False per hour 0.24218132110465665
+Sens: 0.5 Accuracy: 0.9948186528497409 False per hour 0.4843626422093133
+Sens: 0.6 Accuracy: 0.9948186528497409 False per hour 0.4843626422093133
+Sens: 0.7 Accuracy: 1.0 False per hour 0.4843626422093133
+Sens: 0.8 Accuracy: 1.0 False per hour 0.4843626422093133
+Sens: 0.9 Accuracy: 1.0 False per hour 0.4843626422093133
+```
+
 - [Sheila-conv_res-mini-narrow](https://drive.google.com/open?id=1sa4ZOqwmVges7dsDX5LG5mXOOHMiyp8t)
 ```
 Sens: 0.1 Accuracy: 0.9222797927461139 False per hour 0.0
@@ -141,15 +167,15 @@ Sens: 0.9 Accuracy: 0.9578787109870591 False per hour 116.51574760675197
 
 - [Number-conv_res-mini-narrow](https://drive.google.com/open?id=1QhpafpjpAdrgwi04NMH5yNUx8wi9Fiko)
 ```
-Sens: 0.1 Accuracy: 0.7132707434661254 False per hour 28.05008738681066
-Sens: 0.2 Accuracy: 0.7663029687896473 False per hour 50.16650244179599
-Sens: 0.3 Accuracy: 0.796244607967521 False per hour 63.652121377762654
-Sens: 0.4 Accuracy: 0.818066480588683 False per hour 71.74349273934266
-Sens: 0.5 Accuracy: 0.9007866023851814 False per hour 248.13538842178662
-Sens: 0.6 Accuracy: 0.9152499365643237 False per hour 292.90764328919596
-Sens: 0.7 Accuracy: 0.9210860187769602 False per hour 328.5096772801479
-Sens: 0.8 Accuracy: 0.9266683582846993 False per hour 353.3232161223266
-Sens: 0.9 Accuracy: 0.931743212382644 False per hour 374.3607816624346
+Sens: 0.1 Accuracy: 0.7921847246891651 False per hour 3.1532598756852566
+Sens: 0.2 Accuracy: 0.8340522709972088 False per hour 5.336285943467358
+Sens: 0.3 Accuracy: 0.855874143618371 False per hour 6.063961299394724
+Sens: 0.4 Accuracy: 0.8713524486171023 False per hour 6.791636655322091
+Sens: 0.5 Accuracy: 0.9286982999238772 False per hour 21.102585321893642
+Sens: 0.6 Accuracy: 0.9363105810707942 False per hour 24.983520553506263
+Sens: 0.7 Accuracy: 0.9408779497589445 False per hour 27.409105073264154
+Sens: 0.8 Accuracy: 0.9456990611519919 False per hour 29.349572689070467
+Sens: 0.9 Accuracy: 0.9497589444303476 False per hour 31.29004030487678
 ```
 
 - [BabyCry-conv_res-mini](https://drive.google.com/open?id=1I1STGHmrBLzwXEOZcv9qRVUP5F80L57U)
@@ -190,12 +216,26 @@ Sens: 0.8 Accuracy: 0.9861342207432058 False per hour 29.0122690878834
 Sens: 0.9 Accuracy: 0.9869661674986134 False per hour 31.20187430206328
 ```
 
+- [Speech-Command-Subset-conv_res-mini](https://drive.google.com/open?id=1SjwEd888qF9nmdkpdkUh9YEbrgLVnIQL)
+```
+Sens: 0.1 Accuracy: 0.8333333333333334 False per hour 3.831809124814789
+Sens: 0.2 Accuracy: 0.8721575152523572 False per hour 6.568815642539638
+Sens: 0.3 Accuracy: 0.8926788685524126 False per hour 8.211019553174548
+Sens: 0.4 Accuracy: 0.9059900166389351 False per hour 9.853223463809456
+Sens: 0.5 Accuracy: 0.9486966167498614 False per hour 45.981709497777466
+Sens: 0.6 Accuracy: 0.9572933998890738 False per hour 53.09792644386207
+Sens: 0.7 Accuracy: 0.9606211869107044 False per hour 61.30894599703662
+Sens: 0.8 Accuracy: 0.9625623960066556 False per hour 64.59335381830644
+Sens: 0.9 Accuracy: 0.9656128674431503 False per hour 70.06736685375614
+```
+
+
 
 ## Roadmap:
 - [x] Basic working models
 - [X] Average output predictions
 - [X] Benchmark accuracy and false recognition rate
-- [ ] Noisy Benchmark, use more diverse test set
+- [ ] Noisy Benchmark, use more diverse test set (maby musan dataset)
 - [ ] Benchmark latency
 - [ ] Voice activity detection
 - [ ] Provide TensorflowLite and TensorflowJS models

@@ -2,6 +2,7 @@ import time
 import os
 import argparse
 import sys
+import datetime
 
 from recognition import Detector
 from record import AudiostreamSource
@@ -25,7 +26,8 @@ def label_stream(labels, graph,sensitivity):
 
 			prediction = detector.recognize(frame)
 			if(prediction):
-				print(prediction)
+				now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
+				print(prediction + " " + now)
 
 	except KeyboardInterrupt:
 		print("Terminating")

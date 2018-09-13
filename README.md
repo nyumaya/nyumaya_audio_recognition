@@ -139,6 +139,9 @@ Sens: 0.8 Accuracy: 0.9948186528497409 False per hour 9.045472120436004
 Sens: 0.9 Accuracy: 0.9948186528497409 False per hour 9.57755871575577
 ```
 
+**English numbers have high false positive rates because the common word 'to' sounds similar to 'two'.
+It's recommended to use them in combination with a wake word**
+
 - [Number-conv_res-huge](https://drive.google.com/open?id=1bPx9c84pZ3GcjlK-c4-MvYz9lyaKPvhW)
 ```
 Sens: 0.1 Accuracy: 0.9218472468916519 False per hour 15.200990879405474

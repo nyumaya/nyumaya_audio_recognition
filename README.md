@@ -245,3 +245,9 @@ Sens: 0.9 Accuracy: 0.9656128674431503 False per hour 70.06736685375614
 - [ ] Web demo
 - [ ] Improve Architectures (including RNN and Attention)
 - [ ] More Applications 
+
+
+## Credits:
+- https://github.com/castorini/honk For inspiration and model ideas
+- Peter Warden for releasing the Speech Command Dataset
+

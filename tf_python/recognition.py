@@ -49,13 +49,16 @@ class Detector():
 
 		self.softmax_tensor = self.sess.graph.get_tensor_by_name(self.output_name) 
 		self._warmup()
-
+		#self.test_signal_to_mel()
+		
 
 	def set_sensitivity(self,sensitivity):
 		self.sensitivity = 1- sensitivity
 
 	def set_volume(self,volume):
 		self.gain = volume
+
+		
 
 	#Returns the number of bytes to pass to the recognizer
 	def input_data_size(self):

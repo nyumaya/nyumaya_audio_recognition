@@ -62,7 +62,8 @@ For each application, different model architectures are available which are a tr
 - Crowd monitoring(screaming, shouting, gunshot, siren, explosion)
 
 ## Pretrained models:
-**Accuracy results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. The testing should be improved by using a more diverse test set for false positives and adding background noise / music.**
+**Accuracy results are taken by feeding the test-set for accuracy and the clean cv-corpus test set for false positives. Some results seem a bit fishy and shouldn't be taken a scientific benchmark. After closely reviewing the training code I found that test and train sets got mixed up so these results show better results than the real use. I will publish more accurate testing results after retraining with the fixed training code.
+The testing should be improved by using a more diverse test set for false positives and adding background noise / music.**
 
 - [Marvin-conv_res-mini-narrow](https://drive.google.com/open?id=1offSK9sRVc3R5rJiEPTtlxLPgy07CSZz) 
 ```

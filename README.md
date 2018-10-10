@@ -62,11 +62,8 @@ For each application, different model architectures are available which are a tr
 ## Pretrained models:
 - Marvin Hotword
 - Sheila Hotword
-
-
-**English numbers have high false positive rates because the common word 'to' sounds similar to 'two' (same with 'four','for' 'one','won' 'three','tree' 'eight','ate'...)
-It's recommended to use them in combination with a wake word**
-
+- Command Actions
+- Command Numbers
 
 ## Roadmap:
 - [x] Basic working models

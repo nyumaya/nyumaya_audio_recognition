@@ -38,8 +38,8 @@ Because models constantly improve and I don't want this repository to get bloate
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures
-- conv-conv
-- conv-conv-big
+- conv-conv      (CPU Pi0: 29% CPU Pi3: 18%)
+- conv-conv-big  (CPU Pi0: 85% CPU Pi3: 45%)
 
 
 ## Applications:

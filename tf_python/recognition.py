@@ -7,6 +7,7 @@ from tensorflow import import_graph_def as tf_import_graph_def
 from tensorflow import Session as tf_Session
 from tensorflow import GraphDef as tf_GraphDef
 from tensorflow import logging as tf_logging
+from tensorflow import Graph as tf_Graph
 print("Tensorflow loaded")
 from feature_extraction import FeatureExtraction
 import logging
@@ -17,7 +18,7 @@ class Detector():
 	def __init__(self,graph_path,label_path):
 		self.graph_path = graph_path
 		self.label_path = label_path
-
+		self.graph = tf_Graph()
 		self.sample_rate= 16000  # Samle Rate: 16000
 		self.window_len = 0.03   # Window Size: 30ms = 480 Samples 960 Bytes
 		self.frame_shift_ms= 0.01   # Frame Shift: 10ms = 160 Samples 320 Bytes
@@ -40,7 +41,7 @@ class Detector():
 		self.input_name = "fingerprint_input:0"
 		self.output_name = "labels_softmax:0"
 
-		self.sess = tf_Session()
+		self.sess = tf_Session(graph=self.graph)
 
 		self.labels_list = self._load_labels(label_path)
 		self._load_graph(graph_path)
@@ -82,13 +83,13 @@ class Detector():
 		mel_end   = (self.melcount*98)
 		mel_start = (self.melcount*98)-(mel_len)
 		self.mel_spectrogram[0,mel_start:mel_end] = mel_data[0:mel_len]
+		with self.graph.as_default():
+			predictions, = self.sess.run(self.softmax_tensor, {self.input_name: self.mel_spectrogram})
+			result = self._smooth_detection(predictions)
+			#result = self._hotword_detection(predictions)
 
-		predictions, = self.sess.run(self.softmax_tensor, {self.input_name: self.mel_spectrogram})
-		result = self._smooth_detection(predictions)
-		#result = self._hotword_detection(predictions)
-
-		self.mel_spectrogram = np.roll(self.mel_spectrogram, -mel_len,1)
-		return result
+			self.mel_spectrogram = np.roll(self.mel_spectrogram, -mel_len,1)
+			return result
 
 
 	#Just simple threshold and maximum of one prediction every n frames
@@ -164,9 +165,10 @@ class Detector():
 
 	def _load_graph(self,filename):
 		with open(filename, 'rb') as f:
-			graph_def = tf_GraphDef()
-			graph_def.ParseFromString(f.read())
-			tf_import_graph_def(graph_def, name='')
+			with self.graph.as_default():
+				graph_def = tf_GraphDef()
+				graph_def.ParseFromString(f.read())
+				tf_import_graph_def(graph_def, name='')
 
 
 	def _load_labels(self,filename):

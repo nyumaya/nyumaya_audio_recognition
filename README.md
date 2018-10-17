@@ -5,20 +5,11 @@ To run the demo you have to download at least one of the models and provide the 
 
 If you need a special combination of audio classes or model architecture trained create an issue and I will try to prioritize or train it.
 
-## Dependencies:
-numpy,tensorflow 
 
-**Inference for Conv-Res-Mini-Narrow and Conv-Res-Mini currently seems broken/incompatible on tensorflow versions 1.8.0 and 1.9.0
-To install Tensorflow 1.10.0 on the Raspberry Pi 2/3:**
-```
-sudo pip install --no-cache-dir https://github.com/lhelontra/tensorflow-on-arm/releases/download/v1.10.0/tensorflow-1.10.0-cp27-none-linux_armv7l.whl
-```
- **For the Pi Zero:**
- ```
- sudo pip install --no-cache-dir https://github.com/lhelontra/tensorflow-on-arm/releases/download/v1.10.0/tensorflow-1.10.0-cp27-none-linux_armv6l.whl
- ```
- **This compiles numpy so it takes about 20 minutes.**
- 
+
+## Dependencies:
+numpy 
+
 ```
 sudo apt-get install python-numpy
 ```
@@ -29,9 +20,9 @@ git clone https://github.com/nyumaya/nyumaya_audio_recognition_models.git
 ```
 To run an example
 ```
-python tf_python/streaming_example.py --graph <model_path>/conv-conv/conv-conv_frozen.pb  --labels <model_path>/labels.txt  --sens 0.5
+python python/streaming_example.py --libpath lib/rpi/armv7/libnyumaya.so --graph conv-conv.tflite --labels labels.txt
 ```
-On the Pi Zero Tensorflow takes a few seconds to load. The demo captures audio from the default microphone. 
+The demo captures audio from the default microphone. The new version only takes .tflite models.
 
 Because models constantly improve and I don't want this repository to get bloated the pretrained models are on this [Github Repo](https://github.com/nyumaya/nyumaya_audio_recognition_models).
 

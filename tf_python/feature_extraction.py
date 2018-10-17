@@ -2,7 +2,7 @@ import numpy, numpy.fft
 import unittest
 import math
 
-
+numpy.set_printoptions(threshold=numpy.nan)
 def mel(f):
 	return 2595. * numpy.log10(1. + f / 700.)
 
@@ -23,6 +23,7 @@ class FeatureExtraction(object):
 		self.window = numpy.hanning(datalen)
 		# Build mel filter matrix
 
+
 		self.filters = numpy.zeros((int(nfft/2+1),nfilt), 'd')
 		dfreq = float(samprate) / nfft
 		if upperf > samprate/2:
@@ -39,8 +40,6 @@ class FeatureExtraction(object):
 			leftfr = round(filt_edge[whichfilt] / dfreq)
 			centerfr = round(filt_edge[whichfilt + 1] / dfreq)
 			rightfr = round(filt_edge[whichfilt + 2] / dfreq)
-			# For some reason this is calculated in Hz, though I think
-			# it doesn't really matter
 			fwidth = (rightfr - leftfr) * dfreq
 			height = 2. / fwidth
 
@@ -62,41 +61,31 @@ class FeatureExtraction(object):
 				freq = freq + 1
 
 
-
 	def signal_to_mel(self,signal):
  
 		signal_len = len(signal)
 		number_of_frames = int(signal_len / self.shift)
-
+	
 		mels = numpy.empty(int(number_of_frames*self.nfilt), dtype=numpy.float32) 
-		frameindex = 0
+
 		fftarray = []
-		for _ in range(number_of_frames):
-			start = int(round(frameindex * self.shift))
+		for idx in range(number_of_frames):
+			start = int(round(idx * self.shift))
 			end = int(min(signal_len, start + self.datalen))
 			frame = signal[start:end]
-  
-			if len(frame) < self.datalen:
+  			framelen = len(frame)
+			if framelen < self.datalen:
 				frame = numpy.resize(frame,self.datalen)
-				frame[self.datalen:] = 0
+				frame[framelen:] = 0
 			fftarray.append(frame)
 
-			frameindex +=1
-
 		windowed = fftarray * self.window            
-		spectrum = numpy.fft.rfft(windowed,n=self.nfft)                      #/ fft_size
-		autopower = numpy.abs(spectrum * numpy.conj(spectrum))              # find the autopower spectrum
+		spectrum = numpy.fft.rfft(windowed,n=self.nfft)                    
+		autopower = numpy.abs(spectrum * numpy.conj(spectrum))
 
-		result = numpy.empty((number_of_frames,int(self.nfft/2+1)), dtype=numpy.float32)        # space to hold the result
-		result[:,:] = autopower[:,:self.nfft]  
-
-		lin = numpy.dot(result,self.filters)
-
+		lin = numpy.matmul(autopower,self.filters)
 		mel = numpy.log(lin+1e-6)
-
 		return mel.flatten()
-
-
 
 
     

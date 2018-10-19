@@ -28,8 +28,8 @@ def label_stream():
 
 	audio_stream = AudiostreamSource()
 
-	action_detector = AudioRecognition(libpath,action_graph)
-	hotword_detector = AudioRecognition(libpath,hotword_graph)
+	action_detector = AudioRecognition(libpath,action_graph,action_labels)
+	hotword_detector = AudioRecognition(libpath,hotword_graph,hotword_labels)
 	#
 	#action_detector = hotword_detector
 
@@ -65,7 +65,7 @@ def label_stream():
 			else:
 				prediction = action_detector.RunDetection(data,bufsize)
 				if(prediction):
-					print("Got Action: " + str(prediction))
+					print("Got Action: " + action_detector.GetPredictionLabel(prediction))
 					countdown = 0
 					hotword_detected = False
 

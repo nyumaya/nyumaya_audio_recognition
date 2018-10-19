@@ -6,7 +6,7 @@ class AudioRecognition(object):
 
 	lib = None
 
-	def __init__(self,libpath,modelpath):
+	def __init__(self,libpath,modelpath,label_path=None):
 
 		if (not AudioRecognition.lib):
 			AudioRecognition.lib = cdll.LoadLibrary(libpath)
@@ -31,8 +31,16 @@ class AudioRecognition(object):
 
 		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath)
 
+		if(label_path):
+			self.labels_list = self._load_labels(label_path)
+
 	def RunDetection(self,data,datalen):
 		return AudioRecognition.lib.RunDetection(self.obj,(c_int16 * len(data))(*data),datalen/2)
+
+	def GetPredictionLabel(self,index):
+		if(self.labels_list):
+			return self.labels_list[index]
+		
 
 	def SetSensitivity(self,sens):
 		AudioRecognition.lib.SetSensitivity(self.obj,sens)
@@ -45,6 +53,9 @@ class AudioRecognition(object):
 
 
 
+	def _load_labels(self,filename):
+		with open(filename,'r') as f:  
+			return [line.strip() for line in f]
 
 
 

@@ -29,13 +29,14 @@ class AudioRecognition(object):
 			AudioRecognition.lib.RunDetection.argtypes = [c_void_p, POINTER(c_int16),c_int]
 			AudioRecognition.lib.RunDetection.restype = c_int
 
-		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath)
+		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath.encode('ascii'))
 
 		if(label_path):
 			self.labels_list = self._load_labels(label_path)
 
 	def RunDetection(self,data,datalen):
-		return AudioRecognition.lib.RunDetection(self.obj,(c_int16 * len(data))(*data),datalen/2)
+		prediction = AudioRecognition.lib.RunDetection(self.obj,(c_int16 *datalen)(*data),int(datalen/2))
+		return prediction
 
 	def GetPredictionLabel(self,index):
 		if(self.labels_list):
@@ -46,7 +47,7 @@ class AudioRecognition(object):
 		AudioRecognition.lib.SetSensitivity(self.obj,sens)
 
 	def GetVersionString(self):
-		return AudioRecognition.lib.GetVersionString(self.obj)
+		return str(AudioRecognition.lib.GetVersionString(self.obj))
 
 	def GetInputDataSize(self):
 		return AudioRecognition.lib.GetInputDataSize(self.obj)

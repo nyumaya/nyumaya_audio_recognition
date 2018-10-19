@@ -45,7 +45,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--graph', type=str,
-		default='/home/anon/Desktop/nyumaya_audio_recognition/conv-conv.tflite',
+		default='../../nyumaya_audio_recognition_models/Hotword/marvin_small.tflite',
 		help='Model to use for identification.')
 
 	parser.add_argument(
@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--labels', type=str,
-		default='./models/marvin_hotword/labels.txt',
+		default='../../nyumaya_audio_recognition_models/Hotword/marvin_labels.txt',
 		help='Path to file containing labels.')
 
 	parser.add_argument(

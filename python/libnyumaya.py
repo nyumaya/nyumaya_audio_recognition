@@ -42,6 +42,8 @@ class AudioRecognition(object):
 		if(self.labels_list):
 			return self.labels_list[index]
 		
+	def SetGain(self,gain):
+		AudioRecognition.lib.SetGain(self.obj,gain)
 
 	def SetSensitivity(self,sens):
 		AudioRecognition.lib.SetSensitivity(self.obj,sens)

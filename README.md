@@ -7,12 +7,7 @@ If you need a special combination of audio classes or model architecture trained
 
 
 
-## Dependencies:
-numpy 
 
-```
-sudo apt-get install python-numpy
-```
 To get all models
 
 ```

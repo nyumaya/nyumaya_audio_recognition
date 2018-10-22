@@ -2,7 +2,6 @@
 
 import os
 import subprocess
-import numpy as np
 from threading import Thread, Lock
 import time
 import unittest
@@ -28,15 +27,15 @@ class RingBuffer():
 
 	def write(self,data):
 
-		if not data: 
+		if not data:
 			return
 
 		datalen = len(data)
 
 		if(datalen > self.buffer_size):
 			print("Trying to write huge buffer !!!!!!!")
-			return		
-
+			return
+			
 		self.lock.acquire()
 
 		# TODO: Check for buffer overrun
@@ -126,13 +125,13 @@ class AudiostreamSource(Thread):
 
 
 		self._cmd = [
-            'arecord',
-            '-q',
-            '-t', 'raw',
-            '-D', self.input_device,
-            '-c', str(self.channels),
-            '-f', 's16',
-            '-r', str(self.sample_rate),
+			'arecord',
+			'-q',
+			'-t', 'raw',
+			'-D', self.input_device,
+			'-c', str(self.channels),
+			'-f', 's16',
+			'-r', str(self.sample_rate),
 		]
 
 		self._arecord = None
@@ -143,8 +142,8 @@ class AudiostreamSource(Thread):
 		print("Sample Rate: " + str(self.sample_rate))
 		print("Channels: "    + str(self.channels))
 
-    # Get len number of samples
-    # Blocks until samples is available
+	# Get len number of samples
+	# Blocks until samples is available
 	def read(self,chunk_size,advance):
 		return self.audio_buffer.read(chunk_size,advance)
 

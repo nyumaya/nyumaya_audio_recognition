@@ -7,8 +7,6 @@ import datetime
 from libnyumaya import AudioRecognition
 from record import AudiostreamSource
 from record import RingBuffer
-import numpy as np
-
 
 def label_stream(labels,libpath ,graph,sensitivity):
 
@@ -28,12 +26,12 @@ def label_stream(labels,libpath ,graph,sensitivity):
 				time.sleep(0.01)
 				continue
 
-			data = np.frombuffer(frame, dtype=np.int16) 
-			prediction = detector.RunDetection(data,bufsize)
+			prediction = detector.RunDetection(frame)
 
 			if(prediction):
 				now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
 				print(str(prediction) + " " + now)
+				os.system("aplay ./ding.wav")
 
 	except KeyboardInterrupt:
 		print("Terminating")

@@ -3,7 +3,6 @@ import os
 import argparse
 import sys
 import datetime
-import numpy as np
 
 from libnyumaya import AudioRecognition
 from record import AudiostreamSource
@@ -47,7 +46,6 @@ def label_stream():
 				time.sleep(0.01)
 				continue
 
-			data = np.frombuffer(frame, dtype=np.int16)
 
 			if(countdown > 0):
 				countdown -= 1
@@ -56,14 +54,14 @@ def label_stream():
 					print("Stopped Listening")
 
 			if(not hotword_detected):
-				prediction = hotword_detector.RunDetection(data,bufsize)
+				prediction = hotword_detector.RunDetection(frame)
 				if(prediction):
 					hotword_detected = True
 					countdown = 20
 					now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
 					print("Listening")
 			else:
-				prediction = action_detector.RunDetection(data,bufsize)
+				prediction = action_detector.RunDetection(frame)
 				if(prediction):
 					print("Got Action: " + action_detector.GetPredictionLabel(prediction))
 					countdown = 0

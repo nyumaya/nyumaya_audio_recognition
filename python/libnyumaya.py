@@ -34,8 +34,11 @@ class AudioRecognition(object):
 		if(label_path):
 			self.labels_list = self._load_labels(label_path)
 
-	def RunDetection(self,data,datalen):
-		prediction = AudioRecognition.lib.RunDetection(self.obj,(c_int16 *datalen)(*data),int(datalen/2))
+	def RunDetection(self,data):
+		datalen = int(len(data)/2)
+		pcm = c_int16 * datalen	
+		pcmdata = pcm.from_buffer(data)
+		prediction = AudioRecognition.lib.RunDetection(self.obj,pcmdata,datalen)
 		return prediction
 
 	def GetPredictionLabel(self,index):

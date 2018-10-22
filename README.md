@@ -24,7 +24,7 @@ Because models constantly improve and I don't want this repository to get bloate
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures
-- Small model  (CPU Pi0: 40% CPU Pi3 one core: 12%)
+- Small model  (CPU Pi0: 20% CPU Pi3 one core: 12%)
 - Big model    (CPU Pi0: 95% CPU Pi3 one core: 20%)
 
 

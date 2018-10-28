@@ -1,4 +1,4 @@
-# nyumaya_audio_recognition
+# Detect simple voice commands and audio events on small embedded sytems like the PiZero.
 Classify audio with neural nets on embedded systems like the Raspberry Pi using Tensorflow. This should run on any Linux system fine, on other systems at least the recording implementation has to be changed.
 
 To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff. 
@@ -7,12 +7,7 @@ If you need a special combination of audio classes or model architecture trained
 
 
 
-## Dependencies:
-numpy 
 
-```
-sudo apt-get install python-numpy
-```
 To get all models
 
 ```
@@ -29,7 +24,7 @@ Because models constantly improve and I don't want this repository to get bloate
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures
-- Small model  (CPU Pi0: 40% CPU Pi3 one core: 12%)
+- Small model  (CPU Pi0: 20% CPU Pi3 one core: 12%)
 - Big model    (CPU Pi0: 95% CPU Pi3 one core: 20%)
 
 

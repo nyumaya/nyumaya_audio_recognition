@@ -6,21 +6,13 @@ To run the demo you have to download at least one of the models and provide the 
 If you need a special combination of audio classes or model architecture trained create an issue and I will try to prioritize or train it.
 
 
-
-
-To get all models
-
-```
-git clone https://github.com/nyumaya/nyumaya_audio_recognition_models.git
-```
 To run an example
+
 ```
-python python/streaming_example.py --libpath lib/rpi/armv7/libnyumaya.so --graph conv-conv.tflite --labels labels.txt
+git clone --depth 1 https://github.com/nyumaya/nyumaya_audio_recognition.git
+python streaming_example.py --libpath lib/rpi/armv7/libnyumaya.so
 ```
 The demo captures audio from the default microphone. The new version only takes .tflite models.
-
-Because models constantly improve and I don't want this repository to get bloated the pretrained models are on this [Github Repo](https://github.com/nyumaya/nyumaya_audio_recognition_models).
-
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures
@@ -29,7 +21,7 @@ For each application, different model architectures are available which are a tr
 
 
 ## Applications:
-- Speech_commands_subset (yes,no,up,down,left,right,on,off,stop,go)
+- Speech_commands_subset (yes,no,up,down,left,right,on,off,stop,follow,play)
 - Speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
 - German_commands(an,aus,computer,ein,fernseher,garage,jalousie,licht,musik,oeffnen,radio,rollo,schließen,start,stopp)
 - Marvin_hotword (marvin)
@@ -48,8 +40,9 @@ For each application, different model architectures are available which are a tr
 ## Pretrained models:
 - Marvin Hotword
 - Sheila Hotword
-- Command Actions
+- Command Subet
 - Command Numbers
+
 
 ## Roadmap:
 - [x] Basic working models
@@ -66,6 +59,7 @@ For each application, different model architectures are available which are a tr
 
 
 ## Credits:
-- https://github.com/castorini/honk For inspiration and model ideas
+- [https://github.com/castorini/honk](honk) For inspiration and model ideas
 - Peter Warden for releasing the Speech Command Dataset
+-  The library uses [https://github.com/mborgerding/kissfft](kissfft)
 

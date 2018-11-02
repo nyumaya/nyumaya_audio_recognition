@@ -1,0 +1,41 @@
+/media/anon/data_test/tmp/speech_commands_subset_conv-conv-big/best/conv-conv-big.tflite
+Accuracy clean 
+Sens: 0.1 Accuracy: 0.7861198738170347
+Sens: 0.2 Accuracy: 0.8312302839116719
+Sens: 0.3 Accuracy: 0.8621451104100947
+Sens: 0.4 Accuracy: 0.917981072555205
+Sens: 0.5 Accuracy: 0.9296529968454259
+Sens: 0.6 Accuracy: 0.9362776025236593
+Sens: 0.7 Accuracy: 0.9416403785488959
+Sens: 0.8 Accuracy: 0.9435331230283912
+Sens: 0.9 Accuracy: 0.826813880126183
+Sens: 0.95 Accuracy: 0.819242902208202
+Sens: 0.99 Accuracy: 0.8041009463722397
+
+
+Accuracy noisy 
+Sens: 0.1 Accuracy: 0.7003154574132492
+Sens: 0.2 Accuracy: 0.7454258675078864
+Sens: 0.3 Accuracy: 0.7785488958990536
+Sens: 0.4 Accuracy: 0.8599369085173502
+Sens: 0.5 Accuracy: 0.8719242902208202
+Sens: 0.6 Accuracy: 0.8807570977917981
+Sens: 0.7 Accuracy: 0.8848580441640379
+Sens: 0.8 Accuracy: 0.8917981072555206
+Sens: 0.9 Accuracy: 0.7908517350157729
+Sens: 0.95 Accuracy: 0.7867507886435331
+Sens: 0.99 Accuracy: 0.7794952681388012
+
+
+False predictions per hour
+Sens: 0.1 False Per Hour: 7.901357537027152
+Sens: 0.2 False Per Hour: 13.408364305258162
+Sens: 0.3 False Per Hour: 17.957630765970787
+Sens: 0.4 False Per Hour: 69.67560737196658
+Sens: 0.5 False Per Hour: 85.71775752290054
+Sens: 0.6 False Per Hour: 99.36555690503829
+Sens: 0.7 False Per Hour: 113.73166151781523
+Sens: 0.8 False Per Hour: 124.50623997739746
+Sens: 0.9 False Per Hour: 228.66049842002803
+Sens: 0.95 False Per Hour: 384.05386331489575
+Sens: 0.99 False Per Hour: 515.2642854449216

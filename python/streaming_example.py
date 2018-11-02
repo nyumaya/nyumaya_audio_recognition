@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--graph', type=str,
-		default='../../nyumaya_audio_recognition_models/Hotword/marvin_small.tflite',
+		default='../models/Hotword/sheila_big.tflite',
 		help='Model to use for identification.')
 
 	parser.add_argument(
@@ -53,12 +53,12 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--labels', type=str,
-		default='../../nyumaya_audio_recognition_models/Hotword/marvin_labels.txt',
+		default='../models/Hotword/marvin_labels.txt',
 		help='Path to file containing labels.')
 
 	parser.add_argument(
 		'--sens', type=float,
-		default='0.5',
+                default='0.05',
 		help='Sensitivity for detection')
 
 	FLAGS, unparsed = parser.parse_known_args()

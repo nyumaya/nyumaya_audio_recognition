@@ -9,14 +9,14 @@ from record import AudiostreamSource
 from record import RingBuffer
 
 libpath = "../lib/linux/libnyumaya.so"
-hotword_graph="../../nyumaya_audio_recognition_models/Hotword/marvin_small.tflite"
-hotword_labels="../../nyumaya_audio_recognition_models/Hotword/marvin_labels.txt"
+hotword_graph="../models/Hotword/marvin_small.tflite"
+hotword_labels="../models/Hotword/marvin_labels.txt"
 
-numbers_graph="../../nyumaya_audio_recognition_models/Command/numbers_big.tfile"
-numbers_labels="../../nyumaya_audio_recognition_models/Command/numbers_labels.txt"
+numbers_graph="../models/Command/numbers_small.tfile"
+numbers_labels="../models/Command/numbers_labels.txt"
 
-action_graph="../../nyumaya_audio_recognition_models/Command/subset_big.tflite"
-action_labels="../../nyumaya_audio_recognition_models/Command/subset_labels.txt"
+action_graph="../models/Command/subset_small.tflite"
+action_labels="../models/Command/subset_labels.txt"
 
 
 
@@ -33,7 +33,7 @@ def label_stream():
 	#action_detector = hotword_detector
 
 	hotword_detector.SetSensitivity(0.5)
-	action_detector.SetSensitivity(0.95)
+	action_detector.SetSensitivity(0.55)
 	bufsize = hotword_detector.GetInputDataSize()
 	audio_stream.start()
 

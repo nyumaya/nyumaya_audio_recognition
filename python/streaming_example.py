@@ -58,7 +58,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--sens', type=float,
-                default='0.05',
+                default='0.5',
 		help='Sensitivity for detection')
 
 	FLAGS, unparsed = parser.parse_known_args()

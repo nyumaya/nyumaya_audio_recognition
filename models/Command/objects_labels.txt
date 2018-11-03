@@ -1,0 +1,10 @@
+_unknown_
+music
+radio
+television
+door
+water
+computer
+temperature
+light
+house

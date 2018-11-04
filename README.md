@@ -38,11 +38,13 @@ For each application, different model architectures are available which are a tr
 
 
 ## Applications:
-- Speech_commands_subset (yes,no,up,down,left,right,on,off,stop,follow,play)
-- Speech_commands_numbers (one,two,three,four,five,six,seven,eight,nine,zero)
+- Command Subset (yes,no,up,down,left,right,on,off,stop,follow,play)
+- Command Numbers (one,two,three,four,five,six,seven,eight,nine,zero)
+- Command Objects (music,radio,television,door,water,computer,temperature,light,house)
 - German_commands(an,aus,computer,ein,fernseher,garage,jalousie,licht,musik,oeffnen,radio,rollo,schließen,start,stopp)
-- Marvin_hotword (marvin)
-- Sheila_hotword (sheila)
+- Marvin Hotword (marvin)
+- Sheila Hotword (sheila)
+- Marvin Sheila Hotword (marvin,sheila)
 - Voice-gender (female,male,nospeech)
 - Baby-monitor (cry, babble, door-open, music, glass-break, footsteps, fire-alarm)
 - Impulse-response (Play tone and interpret echo: Bedroom, Kitchen, Bathroom, Outdoor, Hall, Living Room, Basement)
@@ -57,9 +59,23 @@ For each application, different model architectures are available which are a tr
 ## Pretrained models:
 - Marvin Hotword
 - Sheila Hotword
-- Command Subet
+- Marvin-Sheila Hotword
+- Command Subset
 - Command Numbers
+- Command Objects (quality is not good yet)
 
+## Chaining Commands
+
+The multi_streaming_example.py should give you a starting point when chaining commands <marvin><start>.
+
+## Compiling the library for your own target:
+
+The source code for building the library can be found [https://github.com/nyumaya/nyumaya_audio_recognition_lib](here).
+You will most likely have to modify the CMakeLists.txt 
+
+In order to run the example code on a system wihout arecord you have to create your own recorder. A cross-platform library like python-sounddevice might help. 
+
+You might have to modify the python bindings.
 
 ## Roadmap:
 - [x] Basic working models
@@ -79,4 +95,3 @@ For each application, different model architectures are available which are a tr
 - [https://github.com/castorini/honk](honk) For inspiration and model ideas
 - Peter Warden for releasing the Speech Command Dataset
 -  The library uses [https://github.com/mborgerding/kissfft](kissfft)
-

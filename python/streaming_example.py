@@ -6,7 +6,7 @@ import datetime
 
 from libnyumaya import AudioRecognition
 from record import AudiostreamSource
-from record import RingBuffer
+
 
 def label_stream(labels,libpath ,graph,sensitivity):
 

@@ -11,7 +11,7 @@ from record import RingBuffer
 def label_stream(labels,libpath ,graph,sensitivity):
 
 	audio_stream = AudiostreamSource()
-	detector = AudioRecognition(libpath,graph)
+	detector = AudioRecognition(libpath,graph,labels)
 
 	detector.SetSensitivity(sensitivity)
 	bufsize = detector.GetInputDataSize()
@@ -30,7 +30,7 @@ def label_stream(labels,libpath ,graph,sensitivity):
 
 			if(prediction):
 				now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
-				print(str(prediction) + " " + now)
+				print(detector.GetPredictionLabel(prediction) + " " + now)
 				os.system("aplay ./ding.wav")
 
 	except KeyboardInterrupt:

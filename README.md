@@ -71,6 +71,11 @@ If your microphone has a DC-Offset (SPH0645) you can enable the option to remove
 detector.RemoveDC(True)
 ```
 
+You can run the audio_check script to get some info about your volume level and possible DC-Offset. Speak as loud as the maximum expected volume will be.
+```
+python check_audio.py
+```
+
 ## Chaining Commands
 
 The multi_streaming_example.py should give you a starting point when chaining commands <marvin><start>.

@@ -63,7 +63,7 @@ print("Mean Level: " + str(mean))
 print("Possible Gain: " + str(possible_gain))
 
 
-if(mean < 30):
+if(avg_level/(abs(mean)+1) > 10):
 	print("Your Mic has no DC-offset")
 else:
 	print("Your Mic has a DC-offset: Enable the option detector.RemoveDC(True) for best accuracy!")

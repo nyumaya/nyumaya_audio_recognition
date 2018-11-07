@@ -22,6 +22,9 @@ class AudioRecognition(object):
 
 			AudioRecognition.lib.SetGain.argtypes = [c_void_p,c_float]
 			AudioRecognition.lib.SetGain.restype = None
+			
+			AudioRecognition.lib.RemoveDC.argtypes = [c_void_p,c_bool]
+			AudioRecognition.lib.RemoveDC.restype = None
 
 			AudioRecognition.lib.SetSensitivity.argtypes = [c_void_p,c_float]
 			AudioRecognition.lib.SetSensitivity.restype = None
@@ -56,6 +59,9 @@ class AudioRecognition(object):
 
 	def GetInputDataSize(self):
 		return AudioRecognition.lib.GetInputDataSize(self.obj)
+		
+	def RemoveDC(self,val):
+		AudioRecognition.lib.RemoveDC(self.obj,val)
 
 
 

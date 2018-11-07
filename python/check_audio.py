@@ -47,6 +47,8 @@ for i in range(2000):
 mean = frame_sum / frame_len
 avg_level = avg_sum / frame_len
 
+possible_gain = 32768 / max_level
+
 if(max_level == 0):
 	"I'm getting no signal at all!"
 	sys.exit(0)
@@ -57,6 +59,9 @@ print("Clippcount: " + str(clipcount) + " of " + str(frame_len) + " frames")
 print("If Clippcount is more than a few frames you have to reduce your volume")
 
 print("Mean Level: " + str(mean))
+
+print("Possible Gain: " + str(possible_gain))
+
 
 if(mean < 30):
 	print("Your Mic has no DC-offset")

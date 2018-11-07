@@ -64,6 +64,13 @@ For each application, different model architectures are available which are a tr
 - Command Numbers
 - Command Objects (quality is not good yet)
 
+## Audio Config
+
+If your microphone has a DC-Offset (SPH0645) you can enable the option to remove it in software:
+```
+detector.RemoveDC(True)
+```
+
 ## Chaining Commands
 
 The multi_streaming_example.py should give you a starting point when chaining commands <marvin><start>.

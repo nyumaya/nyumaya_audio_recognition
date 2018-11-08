@@ -1,9 +1,5 @@
 # Detect simple voice commands and audio events on small embedded sytems like the PiZero.
-Classify audio with neural nets on embedded systems like the Raspberry Pi using Tensorflow. This should run on any Linux system fine, on other systems at least the recording implementation has to be changed.
-
-To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff. 
-
-If you need a special combination of audio classes or model architecture trained create an issue and I will try to prioritize or train it.
+Classify audio with neural nets on embedded systems like the Raspberry Pi using Tensorflow. This should run on any Linux system fine, on other platforms you might have to compile the library yourself.
 
 
 To run an example
@@ -32,8 +28,8 @@ python streaming_example.py --libpath ../lib/mac/libnyumaya.dylib
 ```
 
 
+The demo captures audio from the default microphone.
 
-The demo captures audio from the default microphone. The new version only takes .tflite models.
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
 ## Model Architectures
@@ -68,6 +64,8 @@ For each application, different model architectures are available which are a tr
 - Command Numbers
 - Command Objects (quality is not good yet)
 
+If you need a special combination of audio classes or model architecture trained create an issue and I will try to prioritize or train it. All models contain a result file wich describes the false positive/accuracy tradeoff. 
+
 ## Audio Config
 
 If your microphone has a DC-Offset (SPH0645) you can enable the option to remove it in software:
@@ -82,14 +80,25 @@ python check_audio.py
 
 ## Chaining Commands
 
-The multi_streaming_example.py should give you a starting point when chaining commands <marvin><start>.
+The multi_streaming_example.py is a demo of how to chain commands.
+You can add commands with a list of words and function to call when the command is detected.
+```
+mDetector.add_command("marvin,on",light_on)
+mDetector.add_command("marvin,stop",stop)
+```
+Be aware that CPU usage increases when multiple models have to run concurrently. I this case the software has to run
+the marvin_model (marvin) and the subset_model (stop) at the same time.
+```
+mDetector.add_command("marvin,on",light_on)
+mDetector.add_command("stop",stop)
+```
 
 ## Compiling the library for your own target:
 
 The source code for building the library can be found [https://github.com/nyumaya/nyumaya_audio_recognition_lib](here).
 You will most likely have to modify the CMakeLists.txt 
 
-In order to run the example code on a system wihout arecord you have to create your own recorder. A cross-platform library like python-sounddevice might help. 
+In order to run the example code on a non linux system you can use change the example code to include cross_record instead of record.
 
 You might have to modify the python bindings.
 

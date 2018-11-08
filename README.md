@@ -1,7 +1,7 @@
 # Detect simple voice commands and audio events on small embedded sytems like the PiZero.
 Classify audio with neural nets on embedded systems like the Raspberry Pi using Tensorflow. This should run on any Linux system fine, on other systems at least the recording implementation has to be changed.
 
-To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff. 
+To run the demo you have to download at least one of the models and provide the path to the label and graph file. Currently you can change the sensitivity in streaming_example.py. All models contain a result file wich describes the false positive/accuracy tradeoff.
 
 If you need a special combination of audio classes or model architecture trained create an issue and I will try to prioritize or train it.
 
@@ -10,7 +10,7 @@ To run an example
 
 ```
 git clone --depth 1 https://github.com/nyumaya/nyumaya_audio_recognition.git
-cd nyumaya_audio_recognition/python 
+cd nyumaya_audio_recognition/python
 ```
 For Raspberry Pi 2/3
 ```
@@ -26,6 +26,10 @@ For Linux
 python streaming_example.py --libpath ../lib/linux/libnyumaya.so
 ```
 
+For Mac
+```
+python streaming_example.py --libpath ../lib/mac/libnyumaya.dylib
+```
 
 
 
@@ -83,9 +87,9 @@ The multi_streaming_example.py should give you a starting point when chaining co
 ## Compiling the library for your own target:
 
 The source code for building the library can be found [https://github.com/nyumaya/nyumaya_audio_recognition_lib](here).
-You will most likely have to modify the CMakeLists.txt 
+You will most likely have to modify the CMakeLists.txt
 
-In order to run the example code on a system wihout arecord you have to create your own recorder. A cross-platform library like python-sounddevice might help. 
+In order to run the example code on a system wihout arecord you have to create your own recorder. A cross-platform library like python-sounddevice might help.
 
 You might have to modify the python bindings.
 
@@ -100,7 +104,7 @@ You might have to modify the python bindings.
 - [ ] Provide TensorflowLite and TensorflowJS models
 - [ ] Web demo
 - [ ] Improve Architectures (including RNN and Attention)
-- [ ] More Applications 
+- [ ] More Applications
 
 
 ## Credits:

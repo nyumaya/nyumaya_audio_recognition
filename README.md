@@ -86,7 +86,8 @@ You can add commands with a list of words and function to call when the command 
 mDetector.add_command("marvin,on",light_on)
 mDetector.add_command("marvin,stop",stop)
 ```
-Be aware that CPU usage increases when multiple models have to run concurrently:
+Be aware that CPU usage increases when multiple models have to run concurrently. I this case the software has to run
+the marvin_model (marvin) and the subset_model (stop) at the same time.
 ```
 mDetector.add_command("marvin,on",light_on)
 mDetector.add_command("stop",stop)

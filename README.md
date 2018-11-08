@@ -26,6 +26,10 @@ For Linux
 python streaming_example.py --libpath ../lib/linux/libnyumaya.so
 ```
 
+For Mac
+```
+python streaming_example.py --libpath ../lib/mac/libnyumaya.dylib
+```
 
 
 

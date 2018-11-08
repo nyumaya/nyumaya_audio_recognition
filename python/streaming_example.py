@@ -3,9 +3,10 @@ import os
 import argparse
 import sys
 import datetime
+import platform
 
 from libnyumaya import AudioRecognition
-from record import AudiostreamSource
+from cross_record import AudiostreamSource
 
 
 def label_stream(labels,libpath ,graph,sensitivity):
@@ -15,6 +16,8 @@ def label_stream(labels,libpath ,graph,sensitivity):
 
 	detector.SetSensitivity(sensitivity)
 	bufsize = detector.GetInputDataSize()
+
+	play_command = "play -q" if platform.system() == "Darwin" else "aplay"
 
 	print("Audio Recognition Version: " + detector.GetVersionString())
 
@@ -31,7 +34,7 @@ def label_stream(labels,libpath ,graph,sensitivity):
 			if(prediction):
 				now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
 				print(detector.GetPredictionLabel(prediction) + " " + now)
-				os.system("aplay ./ding.wav")
+				os.system(play_command + " ./ding.wav")
 
 	except KeyboardInterrupt:
 		print("Terminating")
@@ -64,4 +67,3 @@ if __name__ == '__main__':
 	FLAGS, unparsed = parser.parse_known_args()
 
 	label_stream(FLAGS.labels,FLAGS.libpath, FLAGS.graph, FLAGS.sens)
-

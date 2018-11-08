@@ -19,6 +19,9 @@ def label_stream(labels,libpath ,graph,sensitivity):
 	detector = AudioRecognition(libpath,graph,labels)
 
 	detector.SetSensitivity(sensitivity)
+	detector.SetGain(1)
+	detector.RemoveDC(False)
+	
 	bufsize = detector.GetInputDataSize()
 
 	play_command = "play -q" if platform.system() == "Darwin" else "aplay"

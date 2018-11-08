@@ -33,6 +33,9 @@ def label_stream(libpath):
 	mDetector.add_detector(action_graph,action_labels,0.8)
 	mDetector.add_detector(hotword_graph,hotword_labels,0.5)
 	
+	mDetector.SetGain(1)
+	mDetector.RemoveDC(False)
+	
 	mDetector.add_command("marvin,on",light_on)
 	mDetector.add_command("marvin,off",light_off)
 	mDetector.add_command("stop",stop)

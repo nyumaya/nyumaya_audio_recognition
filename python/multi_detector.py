@@ -51,6 +51,15 @@ class MultiDetector():
 						detectors.append(detector)
 		return detectors
 
+	def SetGain(self,value):
+		for detector in self.detectors:
+			detector.SetGain(value)
+
+
+	def RemoveDC(self,value):
+		for detector in self.detectors:
+			detector.RemoveDC(value)
+
 
 	def command_starts_with_history(self,cmd,history):
 		index = 0

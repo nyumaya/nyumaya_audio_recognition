@@ -4,40 +4,45 @@ import argparse
 import sys
 import datetime
 
-from libnyumaya import AudioRecognition
+from multi_detector import MultiDetector
 from record import AudiostreamSource
-from record import RingBuffer
 
-libpath = "../lib/linux/libnyumaya.so"
 hotword_graph="../models/Hotword/marvin_small.tflite"
 hotword_labels="../models/Hotword/marvin_labels.txt"
 
-numbers_graph="../models/Command/numbers_small.tfile"
-numbers_labels="../models/Command/numbers_labels.txt"
 
 action_graph="../models/Command/subset_small.tflite"
 action_labels="../models/Command/subset_labels.txt"
 
 
 
-def label_stream():
+def light_on():
+	print("Turning light on")
 
-	hotword_detected = False
-	countdown = 0
+def light_off():
+	print("Turning light off")
 
+def stop():
+	print("Stopping")
+
+
+def label_stream(libpath):
+	
+	mDetector = MultiDetector(libpath,timeout=20)
+	
+	mDetector.add_detector(action_graph,action_labels,0.8)
+	mDetector.add_detector(hotword_graph,hotword_labels,0.5)
+	
+	mDetector.add_command("marvin,on",light_on)
+	mDetector.add_command("marvin,off",light_off)
+	mDetector.add_command("stop",stop)
+
+	bufsize = mDetector.GetInputDataSize()
+	
 	audio_stream = AudiostreamSource()
 
-	action_detector = AudioRecognition(libpath,action_graph,action_labels)
-	hotword_detector = AudioRecognition(libpath,hotword_graph,hotword_labels)
-	#
-	#action_detector = hotword_detector
-
-	hotword_detector.SetSensitivity(0.5)
-	action_detector.SetSensitivity(0.55)
-	bufsize = hotword_detector.GetInputDataSize()
 	audio_stream.start()
 
-	print("Audio Recognition Version: " + hotword_detector.GetVersionString())
 	try:
 		while(True):
 			frame = audio_stream.read(bufsize,bufsize)
@@ -46,34 +51,26 @@ def label_stream():
 				time.sleep(0.01)
 				continue
 
-
-			if(countdown > 0):
-				countdown -= 1
-				if(countdown == 0):
-					hotword_detected = False
-					print("Stopped Listening")
-
-			if(not hotword_detected):
-				prediction = hotword_detector.RunDetection(frame)
-				if(prediction):
-					hotword_detected = True
-					countdown = 20
-					now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
-					print("Listening")
-			else:
-				prediction = action_detector.RunDetection(frame)
-				if(prediction):
-					print("Got Action: " + action_detector.GetPredictionLabel(prediction))
-					countdown = 0
-					hotword_detected = False
-
-
+			mDetector.run_frame(frame)
 
 	except KeyboardInterrupt:
 		print("Terminating")
 		audio_stream.stop()
 		sys.exit(0)
 
+
 if __name__ == '__main__':
-	label_stream()
+	parser = argparse.ArgumentParser()
+
+
+	parser.add_argument(
+		'--libpath', type=str,
+		default='../lib/linux/libnyumaya.so',
+		help='Path to Platform specific nyumaya_lib.')
+
+
+
+	FLAGS, unparsed = parser.parse_known_args()
+
+	label_stream(FLAGS.libpath)
 

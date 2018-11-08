@@ -6,7 +6,11 @@ import datetime
 import platform
 
 from libnyumaya import AudioRecognition
-from cross_record import AudiostreamSource
+
+if platform.system() == "Darwin":
+	from cross_record import AudiostreamSource
+else:
+	from record import AudiostreamSource
 
 
 def label_stream(labels,libpath ,graph,sensitivity):

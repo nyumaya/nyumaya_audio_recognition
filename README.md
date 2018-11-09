@@ -38,7 +38,7 @@ For each application, different model architectures are available which are a tr
 
 ## Applications 
 
-I compiled a list of project ideas [https://nyumaya.com/12-project-ideas-for-audio-machine-learning/](here)
+I compiled a list of project ideas [here](https://nyumaya.com/project-ideas-for-audio-machine-learning/)
 
 ## Models:
 - Command Subset (yes,no,up,down,left,right,on,off,stop,follow,play)
@@ -98,7 +98,7 @@ mDetector.add_command("stop",stop)
 
 ## Compiling the library for your own target:
 
-The source code for building the library can be found [https://github.com/nyumaya/nyumaya_audio_recognition_lib](here).
+The source code for building the library can be found [here](https://github.com/nyumaya/nyumaya_audio_recognition_lib).
 You will most likely have to modify the CMakeLists.txt 
 
 In order to run the example code on a non linux system you can use change the example code to include cross_record instead of record.
@@ -120,6 +120,6 @@ You might have to modify the python bindings.
 
 
 ## Credits:
-- [https://github.com/castorini/honk](honk) For inspiration and model ideas
+- [honk](https://github.com/castorini/honk) For inspiration and model ideas
 - Peter Warden for releasing the Speech Command Dataset
--  The library uses [https://github.com/mborgerding/kissfft](kissfft)
+-  The library uses [kissfft](https://github.com/mborgerding/kissfft)

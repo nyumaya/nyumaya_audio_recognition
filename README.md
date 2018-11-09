@@ -36,8 +36,11 @@ For each application, different model architectures are available which are a tr
 - Small model  (CPU Pi0: 20% CPU Pi3 one core: 12%)
 - Big model    (CPU Pi0: 95% CPU Pi3 one core: 20%)
 
+## Applications 
 
-## Applications:
+I compiled a list of project ideas [https://nyumaya.com/12-project-ideas-for-audio-machine-learning/](here)
+
+## Models:
 - Command Subset (yes,no,up,down,left,right,on,off,stop,follow,play)
 - Command Numbers (one,two,three,four,five,six,seven,eight,nine,zero)
 - Command Objects (music,radio,television,door,water,computer,temperature,light,house)

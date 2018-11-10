@@ -3,6 +3,7 @@ import os
 import argparse
 import sys
 import datetime
+import platform
 
 from multi_detector import MultiDetector
 if platform.system() == "Darwin":

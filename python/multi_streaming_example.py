@@ -5,8 +5,11 @@ import sys
 import datetime
 
 from multi_detector import MultiDetector
-from record import AudiostreamSource
-
+if platform.system() == "Darwin":
+	from cross_record import AudiostreamSource
+else:
+	from record import AudiostreamSource
+	
 hotword_graph="../models/Hotword/marvin_small.tflite"
 hotword_labels="../models/Hotword/marvin_labels.txt"
 

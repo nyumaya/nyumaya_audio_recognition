@@ -29,8 +29,9 @@ python streaming_example.py --libpath ../lib/mac/libnyumaya.dylib
 
 
 The demo captures audio from the default microphone.
-
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
+
+
 
 ## Model Architectures
 - Small model  (CPU Pi0: 20% CPU Pi3 one core: 12%)
@@ -68,6 +69,12 @@ I compiled a list of project ideas [here](https://nyumaya.com/project-ideas-for-
 - Command Objects (quality is not good yet)
 
 If you need a special combination of audio classes or model architecture trained create an issue and I will try to prioritize or train it. All models contain a result file wich describes the false positive/accuracy tradeoff. 
+
+## Sensitivity
+
+The sensitivity parameter is a tradeoff between accuracy and false positives. Setting the sensitivity to a high value means it's easier to trigger the hotword. If you experience a lot of false detections, set the sensitivity to a lower value. 
+
+All models have a corresponding result.txt file where the test results are captured. A False predictions per hour value of 0 doesn't mean that no false prediction will ever occur. It just means that during the test (~5 hours of audio, mostly speech) no false prediction occured.
 
 ## Audio Config
 

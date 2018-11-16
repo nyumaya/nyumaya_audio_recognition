@@ -69,7 +69,9 @@ if __name__ == '__main__':
 	parser.add_argument(
 		'--sens', type=float,
                 default='0.5',
-		help='Sensitivity for detection')
+		help='Sensitivity for detection. A lower value means more sensitivity, for example,'
+		     '0.1 will lead to less false positives, but will also be harder to trigger.'
+		     '0.9 will make it easier to trigger, but lead to more false positives')
 
 	FLAGS, unparsed = parser.parse_known_args()
 

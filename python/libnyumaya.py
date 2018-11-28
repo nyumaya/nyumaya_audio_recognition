@@ -32,6 +32,9 @@ class AudioRecognition(object):
 			AudioRecognition.lib.RunDetection.argtypes = [c_void_p, POINTER(c_int16),c_int]
 			AudioRecognition.lib.RunDetection.restype = c_int
 
+			AudioRecognition.lib.RunMelDetection.argtypes = [c_void_p, POINTER(c_float),c_int]
+			AudioRecognition.lib.RunMelDetection.restype = c_int
+
 		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath.encode('ascii'))
 
 		if(label_path):
@@ -40,8 +43,15 @@ class AudioRecognition(object):
 	def RunDetection(self,data):
 		datalen = int(len(data)/2)
 		pcm = c_int16 * datalen	
-		pcmdata = pcm.from_buffer(data)
+		pcmdata = pcm.from_buffer_copy(data)
 		prediction = AudioRecognition.lib.RunDetection(self.obj,pcmdata,datalen)
+		return prediction
+		
+	def RunMelDetection(self,data):
+		datalen = len(data)
+		pcm = c_float * datalen	
+		pcmdata = pcm.from_buffer_copy(data)
+		prediction = AudioRecognition.lib.RunMelDetection(self.obj,pcmdata,datalen)
 		return prediction
 
 	def GetPredictionLabel(self,index):
@@ -62,8 +72,6 @@ class AudioRecognition(object):
 		
 	def RemoveDC(self,val):
 		AudioRecognition.lib.RemoveDC(self.obj,val)
-
-
 
 	def _load_labels(self,filename):
 		with open(filename,'r') as f:  
@@ -110,6 +118,9 @@ class FeatureExtractor(object):
 
 	def __init__(self,libpath,nfft=512,melcount=40,sample_rate=16000,lowerf=20,upperf=8000,window_len=0.03,shift=0.01):
 
+		self.melcount = melcount
+		self.shift =  sample_rate*shift
+		
 		if (not FeatureExtractor.lib):
 			FeatureExtractor.lib = cdll.LoadLibrary(libpath)
 		
@@ -130,12 +141,19 @@ class FeatureExtractor(object):
 		datalen = int(len(data))
 		pcm = c_int16 * datalen	
 		pcmdata = pcm.from_buffer_copy(data)
-	
-		#FIXME Ugly oversized magic number
-		mellen = 40*98
-		result = (c_float * mellen)()
+
+		number_of_frames = int(datalen / self.shift);
+		melsize = self.melcount*number_of_frames
+		
+		result = (c_float * melsize)()
 
 		reslen = FeatureExtractor.lib.signal_to_mel(self.obj,pcmdata,datalen,result,gain)
+		
+		if(reslen != melsize):
+			print("Bad: melsize mismatch")
+			print("Expected: " + str(melsize))
+			print("Got: " + str(reslen))
+		
 		re = [result[i] for i in range(reslen)]
 		return re
 

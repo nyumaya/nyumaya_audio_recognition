@@ -36,6 +36,9 @@ class AudioRecognition(object):
 			AudioRecognition.lib.RunMelDetection.restype = c_int
 
 		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath.encode('ascii'))
+		
+		if self.GetVersionString() != "0.0.3":
+			print("Your library version is not compatible with this API")
 
 		if(label_path):
 			self.labels_list = self._load_labels(label_path)

@@ -20,20 +20,11 @@ class AudioRecognition(object):
 			AudioRecognition.lib.GetInputDataSize.argtypes = [c_void_p]
 			AudioRecognition.lib.GetInputDataSize.restype = c_size_t
 
-			AudioRecognition.lib.SetGain.argtypes = [c_void_p,c_float]
-			AudioRecognition.lib.SetGain.restype = None
-			
-			AudioRecognition.lib.RemoveDC.argtypes = [c_void_p,c_bool]
-			AudioRecognition.lib.RemoveDC.restype = None
-
 			AudioRecognition.lib.SetSensitivity.argtypes = [c_void_p,c_float]
 			AudioRecognition.lib.SetSensitivity.restype = None
 
-			AudioRecognition.lib.RunDetection.argtypes = [c_void_p, POINTER(c_int16),c_int]
+			AudioRecognition.lib.RunDetection.argtypes = [c_void_p, POINTER(c_int8),c_int]
 			AudioRecognition.lib.RunDetection.restype = c_int
-
-			AudioRecognition.lib.RunMelDetection.argtypes = [c_void_p, POINTER(c_float),c_int]
-			AudioRecognition.lib.RunMelDetection.restype = c_int
 
 		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath.encode('ascii'))
 		
@@ -45,24 +36,18 @@ class AudioRecognition(object):
 
 	def RunDetection(self,data):
 		datalen = int(len(data)/2)
-		pcm = c_int16 * datalen	
+		pcm = c_int8 * datalen	
 		pcmdata = pcm.from_buffer_copy(data)
 		prediction = AudioRecognition.lib.RunDetection(self.obj,pcmdata,datalen)
 		return prediction
 		
-	def RunMelDetection(self,data):
-		datalen = len(data)
-		pcm = c_float * datalen	
-		pcmdata = pcm.from_buffer_copy(data)
-		prediction = AudioRecognition.lib.RunMelDetection(self.obj,pcmdata,datalen)
-		return prediction
 
 	def GetPredictionLabel(self,index):
 		if(self.labels_list):
 			return self.labels_list[index]
 		
 	def SetGain(self,gain):
-		AudioRecognition.lib.SetGain(self.obj,gain)
+		pass
 
 	def SetSensitivity(self,sens):
 		AudioRecognition.lib.SetSensitivity(self.obj,sens)
@@ -74,7 +59,7 @@ class AudioRecognition(object):
 		return AudioRecognition.lib.GetInputDataSize(self.obj)
 		
 	def RemoveDC(self,val):
-		AudioRecognition.lib.RemoveDC(self.obj,val)
+		pass
 
 	def _load_labels(self,filename):
 		with open(filename,'r') as f:  
@@ -95,7 +80,7 @@ class SpeakerVerification(object):
 			SpeakerVerification.lib.create_speaker_verification.argtypes = [c_char_p]
 			SpeakerVerification.lib.create_speaker_verification.restype = c_void_p
 
-			SpeakerVerification.lib.VerifySpeaker.argtypes = [c_void_p, POINTER(c_int16),c_int]
+			SpeakerVerification.lib.VerifySpeaker.argtypes = [c_void_p, POINTER(c_int8),c_int]
 			SpeakerVerification.lib.VerifySpeaker.restype =  POINTER(c_float)
 
 		self.obj=SpeakerVerification.lib.create_speaker_verification(modelpath.encode('ascii'))
@@ -103,7 +88,7 @@ class SpeakerVerification(object):
 
 	def VerifySpeaker(self,data):
 		datalen = int(len(data)/2)
-		pcm = c_int16 * datalen	
+		pcm = c_int8 * datalen	
 		pcmdata = pcm.from_buffer_copy(data)
 
 		prediction = SpeakerVerification.lib.VerifySpeaker(self.obj,pcmdata,datalen)
@@ -148,7 +133,7 @@ class FeatureExtractor(object):
 		number_of_frames = int(datalen / self.shift);
 		melsize = self.melcount*number_of_frames
 		
-		result = (c_float * melsize)()
+		result = (c_int8 * melsize)()
 
 		reslen = FeatureExtractor.lib.signal_to_mel(self.obj,pcmdata,datalen,result,gain)
 		

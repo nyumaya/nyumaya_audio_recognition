@@ -118,7 +118,7 @@ class FeatureExtractor(object):
 			FeatureExtractor.lib.get_melcount.argtypes = [c_void_p]
 			FeatureExtractor.lib.get_melcount.restype =  c_int
 
-			FeatureExtractor.lib.signal_to_mel.argtypes = [c_void_p, POINTER(c_int16),c_int,POINTER(c_float),c_float]
+			FeatureExtractor.lib.signal_to_mel.argtypes = [c_void_p, POINTER(c_int16),c_int,POINTER(c_uint8),c_float]
 			FeatureExtractor.lib.signal_to_mel.restype = c_int
 
 		self.obj=FeatureExtractor.lib.create_feature_extractor(nfft,melcount,sample_rate,lowerf,upperf,window_len,shift)
@@ -133,7 +133,7 @@ class FeatureExtractor(object):
 		number_of_frames = int(datalen / self.shift);
 		melsize = self.melcount*number_of_frames
 		
-		result = (c_int8 * melsize)()
+		result = (c_uint8 * melsize)()
 
 		reslen = FeatureExtractor.lib.signal_to_mel(self.obj,pcmdata,datalen,result,gain)
 		

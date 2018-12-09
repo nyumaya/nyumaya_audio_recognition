@@ -35,8 +35,8 @@ class AudioRecognition(object):
 			self.labels_list = self._load_labels(label_path)
 
 	def RunDetection(self,data):
-		datalen = int(len(data)/2)
-		pcm = c_int8 * datalen	
+		datalen = int(len(data))
+		pcm = c_int8 * datalen
 		pcmdata = pcm.from_buffer_copy(data)
 		prediction = AudioRecognition.lib.RunDetection(self.obj,pcmdata,datalen)
 		return prediction
@@ -87,8 +87,9 @@ class SpeakerVerification(object):
 
 
 	def VerifySpeaker(self,data):
-		datalen = int(len(data)/2)
-		pcm = c_int8 * datalen	
+		datalen = int(len(data))
+
+		pcm = c_int8 * datalen
 		pcmdata = pcm.from_buffer_copy(data)
 
 		prediction = SpeakerVerification.lib.VerifySpeaker(self.obj,pcmdata,datalen)
@@ -124,9 +125,10 @@ class FeatureExtractor(object):
 		self.obj=FeatureExtractor.lib.create_feature_extractor(nfft,melcount,sample_rate,lowerf,upperf,window_len,shift)
 
 
+	#Takes audio data in the form of bytes which are converted to int16
 	def signal_to_mel(self,data,gain=1):
 	
-		datalen = int(len(data))
+		datalen = int(len(data)/2)
 		pcm = c_int16 * datalen	
 		pcmdata = pcm.from_buffer_copy(data)
 
@@ -141,9 +143,9 @@ class FeatureExtractor(object):
 			print("Bad: melsize mismatch")
 			print("Expected: " + str(melsize))
 			print("Got: " + str(reslen))
-		
-		re = [result[i] for i in range(reslen)]
-		return re
+
+		return bytearray(result)
+
 
 	def get_melcount(self):
 		return FeatureExtractor.lib.get_melcount(self.obj)

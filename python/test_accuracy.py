@@ -14,7 +14,9 @@ from os.path import splitext
 from os.path import join
 
 from pydub import AudioSegment
-from libnyumaya import AudioRecognition
+
+from libnyumaya import AudioRecognition,FeatureExtractor
+
 from random import randint
 
 samplerate=16000
@@ -65,7 +67,7 @@ def get_cv_list(labels_list,cvcorpus_path):
 	return csvFileArray
 
 
-def run_good_predictions(detector,good_folder,noise_folders,add_noise,sensitivity):
+def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,sensitivity):
 
 	detector.SetSensitivity(sensitivity)
 	bufsize = detector.GetInputDataSize()
@@ -111,7 +113,8 @@ def run_good_predictions(detector,good_folder,noise_folders,add_noise,sensitivit
 		
 		for frame in splitdata:
 	
-			prediction = detector.RunDetection(frame)
+			features = extractor.signal_to_mel(frame)
+			prediction = detector.RunDetection(features)
 
 			if(prediction == 0):
 				continue
@@ -188,7 +191,7 @@ def get_random_file(file_list):
 	index  = randint(0,filelen-1)
 	return file_list[index]
 
-def run_bad_predictions(detector,cv_folder,bad_folders,sensitivity):
+def run_bad_predictions(detector,extractor,cv_folder,bad_folders,sensitivity):
 
 	detector.SetSensitivity(sensitivity)
 	bufsize = detector.GetInputDataSize()
@@ -220,7 +223,9 @@ def run_bad_predictions(detector,cv_folder,bad_folders,sensitivity):
 		for frame in splitdata:
 	
 			if(len(frame) == bufsize):
-				prediction = detector.RunDetection(frame)
+			
+				features = extractor.signal_to_mel(frame)
+				prediction = detector.RunDetection(features)
 
 				if(prediction):
 					false_predictions+= 1
@@ -257,6 +262,8 @@ if __name__ == '__main__':
 	sensitivities = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.95,0.99]
 
 	detector = AudioRecognition(FLAGS.libpath,FLAGS.graph,FLAGS.labels)
+	extractor = FeatureExtractor(FLAGS.libpath)
+		
 	addnoise = [False,True]
 	results_clean = []
 	results_noisy = []
@@ -265,7 +272,7 @@ if __name__ == '__main__':
 	for noise in addnoise:
 
 		for sensitivity in sensitivities:
-			wrong_predictions, good_predictions,missed_predictions,samples = run_good_predictions(detector,FLAGS.good_folder,FLAGS.noise_folders,noise,sensitivity)
+			wrong_predictions, good_predictions,missed_predictions,samples = run_good_predictions(detector,extractor,FLAGS.good_folder,FLAGS.noise_folders,noise,sensitivity)
 
 			result = {}
 			result["sensitivity"] = sensitivity
@@ -277,7 +284,7 @@ if __name__ == '__main__':
 			print("Sens: " + str(result["sensitivity"]) + " " + "Accuracy: " + str( result["accuracy"] ) )
 			
 	for sensitivity in sensitivities:
-		false_predictions = run_bad_predictions(detector,FLAGS.cv_folder,FLAGS.bad_folders,sensitivity)
+		false_predictions = run_bad_predictions(detector,extractor,FLAGS.cv_folder,FLAGS.bad_folders,sensitivity)
 		result = {}
 		result["sensitivity"] = sensitivity
 		result["false_predictions"] = false_predictions

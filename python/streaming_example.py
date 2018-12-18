@@ -33,7 +33,7 @@ def label_stream(labels,libpath ,graph,sensitivity):
 	audio_stream.start()
 	try:
 		while(True):
-			frame = audio_stream.read(bufsize,bufsize)
+			frame = audio_stream.read(bufsize*2,bufsize*2)
 			if(not frame):
 				time.sleep(0.01)
 				continue
@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--graph', type=str,
-		default='../models/Hotword/marvin_small_0.3.tflite',
+		default='../models/Hotword/sheila_small_0.3.tflite',
 		help='Model to use for identification.')
 
 	parser.add_argument(

@@ -23,9 +23,12 @@ class AudioRecognition(object):
 			AudioRecognition.lib.SetSensitivity.argtypes = [c_void_p,c_float]
 			AudioRecognition.lib.SetSensitivity.restype = None
 
-			AudioRecognition.lib.RunDetection.argtypes = [c_void_p, POINTER(c_int8),c_int]
+			AudioRecognition.lib.RunDetection.argtypes = [c_void_p, POINTER(c_uint8),c_int]
 			AudioRecognition.lib.RunDetection.restype = c_int
 
+			AudioRecognition.lib.RunRawDetection.argtypes = [c_void_p, POINTER(c_uint8),c_int]
+			AudioRecognition.lib.RunRawDetection.restype =  POINTER(c_int)
+			
 		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath.encode('ascii'))
 		
 		if self.GetVersionString() != "0.0.3":
@@ -36,9 +39,17 @@ class AudioRecognition(object):
 
 	def RunDetection(self,data):
 		datalen = int(len(data))
-		pcm = c_int8 * datalen
+		pcm = c_uint8 * datalen
 		pcmdata = pcm.from_buffer_copy(data)
 		prediction = AudioRecognition.lib.RunDetection(self.obj,pcmdata,datalen)
+		return prediction
+		
+
+	def RunRawDetection(self,data):
+		datalen = int(len(data))
+		pcm = c_uint8 * datalen
+		pcmdata = pcm.from_buffer_copy(data)
+		prediction = AudioRecognition.lib.RunRawDetection(self.obj,pcmdata,datalen)
 		return prediction
 		
 
@@ -80,7 +91,7 @@ class SpeakerVerification(object):
 			SpeakerVerification.lib.create_speaker_verification.argtypes = [c_char_p]
 			SpeakerVerification.lib.create_speaker_verification.restype = c_void_p
 
-			SpeakerVerification.lib.VerifySpeaker.argtypes = [c_void_p, POINTER(c_int8),c_int]
+			SpeakerVerification.lib.VerifySpeaker.argtypes = [c_void_p, POINTER(c_uint8),c_int]
 			SpeakerVerification.lib.VerifySpeaker.restype =  POINTER(c_float)
 
 		self.obj=SpeakerVerification.lib.create_speaker_verification(modelpath.encode('ascii'))
@@ -89,7 +100,7 @@ class SpeakerVerification(object):
 	def VerifySpeaker(self,data):
 		datalen = int(len(data))
 
-		pcm = c_int8 * datalen
+		pcm = c_uint8 * datalen
 		pcmdata = pcm.from_buffer_copy(data)
 
 		prediction = SpeakerVerification.lib.VerifySpeaker(self.obj,pcmdata,datalen)
@@ -109,6 +120,7 @@ class FeatureExtractor(object):
 
 		self.melcount = melcount
 		self.shift =  sample_rate*shift
+		self.gain = 1
 		
 		if (not FeatureExtractor.lib):
 			FeatureExtractor.lib = cdll.LoadLibrary(libpath)
@@ -146,6 +158,8 @@ class FeatureExtractor(object):
 
 		return bytearray(result)
 
+	def SetGain(self,gain):
+		self.gain = gain
 
 	def get_melcount(self):
 		return FeatureExtractor.lib.get_melcount(self.obj)

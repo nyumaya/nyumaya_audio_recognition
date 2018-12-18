@@ -1,0 +1,35 @@
+/mnt/Data/tmp/marvin_hotword_conv-conv/best/conv-conv.tflite
+Accuracy clean 
+Sens: 0.1 Accuracy: 0.9649122807017544
+Sens: 0.2 Accuracy: 0.9707602339181287
+Sens: 0.3 Accuracy: 0.9707602339181287
+Sens: 0.4 Accuracy: 0.9824561403508771
+Sens: 0.5 Accuracy: 0.9824561403508771
+Sens: 0.6 Accuracy: 0.9824561403508771
+Sens: 0.7 Accuracy: 0.9824561403508771
+Sens: 0.8 Accuracy: 0.9883040935672515
+Sens: 0.9 Accuracy: 1.0
+
+
+Accuracy noisy 
+Sens: 0.1 Accuracy: 0.8771929824561404
+Sens: 0.2 Accuracy: 0.9181286549707602
+Sens: 0.3 Accuracy: 0.8888888888888888
+Sens: 0.4 Accuracy: 0.9181286549707602
+Sens: 0.5 Accuracy: 0.9473684210526316
+Sens: 0.6 Accuracy: 0.9590643274853801
+Sens: 0.7 Accuracy: 0.9707602339181287
+Sens: 0.8 Accuracy: 0.9473684210526316
+Sens: 0.9 Accuracy: 0.9766081871345029
+
+
+False predictions per hour
+Sens: 0.1 False Per Hour: 0.40195295542609544
+Sens: 0.2 False Per Hour: 0.40195295542609544
+Sens: 0.3 False Per Hour: 0.8039059108521909
+Sens: 0.4 False Per Hour: 4.823435465113145
+Sens: 0.5 False Per Hour: 5.627341375965336
+Sens: 0.6 False Per Hour: 7.03417671995667
+Sens: 0.7 False Per Hour: 8.240035586234956
+Sens: 0.8 False Per Hour: 10.048823885652386
+Sens: 0.9 False Per Hour: 20.901553682156962

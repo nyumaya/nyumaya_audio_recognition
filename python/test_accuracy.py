@@ -16,7 +16,7 @@ from os.path import join
 from pydub import AudioSegment
 
 from libnyumaya import AudioRecognition,FeatureExtractor
-
+import numpy as np
 from random import randint
 
 samplerate=16000
@@ -25,10 +25,18 @@ samplerate=16000
 def load_audio_file(filename,resize=False):
 	sound = None
 	try:
-		if filename.endswith('.mp3'):
+		if filename.endswith('.mp3') or filename.endswith('.MP3'):
 			sound = AudioSegment.from_mp3(filename)
-		elif filename.endswith('.wav'):
+		elif filename.endswith('.wav') or filename.endswith('.WAV'):
 			sound = AudioSegment.from_wav(filename)
+		elif filename.endswith('.ogg'):
+			sound = AudioSegment.from_ogg(filename)
+		elif filename.endswith('.flac'):
+			sound = AudioSegment.from_file(filename, "flac")
+		elif filename.endswith('.3gp'):
+			sound = AudioSegment.from_file(filename, "3gp")
+		elif filename.endswith('.3g'):
+			sound = AudioSegment.from_file(filename, "3gp")
 
 		sound = sound.set_frame_rate(samplerate)
 		sound = sound.set_channels(1)
@@ -38,6 +46,8 @@ def load_audio_file(filename,resize=False):
 		print("Couldn't load file")
 		return None,None
 		
+		
+	
 	return sound,duration
 
 
@@ -105,7 +115,11 @@ def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,
 
 		one_second_silence = AudioSegment.silent(duration=1000)
 		wavdata += one_second_silence
-		splitdata = split_sequence(wavdata.raw_data,bufsize)
+		
+		wavdata = wavdata.get_array_of_samples()
+		wavdata = np.asarray(wavdata, dtype = np.int16)
+	
+		splitdata = split_sequence(wavdata.tobytes(),bufsize*2)
 
 		sample_number += 1
 	
@@ -219,16 +233,22 @@ def run_bad_predictions(detector,extractor,cv_folder,bad_folders,sensitivity):
 			continue
 
 		seconds += duration
-		splitdata = split_sequence(wavdata.raw_data,bufsize)
+				
+		wavdata = wavdata.get_array_of_samples()
+		wavdata = np.asarray(wavdata, dtype = np.int16)
+	
+		splitdata = split_sequence(wavdata.tobytes(),bufsize*2)
+
 		for frame in splitdata:
 	
-			if(len(frame) == bufsize):
+			if(len(frame) == bufsize*2):
 			
 				features = extractor.signal_to_mel(frame)
 				prediction = detector.RunDetection(features)
 
 				if(prediction):
 					false_predictions+= 1
+
 
 	hours = seconds/3600.0
 	print("Ran hours: " + str(hours))
@@ -241,7 +261,7 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 
 	parser.add_argument(
-		'--graph', type=str, default='./conv-conv.tflite', help='Model to use for identification.')
+		'--graph', type=str, default='./models/Hotword/marvin_small_3.0.tflite', help='Model to use for identification.')
 	parser.add_argument(
 		'--labels', type=str, default='./labels.txt', help='Path to file containing labels.')
 	parser.add_argument(
@@ -259,7 +279,7 @@ if __name__ == '__main__':
 	FLAGS, unparsed = parser.parse_known_args()
 
 
-	sensitivities = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,0.95,0.99]
+	sensitivities = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
 
 	detector = AudioRecognition(FLAGS.libpath,FLAGS.graph,FLAGS.labels)
 	extractor = FeatureExtractor(FLAGS.libpath)
@@ -296,9 +316,15 @@ if __name__ == '__main__':
 		result_file.write(FLAGS.graph + "\n")
 
 		result_file.write("Accuracy clean \n")
+		
+		area_clean = 0
+		i=0
 		for result in results_clean:
 			result_file.write("Sens: " + str(result["sensitivity"]) + " " + "Accuracy: " + str( result["accuracy"] ) + "\n")
-
+			area_clean += (1-result["accuracy"]) * results_false[i]["false_predictions"]
+			i+=1 
+		print("Area clean:" + str(area_clean))
+			
 		result_file.write("\n\n")
 
 		result_file.write("Accuracy noisy \n")

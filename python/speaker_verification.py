@@ -4,9 +4,9 @@ import argparse
 import sys
 import datetime
 import platform
+import math
 
-from libnyumaya import AudioRecognition
-from libnyumaya import SpeakerVerification
+from libnyumaya import AudioRecognition,FeatureExtractor,SpeakerVerification
 
 if platform.system() == "Darwin":
 	from cross_record import AudiostreamSource
@@ -30,7 +30,7 @@ def get_averaged_fingerprint():
 		C.append(val)
 	return C
 
-import math
+
 def cosine_similarity(v1,v2):
 
 	sumxx, sumxy, sumyy = 0, 0, 0
@@ -55,12 +55,14 @@ def label_stream(labels,libpath,verification_path ,graph,sensitivity):
 	max_last_frames = 10
 
 	audio_stream = AudiostreamSource()
-	detector = AudioRecognition(libpath,graph,labels)
+
+	extractor = FeatureExtractor(libpath)
 	
-	verifiyer = SpeakerVerification(libpath,verification_path)
+	detector = AudioRecognition(libpath,graph,labels)
 	detector.SetSensitivity(sensitivity)
-	detector.SetGain(1)
-	detector.RemoveDC(False)
+
+	verifiyer = SpeakerVerification(libpath,verification_path)
+
 
 	bufsize = detector.GetInputDataSize()
 	
@@ -87,17 +89,19 @@ def label_stream(labels,libpath,verification_path ,graph,sensitivity):
 	audio_stream.start()
 	try:
 		while(True):
-			frame = audio_stream.read(bufsize,bufsize)
+			frame = audio_stream.read(bufsize*2,bufsize*2)
 			if(not frame):
 				time.sleep(0.01)
 				continue
 
 
-			last_frames.append(frame)
+			features = extractor.signal_to_mel(frame)
+
+			last_frames.append(features)
 			if len(last_frames) > max_last_frames:
 				last_frames.pop(0)
 
-			prediction = detector.RunDetection(frame)
+			prediction = detector.RunDetection(features)
 		
 			if(prediction):
 				now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
@@ -139,7 +143,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--graph', type=str,
-		default='../models/Hotword/marvin_small.tflite',
+		default='../models/Hotword/marvin_small_0.3.tflite',
 		help='Model to use for identification.')
 
 	parser.add_argument(

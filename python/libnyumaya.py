@@ -92,7 +92,7 @@ class SpeakerVerification(object):
 			SpeakerVerification.lib.create_speaker_verification.restype = c_void_p
 
 			SpeakerVerification.lib.VerifySpeaker.argtypes = [c_void_p, POINTER(c_uint8),c_int]
-			SpeakerVerification.lib.VerifySpeaker.restype =  POINTER(c_float)
+			SpeakerVerification.lib.VerifySpeaker.restype =  POINTER(c_uint8)
 
 		self.obj=SpeakerVerification.lib.create_speaker_verification(modelpath.encode('ascii'))
 
@@ -104,8 +104,8 @@ class SpeakerVerification(object):
 		pcmdata = pcm.from_buffer_copy(data)
 
 		prediction = SpeakerVerification.lib.VerifySpeaker(self.obj,pcmdata,datalen)
-		fingerprint_len = 128
-		result = (c_float * fingerprint_len)()
+		fingerprint_len = 512
+		result = (c_uint8 * fingerprint_len)()
 		re = [prediction[i] for i in range(fingerprint_len)]
 		return re
 

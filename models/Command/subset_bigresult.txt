@@ -1,0 +1,24 @@
+
+/mnt/Data/tmp/speech_commands_subset_conv-conv-big/best/conv-conv-big.tflite
+Accuracy clean 
+Sens: 0.5 Accuracy: 0.9255126658624849
+Sens: 0.6 Accuracy: 0.9330518697225573
+Sens: 0.7 Accuracy: 0.956875753920386
+Sens: 0.8 Accuracy: 0.9598914354644149
+Sens: 0.9 Accuracy: 0.9598914354644149
+
+
+Accuracy noisy 
+Sens: 0.5 Accuracy: 0.7910132689987938
+Sens: 0.6 Accuracy: 0.8054885404101326
+Sens: 0.7 Accuracy: 0.8455971049457177
+Sens: 0.8 Accuracy: 0.8664053075995175
+Sens: 0.9 Accuracy: 0.8887213510253318
+
+
+False predictions per hour
+Sens: 0.5 False Per Hour: 74.36774976620164
+Sens: 0.6 False Per Hour: 96.0065264540262
+Sens: 0.7 False Per Hour: 213.15438645362812
+Sens: 0.8 False Per Hour: 284.0400342240879
+Sens: 0.9 False Per Hour: 661.8481007620823

@@ -5,17 +5,19 @@ import sys
 import datetime
 import platform
 
+from libnyumaya import FeatureExtractor
 from multi_detector import MultiDetector
+
 if platform.system() == "Darwin":
 	from cross_record import AudiostreamSource
 else:
 	from record import AudiostreamSource
 	
-hotword_graph="../models/Hotword/marvin_small.tflite"
+hotword_graph="../models/Hotword/marvin_small_0.3.tflite"
 hotword_labels="../models/Hotword/marvin_labels.txt"
 
 
-action_graph="../models/Command/subset_small.tflite"
+action_graph="../models/Command/subset_small_0.3.tflite"
 action_labels="../models/Command/subset_labels.txt"
 
 
@@ -32,13 +34,12 @@ def stop():
 
 def label_stream(libpath):
 	
+	extractor = FeatureExtractor(libpath)
+
 	mDetector = MultiDetector(libpath,timeout=20)
 	
 	mDetector.add_detector(action_graph,action_labels,0.8)
 	mDetector.add_detector(hotword_graph,hotword_labels,0.5)
-	
-	mDetector.SetGain(1)
-	mDetector.RemoveDC(False)
 	
 	mDetector.add_command("marvin,on",light_on)
 	mDetector.add_command("marvin,off",light_off)
@@ -58,7 +59,8 @@ def label_stream(libpath):
 				time.sleep(0.01)
 				continue
 
-			mDetector.run_frame(frame)
+			features = extractor.signal_to_mel(frame)
+			mDetector.run_frame(features)
 
 	except KeyboardInterrupt:
 		print("Terminating")

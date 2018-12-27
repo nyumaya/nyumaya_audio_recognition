@@ -1,0 +1,24 @@
+
+/mnt/Data/tmp/baby_cry_conv-conv/best/conv-conv.tflite
+Accuracy clean 
+Sens: 0.5 Accuracy: 0.9710144927536232
+Sens: 0.6 Accuracy: 0.9855072463768116
+Sens: 0.7 Accuracy: 0.9855072463768116
+Sens: 0.8 Accuracy: 0.9927536231884058
+Sens: 0.9 Accuracy: 1.0
+
+
+Accuracy noisy 
+Sens: 0.5 Accuracy: 0.9202898550724637
+Sens: 0.6 Accuracy: 0.8768115942028986
+Sens: 0.7 Accuracy: 0.9420289855072463
+Sens: 0.8 Accuracy: 0.927536231884058
+Sens: 0.9 Accuracy: 0.9492753623188406
+
+
+False predictions per hour
+Sens: 0.5 False Per Hour: 15.475188783904674
+Sens: 0.6 False Per Hour: 16.480071172469913
+Sens: 0.7 False Per Hour: 24.318153803278776
+Sens: 0.8 False Per Hour: 29.94549517924411
+Sens: 0.9 False Per Hour: 53.258766593957645

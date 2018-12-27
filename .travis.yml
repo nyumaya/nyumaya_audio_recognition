@@ -1,0 +1,23 @@
+language: cpp
+
+
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+
+    - os: osx
+      osx_image: xcode10.1
+    
+    - os: osx
+      osx_image: xcode9.4
+      
+  allow_failures:
+    - os: windows
+
+
+
+script: 
+    - cd cpp
+    - cmake ./
+    - make 

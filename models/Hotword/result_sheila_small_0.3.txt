@@ -1,0 +1,35 @@
+/mnt/Data/tmp/sheila_hotword_conv-conv/best/conv-conv.tflite
+Accuracy clean 
+Sens: 0.1 Accuracy: 0.9863013698630136
+Sens: 0.2 Accuracy: 0.9863013698630136
+Sens: 0.3 Accuracy: 0.9931506849315068
+Sens: 0.4 Accuracy: 0.9931506849315068
+Sens: 0.5 Accuracy: 0.9931506849315068
+Sens: 0.6 Accuracy: 0.9931506849315068
+Sens: 0.7 Accuracy: 0.9931506849315068
+Sens: 0.8 Accuracy: 0.9931506849315068
+Sens: 0.9 Accuracy: 0.9931506849315068
+
+
+Accuracy noisy 
+Sens: 0.1 Accuracy: 0.821917808219178
+Sens: 0.2 Accuracy: 0.863013698630137
+Sens: 0.3 Accuracy: 0.8835616438356164
+Sens: 0.4 Accuracy: 0.9246575342465754
+Sens: 0.5 Accuracy: 0.910958904109589
+Sens: 0.6 Accuracy: 0.9246575342465754
+Sens: 0.7 Accuracy: 0.9315068493150684
+Sens: 0.8 Accuracy: 0.9589041095890412
+Sens: 0.9 Accuracy: 0.9657534246575342
+
+
+False predictions per hour
+Sens: 0.1 False Per Hour: 0.40195295542609544
+Sens: 0.2 False Per Hour: 0.6029294331391432
+Sens: 0.3 False Per Hour: 1.0048823885652385
+Sens: 0.4 False Per Hour: 4.42148250968705
+Sens: 0.5 False Per Hour: 5.2253884205392405
+Sens: 0.6 False Per Hour: 5.627341375965336
+Sens: 0.7 False Per Hour: 6.833200242243622
+Sens: 0.8 False Per Hour: 7.235153197669717
+Sens: 0.9 False Per Hour: 15.475188783904674

@@ -29,7 +29,7 @@ snd_pcm_t * open_soundcard(char*name)
 			 
 	if ((err = snd_pcm_hw_params_any (capture_handle, hw_params)) < 0) {
 		fprintf (stderr, "cannot initialize hardware parameter structure (%s)\n",snd_strerror (err));
-    	exit (1);
+		exit (1);
 	}
 
 
@@ -76,9 +76,12 @@ int main (int argc, char *argv[])
 {
 
 	//New Instance of Audio Recognizer
-	AudioRecognition *ar = new AudioRecognition(argv[2]);
-	int buffer_size = ar->GetInputDataSize();
-
+	AudioRecognitionImpl *audio_recognizer = create_audio_recognition(argv[2]);
+	SetSensitivity(audio_recognizer,0.5);
+	int buffer_size = GetInputDataSize(audio_recognizer);
+	
+	FeatureExtractor* feature_extractor = create_feature_extractor();
+	
 	//Open the default Soundcard
 	snd_pcm_t *capture_handle;
 	capture_handle = open_soundcard(argv[1]);
@@ -86,14 +89,20 @@ int main (int argc, char *argv[])
 	int err;
 	char *buffer = (char*) malloc(buffer_size);
 
+
 	while(true) 
 	{
 		if ((err = snd_pcm_readi (capture_handle, buffer, buffer_size/2)) !=  buffer_size/2) {
 			fprintf (stderr, "read from audio interface failed (%s)\n",err, snd_strerror (err));
 			exit (1);
 		}
-
-		int res = ar->RunDetection((int16_t*)buffer,buffer_size);
+		
+		uint8_t melfeatures[800];
+		
+		float gain = 1.0;
+		int mel_len = signal_to_mel(feature_extractor,(int16_t*)buffer,buffer_size/2,melfeatures,gain);
+		
+		int res = RunDetection(audio_recognizer,melfeatures,mel_len);
 
 		if(res != 0){
 			std::cout << "Keyword detected" << std::endl;

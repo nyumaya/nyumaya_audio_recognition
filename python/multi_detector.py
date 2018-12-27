@@ -55,14 +55,6 @@ class MultiDetector():
 						detectors.append(detector)
 		return detectors
 
-	def SetGain(self,value):
-		for detector in self.detectors:
-			detector.SetGain(value)
-
-
-	def RemoveDC(self,value):
-		for detector in self.detectors:
-			detector.RemoveDC(value)
 
 	def UpdateLastFrames(self,frame):
 		self.last_frames.append(frame)

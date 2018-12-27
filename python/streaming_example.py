@@ -5,7 +5,7 @@ import sys
 import datetime
 import platform
 
-from libnyumaya import AudioRecognition
+from libnyumaya import AudioRecognition,FeatureExtractor
 
 if platform.system() == "Darwin":
 	from cross_record import AudiostreamSource
@@ -16,11 +16,13 @@ else:
 def label_stream(labels,libpath ,graph,sensitivity):
 
 	audio_stream = AudiostreamSource()
-	detector = AudioRecognition(libpath,graph,labels)
 
+	extractor = FeatureExtractor(libpath)
+	#extractor.SetGain(1)
+	#extractor.RemoveDC(False)
+	
+	detector = AudioRecognition(libpath,graph,labels)
 	detector.SetSensitivity(sensitivity)
-	detector.SetGain(1)
-	detector.RemoveDC(False)
 	
 	bufsize = detector.GetInputDataSize()
 
@@ -31,12 +33,14 @@ def label_stream(labels,libpath ,graph,sensitivity):
 	audio_stream.start()
 	try:
 		while(True):
-			frame = audio_stream.read(bufsize,bufsize)
+			frame = audio_stream.read(bufsize*2,bufsize*2)
 			if(not frame):
 				time.sleep(0.01)
 				continue
 
-			prediction = detector.RunDetection(frame)
+			features = extractor.signal_to_mel(frame)
+			
+			prediction = detector.RunDetection(features)
 
 			if(prediction):
 				now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
@@ -53,7 +57,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--graph', type=str,
-		default='../models/Hotword/sheila_small.tflite',
+		default='../models/Hotword/sheila_small_0.3.tflite',
 		help='Model to use for identification.')
 
 	parser.add_argument(

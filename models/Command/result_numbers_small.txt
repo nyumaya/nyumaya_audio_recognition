@@ -1,0 +1,34 @@
+Accuracy clean 
+Sens: 0.1 Accuracy: 0.11027027027027025
+Sens: 0.2 Accuracy: 0.14965250965250965
+Sens: 0.3 Accuracy: 0.6262548262548262
+Sens: 0.4 Accuracy: 0.6676447876447876
+Sens: 0.5 Accuracy: 0.8395366795366795
+Sens: 0.6 Accuracy: 0.8611583011583012
+Sens: 0.7 Accuracy: 0.9187644787644788
+Sens: 0.8 Accuracy: 0.9334362934362934
+Sens: 0.9 Accuracy: 0.9558301158301158
+
+
+Accuracy noisy 
+Sens: 0.1 Accuracy: 0.06007722007722005
+Sens: 0.2 Accuracy: 0.08324324324324328
+Sens: 0.3 Accuracy: 0.42656370656370657
+Sens: 0.4 Accuracy: 0.45822393822393825
+Sens: 0.5 Accuracy: 0.6344401544401544
+Sens: 0.6 Accuracy: 0.6657915057915058
+Sens: 0.7 Accuracy: 0.7408494208494208
+Sens: 0.8 Accuracy: 0.7842471042471042
+Sens: 0.9 Accuracy: 0.8469498069498069
+
+
+False predictions per hour
+Sens: 0.1 False Per Hour: 0.2228789722604832
+Sens: 0.2 False Per Hour: 0.2228789722604832
+Sens: 0.3 False Per Hour: 3.788942528428214
+Sens: 0.4 False Per Hour: 6.463490195554012
+Sens: 0.5 False Per Hour: 34.10048275585393
+Sens: 0.6 False Per Hour: 47.25034211922244
+Sens: 0.7 False Per Hour: 127.70965110525687
+Sens: 0.8 False Per Hour: 190.11576333819215
+Sens: 0.9 False Per Hour: 543.824692315579

@@ -11,11 +11,13 @@ find_package(Threads REQUIRED)
 
 
 LINK_DIRECTORIES(../lib/linux)
+find_library(NYUMAYA_LIB NAMES libnyumaya nyumaya PATHS ../lib/linux)
+
 add_executable (arecord_sample arecord_sample.cpp)
 add_executable (dummy_sample dummy_sample.cpp )
 
-TARGET_LINK_LIBRARIES(dummy_sample  libnyumaya.so ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
-TARGET_LINK_LIBRARIES(arecord_sample  libnyumaya.so asound ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
+TARGET_LINK_LIBRARIES(dummy_sample  ${NYUMAYA_LIB} ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
+TARGET_LINK_LIBRARIES(arecord_sample  ${NYUMAYA_LIB}  asound ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS})
 
 
 target_include_directories(dummy_sample

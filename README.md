@@ -113,19 +113,6 @@ In order to run the example code on a non linux system you can use change the ex
 
 You might have to modify the python bindings.
 
-## Roadmap:
-- [x] Basic working models
-- [X] Average output predictions
-- [X] Benchmark accuracy and false recognition rate
-- [X] Noisy Benchmark, use more diverse test set (maby musan dataset)
-- [ ] Improve Far Field Recognition
-- [ ] Benchmark latency
-- [ ] Voice activity detection
-- [ ] Provide TensorflowLite and TensorflowJS models
-- [ ] Web demo
-- [ ] Improve Architectures (including RNN and Attention)
-- [ ] More Applications 
-
 
 ## Credits:
 - [honk](https://github.com/castorini/honk) For inspiration and model ideas

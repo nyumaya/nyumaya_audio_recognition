@@ -21,5 +21,6 @@ script:
     - cd cpp
     - cmake ./
     - cmake --build ./ --target dummy_sample
-    - ./dummy_sample ../models/Hotword/marvin_small_0.3.tflite 
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then DYLD_LIBRARY_PATH="/../lib/mac/" ./dummy_sample ../models/Hotword/marvin_small_0.3.tflite  ; fi
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./dummy_sample ../models/Hotword/marvin_small_0.3.tflite  ; fi
 

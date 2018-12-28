@@ -11,11 +11,13 @@ find_package(Threads REQUIRED)
 
 if(APPLE)
 	LINK_DIRECTORIES(../lib/mac)
+	find_library(NYUMAYA_LIB NAMES libnyumaya nyumaya PATHS ../lib/mac)
 else()
 	LINK_DIRECTORIES(../lib/linux)
+	find_library(NYUMAYA_LIB NAMES libnyumaya nyumaya PATHS ../lib/linux)
 endif()
 
-find_library(NYUMAYA_LIB NAMES libnyumaya nyumaya PATHS ${LINK_DIRECTORIES})
+
 
 add_executable (arecord_sample arecord_sample.cpp)
 add_executable (dummy_sample dummy_sample.cpp )

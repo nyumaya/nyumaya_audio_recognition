@@ -21,6 +21,6 @@ script:
     - cd cpp
     - cmake ./
     - cmake --build ./ --target dummy_sample
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cp ../lib/mac/ /usr/local/lib" && ./dummy_sample ../models/Hotword/marvin_small_0.3.tflite  ; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cp ../lib/mac/libnyumaya.dylib /usr/local/lib && ./dummy_sample ../models/Hotword/marvin_small_0.3.tflite  ; fi
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./dummy_sample ../models/Hotword/marvin_small_0.3.tflite  ; fi
 

@@ -17,7 +17,8 @@ matrix:
 
 install:
     - pip install --user pydub
-
+    - pip install --user numpy
+    
 script: 
     - cd cpp
     - cmake ./

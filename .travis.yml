@@ -33,6 +33,6 @@ script:
     - pwd
     - unzip nyumaya_marvin_test_0_1.zip
     - cd $TRAVIS_BUILD_DIR/python
-    - sh test_mini.sh
+    - bash test_mini.sh
     
 

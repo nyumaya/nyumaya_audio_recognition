@@ -91,10 +91,19 @@ def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,
 
 
 	noise_list = []
-	noise_folder_list = noise_folders.split(',')
-	for noise_folder in noise_folder_list:
-		noise_list += include_random_folder(noise_folder)
 	
+	if(add_noise):
+		noise_folder_list = noise_folders.split(',')
+		for noise_folder in noise_folder_list:
+			if(os.path.exists(noise_folder)):
+				noise_list += include_random_folder(noise_folder)
+
+	
+		if(len(noise_list) == 0):
+			print("No noise data available")
+			return None, None, None, None
+			
+		
 	for datapoint in testing_set:
 
 		current_label = datapoint['label']
@@ -214,10 +223,16 @@ def run_bad_predictions(detector,extractor,cv_folder,bad_folders,sensitivity):
 	false_predictions = 0
 	bad_predictions = 0
 	file_count = 0
-	filelist=get_cv_list(detector.labels_list,cv_folder)
+	filelist=[]
+	if(cv_folder):
+		filelist = filelist + get_cv_list(detector.labels_list,cv_folder)
+	
 	bad_folders = bad_folders.split(',')
 	for folder in bad_folders:
 		filelist = filelist + include_random_folder(folder)
+
+	if(len(filelist) == 0):
+		return None
 
 	for file in filelist:
 		file_count += 1
@@ -265,7 +280,7 @@ if __name__ == '__main__':
 	parser.add_argument(
 		'--labels', type=str, default='./labels.txt', help='Path to file containing labels.')
 	parser.add_argument(
-		'--cv_folder', type=str, default='./cv_corpus_v1/', help='Path to cv_corpus.')
+		'--cv_folder', type=str, default=None, help='Path to cv_corpus.')
 	parser.add_argument(
 		'--good_folder', type=str, default='./good_files/', help='Path to good files.')
 	parser.add_argument(
@@ -294,24 +309,26 @@ if __name__ == '__main__':
 		for sensitivity in sensitivities:
 			wrong_predictions, good_predictions,missed_predictions,samples = run_good_predictions(detector,extractor,FLAGS.good_folder,FLAGS.noise_folders,noise,sensitivity)
 
-			result = {}
-			result["sensitivity"] = sensitivity
-			result["accuracy"] = 1-(missed_predictions+wrong_predictions)/samples
-			if(noise):
-				results_noisy.append(result)
-			else:
-				results_clean.append(result)
-			print("Sens: " + str(result["sensitivity"]) + " " + "Accuracy: " + str( result["accuracy"] ) )
+			if(wrong_predictions is not None):
+				result = {}
+				result["sensitivity"] = sensitivity
+				result["accuracy"] = 1-(missed_predictions+wrong_predictions)/samples
+				if(noise):
+					results_noisy.append(result)
+				else:
+					results_clean.append(result)
+				print("Sens: " + str(result["sensitivity"]) + " " + "Accuracy: " + str( result["accuracy"] ) )
 			
 	for sensitivity in sensitivities:
 		false_predictions = run_bad_predictions(detector,extractor,FLAGS.cv_folder,FLAGS.bad_folders,sensitivity)
-		result = {}
-		result["sensitivity"] = sensitivity
-		result["false_predictions"] = false_predictions
-		results_false.append(result)
-		print("Sens: " + str(result["sensitivity"]) +  " False per hour " +  str(result["false_predictions"]))
-	
-	
+		if(false_predictions is not None):
+			result = {}
+			result["sensitivity"] = sensitivity
+			result["false_predictions"] = false_predictions
+			results_false.append(result)
+			print("Sens: " + str(result["sensitivity"]) +  " False per hour " +  str(result["false_predictions"]))
+		
+		
 	with open(os.path.dirname(FLAGS.graph) + "/result.txt", "a") as result_file:
 		result_file.write(FLAGS.graph + "\n")
 
@@ -321,7 +338,7 @@ if __name__ == '__main__':
 		i=0
 		for result in results_clean:
 			result_file.write("Sens: " + str(result["sensitivity"]) + " " + "Accuracy: " + str( result["accuracy"] ) + "\n")
-			area_clean += (1-result["accuracy"]) * results_false[i]["false_predictions"]
+			#area_clean += (1-result["accuracy"]) * results_false[i]["false_predictions"]
 			i+=1 
 		print("Area clean:" + str(area_clean))
 			

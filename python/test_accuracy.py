@@ -89,6 +89,9 @@ def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,
 
 	testing_set = include_good_folder(good_folder,detector.labels_list)
 
+	if(len(testing_set) == 0):
+		print("No testdata found")
+		return None, None, None, None
 
 	noise_list = []
 	

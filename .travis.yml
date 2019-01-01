@@ -30,6 +30,7 @@ script:
     - pwd
     - git clone https://github.com/yodakohl/nyumaya_audio_testdata.git
     - cd nyumaya_audio_testdata
+    - pwd
     - unzip nyumaya_marvin_test_0_1.zip
     - cd /home/travis/build/nyumaya/nyumaya_audio_recognition/python
     - sh test_mini.sh

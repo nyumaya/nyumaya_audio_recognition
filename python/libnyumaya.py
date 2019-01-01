@@ -1,6 +1,8 @@
 
 from ctypes import *
 
+import sys
+
 
 class AudioRecognition(object):
 
@@ -31,9 +33,15 @@ class AudioRecognition(object):
 			
 		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath.encode('ascii'))
 		
-		if self.GetVersionString() != "0.0.3":
-			print("Your library version is not compatible with this API")
+		if sys.version_info[0] < 3:
 
+			if self.GetVersionString() != "0.0.3":
+				print("Your library version is not compatible with this API")
+		else:
+			if self.GetVersionString() != "b'0.0.3'":
+				print("Your library version is not compatible with this API")
+		
+		
 		if(label_path):
 			self.labels_list = self._load_labels(label_path)
 

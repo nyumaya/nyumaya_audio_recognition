@@ -25,8 +25,12 @@ script:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./dummy_sample ../models/Hotword/marvin_small_0.3.tflite  ; fi
 
     - cd ../../
+    - pwd
     - git clone https://github.com/yodakohl/nyumaya_audio_testdata.git
     - cd nyumaya_audio_testdata
     - unzip nyumaya_marvin_test_0_1.zip
-    - cd nyumaya_audio_recognition/python
+    - cd /home/travis/build/nyumaya/nyumaya_audio_recognition/python
     - sh test_mini.sh
+    
+    
+    

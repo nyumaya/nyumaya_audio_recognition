@@ -15,7 +15,8 @@ matrix:
   allow_failures:
     - os: windows
 
-
+install:
+    - pip install pydub
 
 script: 
     - cd cpp

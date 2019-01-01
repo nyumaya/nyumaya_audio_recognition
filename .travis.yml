@@ -16,7 +16,7 @@ matrix:
     - os: windows
 
 install:
-    - pip install pydub
+    - pip install --user pydub
 
 script: 
     - cd cpp

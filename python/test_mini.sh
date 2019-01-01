@@ -1,4 +1,4 @@
-if [ "$OSTYPE" = "linux-gnu" ]; then
+if [ "$OSTYPE" == "linux-gnu" ]; then
 
     if [ "$(uname -m | grep armv6l -c)" -eq 1 ]; then
         echo "Check for PiZero"
@@ -15,7 +15,7 @@ if [ "$OSTYPE" = "linux-gnu" ]; then
         LIBPATH="../lib/linux/libnyumaya.so"
     fi
     
-elif [ "$OSTYPE" = "darwin"* ]; then
+elif [ "$OSTYPE" == "darwin"* ]; then
      echo "Check for OSX"
      LIBPATH="/usr/local/lib/libnyumaya.so"
 

@@ -24,3 +24,9 @@ script:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then cp ../lib/mac/libnyumaya.dylib /usr/local/lib && ./dummy_sample ../models/Hotword/marvin_small_0.3.tflite  ; fi
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./dummy_sample ../models/Hotword/marvin_small_0.3.tflite  ; fi
 
+    - cd ..
+    - git clone https://github.com/yodakohl/nyumaya_audio_testdata.git
+    - cd nyumaya_audio_testdata
+    - unzip nyumaya_marvin_test_0_1.zip
+    - cd nyumaya_audio_recognition/python
+    - sh test_mini.sh

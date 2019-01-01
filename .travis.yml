@@ -32,8 +32,7 @@ script:
     - cd nyumaya_audio_testdata
     - pwd
     - unzip nyumaya_marvin_test_0_1.zip
-    - cd /home/travis/build/nyumaya/nyumaya_audio_recognition/python
+    - cd $TRAVIS_BUILD_DIR/python
     - sh test_mini.sh
     
-    
-    
+

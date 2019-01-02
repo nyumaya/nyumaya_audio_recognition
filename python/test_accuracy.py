@@ -16,7 +16,6 @@ from os.path import join
 from pydub import AudioSegment
 
 from libnyumaya import AudioRecognition,FeatureExtractor
-import numpy as np
 from random import randint
 
 samplerate=16000
@@ -128,10 +127,8 @@ def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,
 		one_second_silence = AudioSegment.silent(duration=1000)
 		wavdata += one_second_silence
 		
-		wavdata = wavdata.get_array_of_samples()
-		wavdata = np.asarray(wavdata, dtype = np.int16)
-	
-		splitdata = split_sequence(wavdata.tobytes(),bufsize*2)
+		wavdata = wavdata.get_array_of_samples().tostring()
+		splitdata = split_sequence(wavdata,bufsize)
 
 		sample_number += 1
 	
@@ -252,14 +249,12 @@ def run_bad_predictions(detector,extractor,cv_folder,bad_folders,sensitivity):
 
 		seconds += duration
 				
-		wavdata = wavdata.get_array_of_samples()
-		wavdata = np.asarray(wavdata, dtype = np.int16)
-	
-		splitdata = split_sequence(wavdata.tobytes(),bufsize*2)
+		wavdata = wavdata.get_array_of_samples().tostring()
+		splitdata = split_sequence(wavdata,bufsize)
 
 		for frame in splitdata:
 	
-			if(len(frame) == bufsize*2):
+			if(len(frame) == bufsize):
 			
 				features = extractor.signal_to_mel(frame)
 				prediction = detector.RunDetection(features)

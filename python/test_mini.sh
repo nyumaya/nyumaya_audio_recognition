@@ -17,7 +17,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     
 elif [[ "$OSTYPE" == "darwin"* ]]; then
      echo "Check for OSX"
-     LIBPATH="/usr/local/lib/libnyumaya.so"
+     LIBPATH="/usr/local/lib/libnyumaya.dylib"
 
 else
     echo "Unknown OS: $OSTYPE"

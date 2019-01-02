@@ -1,5 +1,5 @@
 # Detect simple voice commands and audio events on small embedded sytems like the PiZero.
-Classify audio with neural nets on embedded systems like the Raspberry Pi using Tensorflow. This should run on any Linux system fine, on other platforms you might have to compile the library yourself.
+Classify audio with neural nets on embedded systems like the Raspberry Pi using Tensorflow. Libraries are avialable for Linux,OSX and RaspberryPi. For other platforms you will have to compile the library yourself.
 
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/nyumaya_audio_recognition)
 [![GitHub Release](https://github-basic-badges.herokuapp.com/release/nyumaya/nyumaya_audio_recognition.svg)]()

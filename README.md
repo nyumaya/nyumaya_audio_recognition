@@ -37,8 +37,8 @@ For each application, different model architectures are available which are a tr
 
 
 ## Model Architectures
-- Small model  (CPU Pi0: 20% CPU Pi3 one core: 12%)
-- Big model    (CPU Pi0: 62% CPU Pi3 one core: 20%)
+- Small model  (CPU Pi0: 20% CPU Pi3 one core: 6%)
+- Big model    (CPU Pi0: 62% CPU Pi3 one core: 13%)
 
 ## Applications 
 

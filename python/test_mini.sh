@@ -26,18 +26,35 @@ else
     exit
 fi
 
+marvin_small=" --graph ../models/Hotword/marvin_small_0.3.tflite --labels ../models/Hotword/marvin_labels.txt
+ --good_folder ../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_ff_test/marvin"
+ 
+marvin_big=" --graph ../models/Hotword/marvin_big_0.3.tflite --labels ../models/Hotword/marvin_labels.txt
+ --good_folder ../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_ff_test/marvin"
 
 
-python test_accuracy.py --graph ../models/Hotword/marvin_small_0.3.tflite \
-                        --labels ../models/Hotword/marvin_labels.txt \
-                        --good_folder ../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_ff_test/marvin \
-                        --noise_folders ../../nyumaya_audio_testdata/nyumaya_mic_noise \
-                        --bad_folders "../../nyumaya_audio_testdata/cv_mini,../../nyumaya_audio_testdata/nyumaya_mic_noise" \
-                        --libpath $LIBPATH
-                        
-python3 test_accuracy.py --graph ../models/Hotword/marvin_small_0.3.tflite \
-                        --labels ../models/Hotword/marvin_labels.txt \
-                        --good_folder ../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_ff_test/marvin \
-                        --noise_folders ../../nyumaya_audio_testdata/nyumaya_mic_noise \
-                        --bad_folders "../../nyumaya_audio_testdata/cv_mini,../../nyumaya_audio_testdata/nyumaya_mic_noise" \
-                        --libpath $LIBPATH
+sheila_small=" --graph ../models/Hotword/sheila_small_0.3.tflite --labels ../models/Hotword/sheila_labels.txt
+ --good_folder ../../nyumaya_audio_testdata/nyumaya_sheila_test_0.1/nyumaya_sheila_ff_test/sheila"
+
+
+sheila_big=" --graph ../models/Hotword/sheila_big_0.3.tflite --labels ../models/Hotword/sheila_labels.txt
+ --good_folder ../../nyumaya_audio_testdata/nyumaya_sheila_test_0.1/nyumaya_sheila_ff_test/sheila"
+
+
+#for python_version in python python3; do
+python_version=python3
+
+    for setting in "$marvin_small" "$marvin_big" ; do
+        $python_version test_accuracy.py $setting \
+                                --noise_folders ../../nyumaya_audio_testdata/nyumaya_mic_noise \
+                                --bad_folders "../../nyumaya_audio_testdata/cv_mini,../../nyumaya_audio_testdata/nyumaya_mic_noise" \
+                                --libpath $LIBPATH
+    done
+
+#done
+
+
+
+
+
+

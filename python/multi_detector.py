@@ -7,8 +7,6 @@ import datetime
 from libnyumaya import AudioRecognition
 from ringbuffer import RingBuffer
 
-#TODO: Optimize: When running multiple detectors feature extraction has to be done only once
-
 #TODO: Optimize: More error handling
 
 

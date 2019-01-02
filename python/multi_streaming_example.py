@@ -35,6 +35,7 @@ def stop():
 def label_stream(libpath):
 	
 	extractor = FeatureExtractor(libpath)
+	extractor_gain=1.0
 
 	mDetector = MultiDetector(libpath,timeout=20)
 	
@@ -53,13 +54,13 @@ def label_stream(libpath):
 
 	try:
 		while(True):
-			frame = audio_stream.read(bufsize,bufsize)
+			frame = audio_stream.read(bufsize*2,bufsize*2)
  
 			if(not frame):
 				time.sleep(0.01)
 				continue
 
-			features = extractor.signal_to_mel(frame)
+			features = extractor.signal_to_mel(frame,extractor_gain)
 			mDetector.run_frame(features)
 
 	except KeyboardInterrupt:

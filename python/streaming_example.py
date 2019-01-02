@@ -18,9 +18,8 @@ def label_stream(labels,libpath ,graph,sensitivity):
 	audio_stream = AudiostreamSource()
 
 	extractor = FeatureExtractor(libpath)
-	#extractor.SetGain(1)
-	#extractor.RemoveDC(False)
-	
+	extactor_gain=1.0
+
 	detector = AudioRecognition(libpath,graph,labels)
 	detector.SetSensitivity(sensitivity)
 	
@@ -38,7 +37,7 @@ def label_stream(labels,libpath ,graph,sensitivity):
 				time.sleep(0.01)
 				continue
 
-			features = extractor.signal_to_mel(frame)
+			features = extractor.signal_to_mel(frame,extactor_gain)
 			
 			prediction = detector.RunDetection(features)
 

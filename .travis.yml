@@ -5,18 +5,27 @@ matrix:
   include:
     - os: linux
       dist: xenial
-
+       apt:
+        packages:
+          - python3-pip
+          
     - os: osx
       osx_image: xcode10.1
-    
+        addons:
+          homebrew:
+            packages:
+              - python3
+              
     - os: osx
       osx_image: xcode9.4
+        addons:
+          homebrew:
+            packages:
+              - python3
       
   allow_failures:
     - os: windows
 
-before_install:
-    - sudo apt-get install -y python3-pip
 
 install:
     - pip install --user pydub

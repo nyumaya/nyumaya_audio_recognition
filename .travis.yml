@@ -15,6 +15,9 @@ matrix:
   allow_failures:
     - os: windows
 
+before_install:
+    - sudo apt-get install -y python3-pip
+
 install:
     - pip install --user pydub
     - pip3 install --user pydub

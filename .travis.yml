@@ -17,6 +17,7 @@ matrix:
 
 install:
     - pip install --user pydub
+    - pip3 install --user pydub
     
 script: 
     - cd cpp

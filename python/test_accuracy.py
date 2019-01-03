@@ -79,7 +79,7 @@ def get_cv_list(labels_list,cvcorpus_path):
 def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,sensitivity):
 
 	detector.SetSensitivity(sensitivity)
-	bufsize = detector.GetInputDataSize()
+	bufsize = detector.GetInputDataSize() * 2
 	
 	good_predictions = 0
 	wrong_predictions = 0
@@ -217,7 +217,7 @@ def get_random_file(file_list):
 def run_bad_predictions(detector,extractor,cv_folder,bad_folders,sensitivity):
 
 	detector.SetSensitivity(sensitivity)
-	bufsize = detector.GetInputDataSize()
+	bufsize = detector.GetInputDataSize() * 2
 
 	seconds = 0
 	false_predictions = 0

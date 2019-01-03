@@ -117,7 +117,10 @@ def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,
 
 		if(not wavdata):
 			continue
-
+			
+		one_second_silence = AudioSegment.silent(duration=1000)
+		wavdata += one_second_silence
+		
 		if(add_noise):
 			bg_noise_file = get_random_file(noise_list)
 			noise,noise_duration = load_audio_file(bg_noise_file)
@@ -127,9 +130,6 @@ def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,
 			else:
 				wavdata = wavdata.overlay(noise, gain_during_overlay=0)
 
-		one_second_silence = AudioSegment.silent(duration=1000)
-		wavdata += one_second_silence
-		
 		wavdata = wavdata.get_array_of_samples().tostring()
 		splitdata = split_sequence(wavdata,bufsize)
 

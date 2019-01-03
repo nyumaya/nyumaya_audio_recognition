@@ -16,7 +16,7 @@ from os.path import join
 from pydub import AudioSegment
 
 from libnyumaya import AudioRecognition,FeatureExtractor
-from random import randint
+from random import randint, seed
 
 samplerate=16000
 
@@ -82,6 +82,7 @@ def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,
 	
 	bufsize = detector.GetInputDataSize() * 2
 
+	seed(1234)
 	
 	good_predictions = 0
 	wrong_predictions = 0

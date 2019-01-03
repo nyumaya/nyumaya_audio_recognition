@@ -1,5 +1,5 @@
 # Detect simple voice commands and audio events on small embedded sytems like the PiZero.
-Classify audio with neural nets on embedded systems like the Raspberry Pi using Tensorflow. This should run on any Linux system fine, on other platforms you might have to compile the library yourself.
+Classify audio with neural nets on embedded systems like the Raspberry Pi using Tensorflow. Libraries are avialable for **Linux**,**OSX** and **RaspberryPi**. For other platforms you will have to compile the library yourself.
 
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/nyumaya_audio_recognition)
 [![GitHub Release](https://github-basic-badges.herokuapp.com/release/nyumaya/nyumaya_audio_recognition.svg)]()
@@ -44,14 +44,10 @@ For each application, different model architectures are available which are a tr
 
 I compiled a list of project ideas [here](https://nyumaya.com/project-ideas-for-audio-machine-learning/)
 
-## Models:
-- Command Subset (yes,no,up,down,left,right,on,off,stop,follow,play)
-- Command Numbers (one,two,three,four,five,six,seven,eight,nine,zero)
+## Planned Models:
+
 - Command Objects (music,radio,television,door,water,computer,temperature,light,house)
 - German_commands(an,aus,computer,ein,fernseher,garage,jalousie,licht,musik,oeffnen,radio,rollo,schließen,start,stopp)
-- Marvin Hotword (marvin)
-- Sheila Hotword (sheila)
-- Marvin Sheila Hotword (marvin,sheila)
 - Voice-gender (female,male,nospeech)
 - Baby-monitor (cry, babble, door-open, music, glass-break, footsteps, fire-alarm)
 - Impulse-response (Play tone and interpret echo: Bedroom, Kitchen, Bathroom, Outdoor, Hall, Living Room, Basement)
@@ -62,22 +58,22 @@ I compiled a list of project ideas [here](https://nyumaya.com/project-ideas-for-
 - Swear word detection (imagine some unappropriate words)
 - Crowd monitoring(screaming, shouting, gunshot, siren, explosion)
 - Animal monitoring (dog, cat, chicken, rooster..)
+- Speaker Verification
+
+If you need a special combination of audio classes or model architecture trained create an issue and I will try to prioritize or train it.
 
 ## Pretrained models:
-- Marvin Hotword
-- Sheila Hotword
-- Marvin-Sheila Hotword
-- Command Subset
-- Command Numbers
-- Command Objects (quality is not good yet)
+- Marvin Hotword (marvin)
+- Sheila Hotword (sheila)
+- Marvin Sheila Hotword (marvin,sheila)
+- Command Subset (yes,no,up,down,left,right,on,off,stop,follow,play)
+- Command Numbers (one,two,three,four,five,six,seven,eight,nine,zero)
 
-If you need a special combination of audio classes or model architecture trained create an issue and I will try to prioritize or train it. All models contain a result file wich describes the false positive/accuracy tradeoff. 
 
 ## Sensitivity
 
 The sensitivity parameter is a tradeoff between accuracy and false positives. Setting the sensitivity to a high value means it's easier to trigger the hotword. If you experience a lot of false detections, set the sensitivity to a lower value. 
-
-All models have a corresponding result.txt file where the test results are captured. A False predictions per hour value of 0 doesn't mean that no false prediction will ever occur. It just means that during the test (~5 hours of audio, mostly speech) no false prediction occured.
+All models have a corresponding result.txt file where the test results for different sensitivities are captured. A False predictions per hour value of 0 doesn't mean that no false prediction will ever occur. It just means that during the test (~5 hours of audio, mostly speech) no false prediction occured.
 
 ## Audio Config
 

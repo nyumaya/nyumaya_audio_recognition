@@ -76,7 +76,7 @@ def get_cv_list(labels_list,cvcorpus_path):
 	return csvFileArray
 
 
-def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,sensitivity):
+def run_good_predictions(detector,extractor,good_folders,noise_folders,add_noise,sensitivity,use_all_files):
 
 	detector.SetSensitivity(sensitivity)
 	
@@ -88,13 +88,18 @@ def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,
 	wrong_predictions = 0
 	missed_predictions = 0
 	sample_number = 0
+	
+	testing_set = []
 
-	testing_set = include_good_folder(good_folder,detector.labels_list)
+	good_folders = good_folders.split(',')
+	for folder in good_folders:
+		testing_set = testing_set + include_good_folder(folder,detector.labels_list,not use_all_files)
 
 	if(len(testing_set) == 0):
 		print("No testdata found")
 		return None, None, None, None
 
+	print("Number of positive Samples: " + str(len(testing_set))) 
 	noise_list = []
 	
 	if(add_noise):
@@ -292,9 +297,12 @@ if __name__ == '__main__':
 	parser.add_argument(
 		'--libpath', type=str, default='../lib/linux/libnyumaya.so', help='Path to nyumaya_library')
 
-
+	parser.add_argument(
+		'--use_all_files',  action='store_true', help='Wether to use all files or only files which have a hash matching test files')
+		
 	FLAGS, unparsed = parser.parse_known_args()
 
+	print("include_only_test_files: " + str(FLAGS.use_all_files))
 
 	sensitivities = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
 
@@ -309,7 +317,7 @@ if __name__ == '__main__':
 	for noise in addnoise:
 
 		for sensitivity in sensitivities:
-			wrong_predictions, good_predictions,missed_predictions,samples = run_good_predictions(detector,extractor,FLAGS.good_folder,FLAGS.noise_folders,noise,sensitivity)
+			wrong_predictions, good_predictions,missed_predictions,samples = run_good_predictions(detector,extractor,FLAGS.good_folder,FLAGS.noise_folders,noise,sensitivity,FLAGS.use_all_files)
 
 			if(wrong_predictions is not None):
 				result = {}

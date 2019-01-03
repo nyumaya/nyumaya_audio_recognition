@@ -26,18 +26,18 @@ else
     exit
 fi
 
-marvin_small=" --graph ../models/Hotword/marvin_small_0.3.tflite --labels ../models/Hotword/marvin_labels.txt
- --good_folder ../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_ff_test/marvin"
+marvin_small="--use_all_files --graph ../models/Hotword/marvin_small_0.3.tflite --labels ../models/Hotword/marvin_labels.txt
+ --good_folder ../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_ff_test/marvin,../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_nf_test/marvin"
  
-marvin_big=" --graph ../models/Hotword/marvin_big_0.3.tflite --labels ../models/Hotword/marvin_labels.txt
- --good_folder ../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_ff_test/marvin"
+marvin_big="--use_all_files  --graph ../models/Hotword/marvin_big_0.3.tflite --labels ../models/Hotword/marvin_labels.txt
+ --good_folder ../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_ff_test/marvin,../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_nf_test/marvin"
+ 
 
-
-sheila_small=" --graph ../models/Hotword/sheila_small_0.3.tflite --labels ../models/Hotword/sheila_labels.txt
+sheila_small="--use_all_files  --graph ../models/Hotword/sheila_small_0.3.tflite --labels ../models/Hotword/sheila_labels.txt
  --good_folder ../../nyumaya_audio_testdata/nyumaya_sheila_test_0.1/nyumaya_sheila_ff_test/sheila"
 
 
-sheila_big=" --graph ../models/Hotword/sheila_big_0.3.tflite --labels ../models/Hotword/sheila_labels.txt
+sheila_big="--use_all_files  --graph ../models/Hotword/sheila_big_0.3.tflite --labels ../models/Hotword/sheila_labels.txt
  --good_folder ../../nyumaya_audio_testdata/nyumaya_sheila_test_0.1/nyumaya_sheila_ff_test/sheila"
 
 

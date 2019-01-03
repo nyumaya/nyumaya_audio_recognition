@@ -79,7 +79,9 @@ def get_cv_list(labels_list,cvcorpus_path):
 def run_good_predictions(detector,extractor,good_folder,noise_folders,add_noise,sensitivity):
 
 	detector.SetSensitivity(sensitivity)
+	
 	bufsize = detector.GetInputDataSize() * 2
+
 	
 	good_predictions = 0
 	wrong_predictions = 0
@@ -217,6 +219,7 @@ def get_random_file(file_list):
 def run_bad_predictions(detector,extractor,cv_folder,bad_folders,sensitivity):
 
 	detector.SetSensitivity(sensitivity)
+
 	bufsize = detector.GetInputDataSize() * 2
 
 	seconds = 0
@@ -327,7 +330,8 @@ if __name__ == '__main__':
 			print("Sens: " + str(result["sensitivity"]) +  " False per hour " +  str(result["false_predictions"]))
 		
 		
-	with open(os.path.dirname(FLAGS.graph) + "/result.txt", "a") as result_file:
+	result_name = os.path.splitext(os.path.basename(FLAGS.graph))[0]  + "_" + "result.txt"
+	with open(os.path.dirname(FLAGS.graph) + "/" + result_name, "a") as result_file:
 		result_file.write(FLAGS.graph + "\n")
 
 		result_file.write("Accuracy clean \n")

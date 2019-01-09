@@ -1,4 +1,6 @@
 ./nyumaya_audio_recognition/models/Hotword/marvin_big_0.3.tflite
+d918e5d43593eaa6139ce971ff25264e
+
 Accuracy clean 
 Sens: 0.1 Accuracy: 0.9649122807017544
 Sens: 0.2 Accuracy: 0.9649122807017544
@@ -12,15 +14,15 @@ Sens: 0.9 Accuracy: 0.9824561403508771
 
 
 Accuracy noisy 
-Sens: 0.1 Accuracy: 0.8304093567251463
-Sens: 0.2 Accuracy: 0.8421052631578947
-Sens: 0.3 Accuracy: 0.8888888888888888
-Sens: 0.4 Accuracy: 0.8654970760233918
-Sens: 0.5 Accuracy: 0.8888888888888888
-Sens: 0.6 Accuracy: 0.9473684210526316
-Sens: 0.7 Accuracy: 0.9239766081871346
-Sens: 0.8 Accuracy: 0.8947368421052632
-Sens: 0.9 Accuracy: 0.9181286549707602
+Sens: 0.1 Accuracy: 0.8362573099415205
+Sens: 0.2 Accuracy: 0.8538011695906433
+Sens: 0.3 Accuracy: 0.8538011695906433
+Sens: 0.4 Accuracy: 0.8596491228070176
+Sens: 0.5 Accuracy: 0.8771929824561404
+Sens: 0.6 Accuracy: 0.8771929824561404
+Sens: 0.7 Accuracy: 0.8771929824561404
+Sens: 0.8 Accuracy: 0.8771929824561404
+Sens: 0.9 Accuracy: 0.8771929824561404
 
 
 False predictions per hour

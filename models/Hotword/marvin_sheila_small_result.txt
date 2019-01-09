@@ -1,4 +1,6 @@
 ./nyumaya_audio_recognition/models/Hotword/marvin_sheila_small.tflite
+ea3c2c42b445f08357668a8f0f60a167
+
 Accuracy clean 
 Sens: 0.1 Accuracy: 0.9589041095890412
 Sens: 0.2 Accuracy: 0.9589041095890412
@@ -12,15 +14,15 @@ Sens: 0.9 Accuracy: 0.9931506849315068
 
 
 Accuracy noisy 
-Sens: 0.1 Accuracy: 0.8013698630136986
-Sens: 0.2 Accuracy: 0.815068493150685
-Sens: 0.3 Accuracy: 0.815068493150685
-Sens: 0.4 Accuracy: 0.7945205479452055
-Sens: 0.5 Accuracy: 0.863013698630137
-Sens: 0.6 Accuracy: 0.8698630136986302
-Sens: 0.7 Accuracy: 0.9178082191780822
+Sens: 0.1 Accuracy: 0.7465753424657534
+Sens: 0.2 Accuracy: 0.7945205479452055
+Sens: 0.3 Accuracy: 0.7945205479452055
+Sens: 0.4 Accuracy: 0.8013698630136986
+Sens: 0.5 Accuracy: 0.8561643835616438
+Sens: 0.6 Accuracy: 0.8835616438356164
+Sens: 0.7 Accuracy: 0.8835616438356164
 Sens: 0.8 Accuracy: 0.8835616438356164
-Sens: 0.9 Accuracy: 0.8904109589041096
+Sens: 0.9 Accuracy: 0.8835616438356164
 
 
 False predictions per hour

@@ -1,0 +1,37 @@
+./nyumaya_audio_recognition/models/Command/subset_big_0.3.tflite
+43e15a207bf7df5653b7af171a67f500
+
+Accuracy clean 
+Sens: 0.1 Accuracy: 0.8250904704463209
+Sens: 0.2 Accuracy: 0.8507237635705669
+Sens: 0.3 Accuracy: 0.8507237635705669
+Sens: 0.4 Accuracy: 0.8645958986731002
+Sens: 0.5 Accuracy: 0.916767189384801
+Sens: 0.6 Accuracy: 0.9237032569360676
+Sens: 0.7 Accuracy: 0.9237032569360676
+Sens: 0.8 Accuracy: 0.9285283474065139
+Sens: 0.9 Accuracy: 0.9285283474065139
+
+
+Accuracy noisy 
+Sens: 0.1 Accuracy: 0.6480699638118215
+Sens: 0.2 Accuracy: 0.6809408926417371
+Sens: 0.3 Accuracy: 0.6809408926417371
+Sens: 0.4 Accuracy: 0.701145958986731
+Sens: 0.5 Accuracy: 0.7668878166465621
+Sens: 0.6 Accuracy: 0.7795536791314837
+Sens: 0.7 Accuracy: 0.7795536791314837
+Sens: 0.8 Accuracy: 0.790108564535585
+Sens: 0.9 Accuracy: 0.790108564535585
+
+
+False predictions per hour
+Sens: 0.1 False Per Hour: 20.074933825254742
+Sens: 0.2 False Per Hour: 24.865543033554168
+Sens: 0.3 False Per Hour: 24.865543033554168
+Sens: 0.4 False Per Hour: 28.971779497810818
+Sens: 0.5 False Per Hour: 78.01849282087638
+Sens: 0.6 False Per Hour: 90.56532646166059
+Sens: 0.7 False Per Hour: 90.56532646166059
+Sens: 0.8 False Per Hour: 100.14654487825945
+Sens: 0.9 False Per Hour: 100.14654487825945

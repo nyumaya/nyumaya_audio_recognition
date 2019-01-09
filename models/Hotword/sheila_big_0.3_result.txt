@@ -1,4 +1,6 @@
 ./nyumaya_audio_recognition/models/Hotword/sheila_big_0.3.tflite
+a16ed7c741e856370fc265a62b5ce007
+
 Accuracy clean 
 Sens: 0.1 Accuracy: 0.9863013698630136
 Sens: 0.2 Accuracy: 0.9863013698630136
@@ -12,15 +14,15 @@ Sens: 0.9 Accuracy: 1.0
 
 
 Accuracy noisy 
-Sens: 0.1 Accuracy: 0.8767123287671232
-Sens: 0.2 Accuracy: 0.904109589041096
-Sens: 0.3 Accuracy: 0.9178082191780822
-Sens: 0.4 Accuracy: 0.8698630136986302
-Sens: 0.5 Accuracy: 0.9178082191780822
-Sens: 0.6 Accuracy: 0.9383561643835616
-Sens: 0.7 Accuracy: 0.9246575342465754
-Sens: 0.8 Accuracy: 0.952054794520548
-Sens: 0.9 Accuracy: 0.9452054794520548
+Sens: 0.1 Accuracy: 0.8561643835616438
+Sens: 0.2 Accuracy: 0.8767123287671232
+Sens: 0.3 Accuracy: 0.8767123287671232
+Sens: 0.4 Accuracy: 0.8972602739726028
+Sens: 0.5 Accuracy: 0.910958904109589
+Sens: 0.6 Accuracy: 0.910958904109589
+Sens: 0.7 Accuracy: 0.910958904109589
+Sens: 0.8 Accuracy: 0.9246575342465754
+Sens: 0.9 Accuracy: 0.9246575342465754
 
 
 False predictions per hour

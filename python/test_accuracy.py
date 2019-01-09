@@ -18,6 +18,7 @@ from pydub import AudioSegment
 from libnyumaya import AudioRecognition,FeatureExtractor
 from random import randint, seed
 
+
 samplerate=16000
 
 
@@ -213,6 +214,14 @@ def include_random_folder(path):
 	return file_list
 
 
+def file_as_bytes(file):
+	with file:
+		return file.read()
+
+
+def md5sum_of_file(full_path):
+	return hashlib.md5(file_as_bytes(open(full_path, 'rb'))).hexdigest()
+
 def split_sequence(a,seg_length):
 	return [a[x:x+seg_length] for x in range(0,len(a),seg_length)]
 
@@ -342,7 +351,7 @@ if __name__ == '__main__':
 	result_name = os.path.splitext(os.path.basename(FLAGS.graph))[0]  + "_" + "result.txt"
 	with open(os.path.dirname(FLAGS.graph) + "/" + result_name, "a") as result_file:
 		result_file.write(FLAGS.graph + "\n")
-
+		result_file.write(md5sum_of_file(FLAGS.graph) + "\n\n")
 		result_file.write("Accuracy clean \n")
 		
 		area_clean = 0

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
     if [ "$(uname -m | grep x86_64 -c)" -eq 1 ]; then

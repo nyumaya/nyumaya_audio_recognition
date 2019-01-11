@@ -5,6 +5,9 @@ import sys
 import datetime
 import platform
 
+
+sys.path.append('./src')
+
 from libnyumaya import AudioRecognition,FeatureExtractor
 
 if platform.system() == "Darwin":
@@ -44,7 +47,7 @@ def label_stream(labels,libpath ,graph,sensitivity):
 			if(prediction):
 				now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
 				print(detector.GetPredictionLabel(prediction) + " " + now)
-				os.system(play_command + " ./ding.wav")
+				os.system(play_command + " ./resources/ding.wav")
 
 	except KeyboardInterrupt:
 		print("Terminating")

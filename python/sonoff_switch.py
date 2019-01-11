@@ -5,6 +5,8 @@ import sys
 import datetime
 import platform
 
+sys.path.append('./src')
+
 from libnyumaya import FeatureExtractor
 from multi_detector import MultiDetector
 
@@ -20,6 +22,8 @@ hotword_labels="../models/Hotword/marvin_labels.txt"
 action_graph="../models/Command/on_off_big_0.3.tflite"
 action_labels="../models/Command/on_off_labels.txt"
 
+play_command = "play -q" if platform.system() == "Darwin" else "aplay"
+
 sonoff_ip="10.0.0.54"
 
 def light_on():
@@ -30,6 +34,12 @@ def light_off():
 	print("Turning light off")
 	os.system("curl http://" + sonoff_ip +"/cm?cmnd=Power%20Off &")
 	
+def detected_something_callback():
+	print("Detected Something")
+	
+def reset_history_callback():
+	print("Reset History")
+
 def stop():
 	print("Stopping")
 
@@ -37,7 +47,7 @@ def stop():
 def label_stream(libpath):
 	
 	extractor = FeatureExtractor(libpath)
-	extractor_gain=16.0
+	extractor_gain=1.0
 
 	mDetector = MultiDetector(libpath,timeout=20)
 	

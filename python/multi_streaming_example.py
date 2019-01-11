@@ -5,6 +5,9 @@ import sys
 import datetime
 import platform
 
+
+sys.path.append('./src')
+
 from libnyumaya import FeatureExtractor
 from multi_detector import MultiDetector
 

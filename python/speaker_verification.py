@@ -6,6 +6,10 @@ import datetime
 import platform
 import math
 
+
+sys.path.append('./src')
+
+
 from libnyumaya import AudioRecognition,FeatureExtractor,SpeakerVerification
 
 if platform.system() == "Darwin":
@@ -106,7 +110,7 @@ def label_stream(labels,libpath,verification_path ,graph,sensitivity):
 			if(prediction):
 				now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
 				print(detector.GetPredictionLabel(prediction) + " " + now)
-				os.system(play_command + " ./ding.wav")
+				os.system(play_command + " ./resources/ding.wav")
 				
 				detect_frame = bytearray()
 				for element in last_frames:

@@ -1,0 +1,37 @@
+../../models/Command/on_off_big_0.3.tflite
+08f30a7071f68bc2920852844184d7e6
+
+Accuracy clean 
+Sens: 0.1 Accuracy: 0.8753846153846154
+Sens: 0.2 Accuracy: 0.8876923076923077
+Sens: 0.3 Accuracy: 0.8876923076923077
+Sens: 0.4 Accuracy: 0.9092307692307693
+Sens: 0.5 Accuracy: 0.9476923076923077
+Sens: 0.6 Accuracy: 0.9538461538461538
+Sens: 0.7 Accuracy: 0.9538461538461538
+Sens: 0.8 Accuracy: 0.9569230769230769
+Sens: 0.9 Accuracy: 0.9569230769230769
+
+
+Accuracy noisy 
+Sens: 0.1 Accuracy: 0.6138461538461538
+Sens: 0.2 Accuracy: 0.6538461538461539
+Sens: 0.3 Accuracy: 0.6538461538461539
+Sens: 0.4 Accuracy: 0.6784615384615384
+Sens: 0.5 Accuracy: 0.7692307692307692
+Sens: 0.6 Accuracy: 0.7846153846153846
+Sens: 0.7 Accuracy: 0.7846153846153846
+Sens: 0.8 Accuracy: 0.7907692307692308
+Sens: 0.9 Accuracy: 0.7907692307692308
+
+
+False predictions per hour
+Sens: 0.1 False Per Hour: 2.333605399459046
+Sens: 0.2 False Per Hour: 3.1821891810805174
+Sens: 0.3 False Per Hour: 3.1821891810805174
+Sens: 0.4 False Per Hour: 3.606481071891253
+Sens: 0.5 False Per Hour: 16.54738374161869
+Sens: 0.6 False Per Hour: 19.941718868104577
+Sens: 0.7 False Per Hour: 19.941718868104577
+Sens: 0.8 False Per Hour: 22.699616158374358
+Sens: 0.9 False Per Hour: 22.699616158374358

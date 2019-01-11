@@ -1,6 +1,4 @@
 
-import argparse
-
 from libnyumaya import AudioRecognition
 
 #TODO: Optimize: More error handling

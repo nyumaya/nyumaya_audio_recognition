@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from threading import Thread, Lock
+from threading import Lock
 import time
 import unittest
 

@@ -2,8 +2,6 @@ from __future__ import unicode_literals
 from __future__ import division
 
 import argparse
-import sys
-import time
 import os
 import csv
 import re
@@ -119,7 +117,7 @@ def run_good_predictions(detector,extractor,good_folders,noise_folders,add_noise
 
 		current_label = datapoint['label']
 
-		wavdata,duration = load_audio_file(datapoint['file'])
+		wavdata,_ = load_audio_file(datapoint['file'])
 
 		if(not wavdata):
 			continue
@@ -129,7 +127,7 @@ def run_good_predictions(detector,extractor,good_folders,noise_folders,add_noise
 		
 		if(add_noise):
 			bg_noise_file = get_random_file(noise_list)
-			noise,noise_duration = load_audio_file(bg_noise_file)
+			noise,_ = load_audio_file(bg_noise_file)
 
 			if(not noise):
 				print("Couldn't load: " + bg_noise_file)
@@ -207,7 +205,7 @@ def include_good_folder(path,labels,include_only_test_files=True):
 
 def include_random_folder(path):
 	file_list=[]
-	for root, dirs, files in walk(path):
+	for root, _, files in walk(path):
 		for f in files:
 			if splitext(f)[1].lower() == ".wav":
 				file_list.append(join(root, f)) 
@@ -239,7 +237,6 @@ def run_bad_predictions(detector,extractor,cv_folder,bad_folders,sensitivity):
 
 	seconds = 0
 	false_predictions = 0
-	bad_predictions = 0
 	file_count = 0
 	filelist=[]
 	if(cv_folder):

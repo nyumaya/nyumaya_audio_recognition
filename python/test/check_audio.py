@@ -2,11 +2,13 @@ import time
 import os
 import argparse
 import sys
-import datetime
+import platform
 import struct
 
-from record import AudiostreamSource
-from record import RingBuffer
+if platform.system() == "Darwin":
+	from cross_record import AudiostreamSource
+else:
+	from record import AudiostreamSource
 
 
 audio_stream = AudiostreamSource()
@@ -50,7 +52,7 @@ avg_level = avg_sum / frame_len
 possible_gain = 32768 / max_level
 
 if(max_level == 0):
-	"I'm getting no signal at all!"
+	print("I'm getting no signal at all!")
 	sys.exit(0)
 
 print("Max Level: " + str(max_level))

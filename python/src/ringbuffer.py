@@ -43,11 +43,11 @@ class RingBuffer():
 		if((self.write_pos + datalen) <= self.buffer_size):
 			self.buffer[self.write_pos:self.write_pos+datalen] = data[:]
 			self.write_pos += datalen
-			
+
 		else:
 
 			#Write first part into buffer
-			first_len = self.buffer_size - self.write_pos	
+			first_len = self.buffer_size - self.write_pos
 			self.buffer[self.write_pos:self.write_pos+first_len] = data[0:first_len]
 
 			#Write second part wrapped around
@@ -95,7 +95,7 @@ class RingBuffer():
 			first_len = (self.buffer_size - self.read_pos)
 			second_len = blocksize - first_len
 			second_part = self.buffer[0:second_len]
-			self.read_pos += advance 
+			self.read_pos += advance
 			if(self.read_pos > self.buffer_size):
 				self.read_pos %= self.buffer_size
 

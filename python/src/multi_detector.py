@@ -67,7 +67,7 @@ class MultiDetector():
 		
 		if(len(command.split(",")) == 0):
 			print("No valid command")
-			return 
+			return
 
 		self.commands.append({'command':command.split(","), 'function': callback_function })
 		self.update_word_and_detector()
@@ -126,7 +126,7 @@ class MultiDetector():
 					#Command hasn't finished so run last frames in next detectors
 					if(not result):
 						self.run_last_frames()
-	
+
 	def run_last_frames(self):
 		for frame in self.last_frames:
 			self.run_frame(frame,update_frames=False)

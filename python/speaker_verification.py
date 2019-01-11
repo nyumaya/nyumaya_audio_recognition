@@ -129,7 +129,7 @@ def label_stream(labels,libpath,verification_path ,graph,sensitivity):
 				print(features)
 				
 				avg_fingerprint = get_averaged_fingerprint()
-				
+
 				if(avg_fingerprint):
 					similarity_score = cosine_similarity(features,avg_fingerprint)
 					print("Similarity: " + str(similarity_score))

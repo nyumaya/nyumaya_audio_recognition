@@ -17,7 +17,7 @@ class AudiostreamSource(Thread):
 
 	def __init__(self,sample_rate=16000,channels=1,audio_length=80):
 		Thread.__init__(self)
-		
+
 		self.running = False
 		self.input_device = 'default'
 		self.bytes_per_sample=2

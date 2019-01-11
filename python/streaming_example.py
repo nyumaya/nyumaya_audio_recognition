@@ -41,7 +41,7 @@ def label_stream(labels,libpath ,graph,sensitivity):
 				continue
 
 			features = extractor.signal_to_mel(frame,extactor_gain)
-			
+
 			prediction = detector.RunDetection(features)
 
 			if(prediction):

@@ -56,7 +56,7 @@ def label_stream(libpath):
 	try:
 		while(True):
 			frame = audio_stream.read(bufsize*2,bufsize*2)
- 
+
 			if(not frame):
 				time.sleep(0.01)
 				continue

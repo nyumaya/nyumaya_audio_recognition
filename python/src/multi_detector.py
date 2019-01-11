@@ -76,6 +76,13 @@ class MultiDetector():
 		detector = AudioRecognition(self.libpath,graph,labels)
 		detector.SetSensitivity(sensitivity)
 		self.detectors.append(detector)
+	
+	def add_reset_history_callback(self,callback_function):
+		self.history_callback = callback_function
+		
+	def add_detected_callback(self,callback_function):
+		self.detected_callback = callback_function
+
 
 	def GetInputDataSize(self):
 		return self.detectors[0].GetInputDataSize()
@@ -99,7 +106,9 @@ class MultiDetector():
 			if(self.countdown == 0):
 				self.history = []
 				self.update_word_and_detector()
-				print("Reset History")
+				if(self.history_callback):
+					self.history_callback()
+
 
 	def update_word_and_detector(self):
 		self.possible_words = self.get_possible_words(self.history)
@@ -122,6 +131,9 @@ class MultiDetector():
 					self.history.append(label)
 					result = self.maby_execute()
 					self.update_word_and_detector()
+					
+					if(self.detected_callback):
+						self.detected_callback()
 
 					#Command hasn't finished so run last frames in next detectors
 					if(not result):

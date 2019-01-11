@@ -3,6 +3,10 @@ from ctypes import *
 
 import sys
 
+def _load_labels(self,filename):
+	with open(filename,'r') as f:
+		return [line.strip() for line in f]
+
 
 class AudioRecognition(object):
 
@@ -43,7 +47,7 @@ class AudioRecognition(object):
 
 
 		if(label_path):
-			self.labels_list = self._load_labels(label_path)
+			self.labels_list = _load_labels(label_path)
 
 	def RunDetection(self,data):
 		datalen = int(len(data))
@@ -80,9 +84,6 @@ class AudioRecognition(object):
 	def RemoveDC(self,val):
 		pass
 
-	def _load_labels(self,filename):
-		with open(filename,'r') as f:
-			return [line.strip() for line in f]
 
 
 

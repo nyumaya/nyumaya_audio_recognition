@@ -190,7 +190,7 @@ def which_set(filename, validation_percentage=2, testing_percentage=10):
 #your own data
 def include_good_folder(path,labels,include_only_test_files=True):
 	file_list = []
-	for root, dirs, files in walk(path):
+	for root, _, files in walk(path):
 		for f in files:
 			if splitext(f)[1].lower() == ".wav":
 				dirname = os.path.basename(os.path.dirname(join(root, f)))

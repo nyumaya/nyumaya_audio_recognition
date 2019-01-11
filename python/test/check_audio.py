@@ -1,6 +1,4 @@
 import time
-import os
-import argparse
 import sys
 import platform
 import struct

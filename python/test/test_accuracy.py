@@ -6,12 +6,16 @@ import os
 import csv
 import re
 import hashlib
+import sys 
 
 from os import walk
 from os.path import splitext
 from os.path import join
 
 from pydub import AudioSegment
+
+
+sys.path.append('../src')
 
 from libnyumaya import AudioRecognition,FeatureExtractor
 from random import randint, seed

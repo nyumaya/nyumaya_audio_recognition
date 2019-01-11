@@ -26,9 +26,9 @@ def get_averaged_fingerprint():
 		return None
 
 	C=[]
-	for i in range(len(fingerprints[0])):
+	for i,_ in enumerate(fingerprints[0]):
 		val = 0
-		for f in range(len(fingerprints)):
+		for f,_ in enumerate(fingerprints):
 			val += fingerprints[f][i]
 		val /= len(fingerprints)
 		C.append(val)
@@ -38,7 +38,7 @@ def get_averaged_fingerprint():
 def cosine_similarity(v1,v2):
 
 	sumxx, sumxy, sumyy = 0, 0, 0
-	for i in range(len(v1)):
+	for i,_ in enumerate(v1):
 		x = v1[i]; y = v2[i]
 		sumxx += x*x
 		sumyy += y*y

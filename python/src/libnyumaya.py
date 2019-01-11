@@ -3,7 +3,7 @@ from ctypes import *
 
 import sys
 
-def _load_labels(self,filename):
+def _load_labels(filename):
 	with open(filename,'r') as f:
 		return [line.strip() for line in f]
 

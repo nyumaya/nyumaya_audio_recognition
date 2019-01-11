@@ -1,6 +1,4 @@
 import os
-import time
-import sys
 import pyaudio
 from threading import Thread
 from ringbuffer import RingBuffer

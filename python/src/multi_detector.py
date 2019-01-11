@@ -1,8 +1,5 @@
-import time
-import os
+
 import argparse
-import sys
-import datetime
 
 from libnyumaya import AudioRecognition
 from ringbuffer import RingBuffer

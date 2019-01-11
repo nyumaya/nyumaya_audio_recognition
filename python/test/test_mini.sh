@@ -29,7 +29,7 @@ fi
 marvin_small="--use_all_files --graph ../../models/Hotword/marvin_small_0.3.tflite --labels ../../models/Hotword/marvin_labels.txt
  --good_folder ../../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_ff_test/marvin,../../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_nf_test/marvin"
  
-marvin_big="--use_all_files  --graph ../models/Hotword/marvin_big_0.3.tflite --labels ../../models/Hotword/marvin_labels.txt
+marvin_big="--use_all_files  --graph ../../models/Hotword/marvin_big_0.3.tflite --labels ../../models/Hotword/marvin_labels.txt
  --good_folder ../../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_ff_test/marvin,../../../nyumaya_audio_testdata/nyumaya_marvin_test_0.1/nyumaya_marvin_nf_test/marvin"
  
 

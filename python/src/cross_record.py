@@ -1,4 +1,3 @@
-import os
 import pyaudio
 from threading import Thread
 from ringbuffer import RingBuffer

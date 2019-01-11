@@ -1,6 +1,6 @@
-import os
+
 import subprocess
-import time
+
 from threading import Thread
 from ringbuffer import RingBuffer
 

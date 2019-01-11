@@ -113,7 +113,6 @@ class SpeakerVerification(object):
 
 		prediction = SpeakerVerification.lib.VerifySpeaker(self.obj,pcmdata,datalen)
 		fingerprint_len = 512
-		result = (c_uint8 * fingerprint_len)()
 		re = [prediction[i] for i in range(fingerprint_len)]
 		return re
 

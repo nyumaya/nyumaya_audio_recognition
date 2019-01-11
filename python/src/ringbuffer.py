@@ -1,11 +1,8 @@
 #!/usr/bin/python3
 
-import os
-import subprocess
 from threading import Thread, Lock
 import time
 import unittest
-import sys
 
 # Efficienly capture audio into a ringbuffer using arecord
 # This will only work for linux based systems

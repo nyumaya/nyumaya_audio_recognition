@@ -2,7 +2,6 @@
 import argparse
 
 from libnyumaya import AudioRecognition
-from ringbuffer import RingBuffer
 
 #TODO: Optimize: More error handling
 

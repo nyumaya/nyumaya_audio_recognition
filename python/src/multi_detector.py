@@ -7,7 +7,7 @@ from libnyumaya import AudioRecognition
 class MultiDetector():
 
 
-	def __init__(self,libpath,timeout = 20):
+	def __init__(self,libpath,timeout = 40):
 		self.current_index = 0
 		self.number_detectors = 0
 		self.countdown = 0

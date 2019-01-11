@@ -24,14 +24,14 @@ class MultiDetector():
 		words = []
 		for cmd in self.commands:
 			index = self.command_starts_with_history(cmd['command'],history)
-			
+
 			if(index >= len(cmd['command'])):
 				print ("Error index out of range:")
 				print ("Command: " + str(cmd))
 				print ("Index: " + str(index))
 				print ("History: " + str(history))
 				return []
-				
+
 			if(index >=0):
 				cmd = cmd['command'][index]
 				if(not cmd in words):
@@ -76,10 +76,10 @@ class MultiDetector():
 		detector = AudioRecognition(self.libpath,graph,labels)
 		detector.SetSensitivity(sensitivity)
 		self.detectors.append(detector)
-	
+
 	def add_reset_history_callback(self,callback_function):
 		self.history_callback = callback_function
-		
+
 	def add_detected_callback(self,callback_function):
 		self.detected_callback = callback_function
 
@@ -118,9 +118,9 @@ class MultiDetector():
 
 		if(update_frames):
 			self.UpdateLastFrames(frame)
-			
+
 		self.check_timeout()
-		
+
 		for detector in self.current_detectors:
 			prediction = detector.RunDetection(frame)
 			if(prediction):
@@ -131,7 +131,7 @@ class MultiDetector():
 					self.history.append(label)
 					result = self.maby_execute()
 					self.update_word_and_detector()
-					
+
 					if(self.detected_callback):
 						self.detected_callback()
 

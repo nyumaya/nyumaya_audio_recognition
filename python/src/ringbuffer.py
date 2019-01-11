@@ -88,7 +88,7 @@ class RingBuffer():
 			self.lock.release()
 			return data
 
-		# Need to concatenate	
+		# Need to concatenate
 		else:
 
 			first_part = self.buffer[self.read_pos:self.buffer_size]

@@ -32,7 +32,7 @@ class AudioRecognition(object):
 			AudioRecognition.lib.RunRawDetection.restype =  POINTER(c_int)
 			
 		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath.encode('ascii'))
-		
+
 		if sys.version_info[0] < 3:
 
 			if self.GetVersionString() != "0.0.3":
@@ -40,8 +40,8 @@ class AudioRecognition(object):
 		else:
 			if self.GetVersionString() != "b'0.0.3'":
 				print("Your library version is not compatible with this API")
-		
-		
+
+
 		if(label_path):
 			self.labels_list = self._load_labels(label_path)
 
@@ -51,7 +51,7 @@ class AudioRecognition(object):
 		pcmdata = pcm.from_buffer_copy(data)
 		prediction = AudioRecognition.lib.RunDetection(self.obj,pcmdata,datalen)
 		return prediction
-		
+
 
 	def RunRawDetection(self,data):
 		datalen = int(len(data))
@@ -59,12 +59,12 @@ class AudioRecognition(object):
 		pcmdata = pcm.from_buffer_copy(data)
 		prediction = AudioRecognition.lib.RunRawDetection(self.obj,pcmdata,datalen)
 		return prediction
-		
+
 
 	def GetPredictionLabel(self,index):
 		if(self.labels_list):
 			return self.labels_list[index]
-		
+
 	def SetGain(self,gain):
 		pass
 
@@ -76,7 +76,7 @@ class AudioRecognition(object):
 
 	def GetInputDataSize(self):
 		return AudioRecognition.lib.GetInputDataSize(self.obj)
-		
+
 	def RemoveDC(self,val):
 		pass
 
@@ -95,7 +95,7 @@ class SpeakerVerification(object):
 
 		if (not SpeakerVerification.lib):
 			SpeakerVerification.lib = cdll.LoadLibrary(libpath)
-		
+
 			SpeakerVerification.lib.create_speaker_verification.argtypes = [c_char_p]
 			SpeakerVerification.lib.create_speaker_verification.restype = c_void_p
 
@@ -128,10 +128,10 @@ class FeatureExtractor(object):
 		self.melcount = melcount
 		self.shift =  sample_rate*shift
 		self.gain = 1
-		
+
 		if (not FeatureExtractor.lib):
 			FeatureExtractor.lib = cdll.LoadLibrary(libpath)
-		
+
 			FeatureExtractor.lib.create_feature_extractor.argtypes = [c_int,c_int,c_int,c_int,c_int,c_float,c_float]
 			FeatureExtractor.lib.create_feature_extractor.restype = c_void_p
 

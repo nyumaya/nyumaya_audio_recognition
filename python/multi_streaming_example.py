@@ -48,7 +48,7 @@ def label_stream(libpath):
 	mDetector.add_command("stop",stop)
 
 	bufsize = mDetector.GetInputDataSize()
-	
+
 	audio_stream = AudiostreamSource()
 
 	audio_stream.start()

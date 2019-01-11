@@ -18,9 +18,9 @@ class MultiDetector():
 		self.history=[]
 		self.last_frames = []
 		self.max_last_frames = 5
-		
+
 	def get_possible_words(self,history):
-		
+
 		words = []
 		for cmd in self.commands:
 			index = self.command_starts_with_history(cmd['command'],history)
@@ -122,7 +122,7 @@ class MultiDetector():
 					self.history.append(label)
 					result = self.maby_execute()
 					self.update_word_and_detector()
-					
+
 					#Command hasn't finished so run last frames in next detectors
 					if(not result):
 						self.run_last_frames()

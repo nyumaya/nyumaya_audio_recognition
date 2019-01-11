@@ -6,7 +6,7 @@ import os
 import csv
 import re
 import hashlib
-import sys 
+import sys
 
 from os import walk
 from os.path import splitext
@@ -67,10 +67,10 @@ def get_cv_list(labels_list,cvcorpus_path):
 		
 		base = os.path.splitext(filepath)[0]
 		filepath = base + ".wav"
-		text = row[1].lower()    
+		text = row[1].lower()
 		use = True
 		for wanted_word in labels_list:
-			if((wanted_word.lower() + " ") in text):  
+			if((wanted_word.lower() + " ") in text):
 				use = False
 
 		if(use == True):
@@ -102,7 +102,7 @@ def run_good_predictions(detector,extractor,good_folders,noise_folders,add_noise
 		print("No testdata found")
 		return None, None, None, None
 
-	print("Number of positive Samples: " + str(len(testing_set))) 
+	print("Number of positive Samples: " + str(len(testing_set)))
 	noise_list = []
 	
 	if(add_noise):
@@ -200,10 +200,10 @@ def include_good_folder(path,labels,include_only_test_files=True):
 				dirname = os.path.basename(os.path.dirname(join(root, f)))
 				if(include_only_test_files):
 					if(dirname in labels and which_set(f) == 'testing'):
-						file_list.append({'label': dirname, 'file': join(root, f)}) 
+						file_list.append({'label': dirname, 'file': join(root, f)})
 				else:
 					if(dirname in labels):
-						file_list.append({'label': dirname, 'file': join(root, f)}) 
+						file_list.append({'label': dirname, 'file': join(root, f)})
 				
 	return file_list
 
@@ -360,9 +360,9 @@ if __name__ == '__main__':
 		for result in results_clean:
 			result_file.write("Sens: " + str(result["sensitivity"]) + " " + "Accuracy: " + str( result["accuracy"] ) + "\n")
 			#area_clean += (1-result["accuracy"]) * results_false[i]["false_predictions"]
-			i+=1 
+			i+=1
 		print("Area clean:" + str(area_clean))
-			
+
 		result_file.write("\n\n")
 
 		result_file.write("Accuracy noisy \n")

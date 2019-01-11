@@ -81,7 +81,7 @@ class AudioRecognition(object):
 		pass
 
 	def _load_labels(self,filename):
-		with open(filename,'r') as f:  
+		with open(filename,'r') as f:
 			return [line.strip() for line in f]
 
 
@@ -148,7 +148,7 @@ class FeatureExtractor(object):
 	def signal_to_mel(self,data,gain=1):
 	
 		datalen = int(len(data)/2)
-		pcm = c_int16 * datalen	
+		pcm = c_int16 * datalen
 		pcmdata = pcm.from_buffer_copy(data)
 
 		number_of_frames = int(datalen / self.shift);

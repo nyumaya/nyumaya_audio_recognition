@@ -32,7 +32,7 @@ class RingBuffer():
 		if(datalen > self.buffer_size):
 			print("Trying to write huge buffer !!!!!!!")
 			return
-			
+
 		self.lock.acquire()
 
 		# TODO: Check for buffer overrun

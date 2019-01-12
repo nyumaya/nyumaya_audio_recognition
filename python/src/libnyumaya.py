@@ -37,18 +37,27 @@ class AudioRecognition(object):
 			
 		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath.encode('ascii'))
 
-		if sys.version_info[0] < 3:
-
-			if self.GetVersionString() != "0.0.3":
-				print("Your library version is not compatible with this API")
-		else:
-			if self.GetVersionString() != "b'0.0.3'":
-				print("Your library version is not compatible with this API")
-
+		self.check_version()
 
 		if(label_path):
 			self.labels_list = _load_labels(label_path)
 
+	def check_version(self):
+	
+		major = None 
+		minor = None 
+		rev = None
+
+		if sys.version_info[0] < 3:
+			major,minor,rev= self.GetVersionString().split('.')
+		else:
+			version_string =  self.GetVersionString()[2:]
+			version_string = version_string[:-1]
+			major,minor,rev= version_string.split('.')
+
+		if major != "0" and minor != "3" :
+				print("Your library version is not compatible with this API")
+				
 	def RunDetection(self,data):
 		datalen = int(len(data))
 		pcm = c_uint8 * datalen

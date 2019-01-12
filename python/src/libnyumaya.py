@@ -16,7 +16,7 @@ class AudioRecognition(object):
 
 		if (not AudioRecognition.lib):
 			AudioRecognition.lib = cdll.LoadLibrary(libpath)
-		
+
 			AudioRecognition.lib.create_audio_recognition.argtypes = [c_char_p]
 			AudioRecognition.lib.create_audio_recognition.restype = c_void_p
 
@@ -43,9 +43,9 @@ class AudioRecognition(object):
 			self.labels_list = _load_labels(label_path)
 
 	def check_version(self):
-	
-		major = None 
-		minor = None 
+
+		major = None
+		minor = None
 		rev = None
 
 		if sys.version_info[0] < 3:
@@ -57,7 +57,7 @@ class AudioRecognition(object):
 
 		if major != "0" and minor != "3" :
 				print("Your library version is not compatible with this API")
-				
+
 	def RunDetection(self,data):
 		datalen = int(len(data))
 		pcm = c_uint8 * datalen
@@ -156,7 +156,7 @@ class FeatureExtractor(object):
 
 	#Takes audio data in the form of bytes which are converted to int16
 	def signal_to_mel(self,data,gain=1):
-	
+
 		datalen = int(len(data)/2)
 		pcm = c_int16 * datalen
 		pcmdata = pcm.from_buffer_copy(data)
@@ -167,7 +167,7 @@ class FeatureExtractor(object):
 		result = (c_uint8 * melsize)()
 
 		reslen = FeatureExtractor.lib.signal_to_mel(self.obj,pcmdata,datalen,result,gain)
-		
+
 		if(reslen != melsize):
 			print("Bad: melsize mismatch")
 			print("Expected: " + str(melsize))

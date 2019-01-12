@@ -86,12 +86,12 @@ def run_good_predictions(detector,extractor,good_folders,noise_folders,add_noise
 	bufsize = detector.GetInputDataSize() * 2
 
 	seed(1234)
-	
+
 	good_predictions = 0
 	wrong_predictions = 0
 	missed_predictions = 0
 	sample_number = 0
-	
+
 	testing_set = []
 
 	good_folders = good_folders.split(',')
@@ -111,12 +111,12 @@ def run_good_predictions(detector,extractor,good_folders,noise_folders,add_noise
 			if(os.path.exists(noise_folder)):
 				noise_list += include_random_folder(noise_folder)
 
-	
+
 		if(len(noise_list) == 0):
 			print("No noise data available")
 			return None, None, None, None
-			
-		
+
+
 	for datapoint in testing_set:
 
 		current_label = datapoint['label']
@@ -181,7 +181,7 @@ def which_set(filename, validation_percentage=2, testing_percentage=10):
 	percentage_hash = ((int(hash_name_hashed, 16) %
 		(MAX_NUM_WAVS_PER_CLASS + 1)) *
 		(100.0 / MAX_NUM_WAVS_PER_CLASS))
-		
+
 	if percentage_hash < validation_percentage:
 		result = 'validation'
 	elif percentage_hash < (testing_percentage + validation_percentage):
@@ -204,7 +204,7 @@ def include_good_folder(path,labels,include_only_test_files=True):
 				else:
 					if(dirname in labels):
 						file_list.append({'label': dirname, 'file': join(root, f)})
-				
+
 	return file_list
 
 def include_random_folder(path):
@@ -212,7 +212,7 @@ def include_random_folder(path):
 	for root, _, files in walk(path):
 		for f in files:
 			if splitext(f)[1].lower() == ".wav":
-				file_list.append(join(root, f)) 
+				file_list.append(join(root, f))
 	return file_list
 
 
@@ -245,7 +245,7 @@ def run_bad_predictions(detector,extractor,cv_folder,bad_folders,sensitivity):
 	filelist=[]
 	if(cv_folder):
 		filelist = filelist + get_cv_list(detector.labels_list,cv_folder)
-	
+
 	bad_folders = bad_folders.split(',')
 	for folder in bad_folders:
 		filelist = filelist + include_random_folder(folder)
@@ -309,7 +309,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--use_all_files',  action='store_true', help='Wether to use all files or only files which have a hash matching test files')
-		
+
 	FLAGS, unparsed = parser.parse_known_args()
 
 	print("include_only_test_files: " + str(FLAGS.use_all_files))
@@ -338,7 +338,7 @@ if __name__ == '__main__':
 				else:
 					results_clean.append(result)
 				print("Sens: " + str(result["sensitivity"]) + " " + "Accuracy: " + str( result["accuracy"] ) )
-			
+
 	for sensitivity in sensitivities:
 		false_predictions = run_bad_predictions(detector,extractor,FLAGS.cv_folder,FLAGS.bad_folders,sensitivity)
 		if(false_predictions is not None):
@@ -347,14 +347,14 @@ if __name__ == '__main__':
 			result["false_predictions"] = false_predictions
 			results_false.append(result)
 			print("Sens: " + str(result["sensitivity"]) +  " False per hour " +  str(result["false_predictions"]))
-		
-		
+
+
 	result_name = os.path.splitext(os.path.basename(FLAGS.graph))[0]  + "_" + "result.txt"
 	with open(os.path.dirname(FLAGS.graph) + "/" + result_name, "a") as result_file:
 		result_file.write(FLAGS.graph + "\n")
 		result_file.write(md5sum_of_file(FLAGS.graph) + "\n\n")
 		result_file.write("Accuracy clean \n")
-		
+
 		area_clean = 0
 		i=0
 		for result in results_clean:

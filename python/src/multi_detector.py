@@ -3,7 +3,7 @@ from libnyumaya import AudioRecognition
 
 #TODO: Optimize: More error handling
 
-def command_starts_with_history(self,cmd,history):
+def command_starts_with_history(cmd,history):
 	index = 0
 
 	while index < len(history) and index < len(cmd):

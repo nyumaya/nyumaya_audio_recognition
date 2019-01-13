@@ -11,26 +11,8 @@ To run an example
 ```
 git clone --depth 1 https://github.com/nyumaya/nyumaya_audio_recognition.git
 cd nyumaya_audio_recognition/python 
+python streaming_example.py
 ```
-For Raspberry Pi 2/3
-```
-python streaming_example.py --libpath ../lib/rpi/armv7/libnyumaya.so
-```
-For Raspberry Pi Zero
-```
-python streaming_example.py --libpath ../lib/rpi/armv6/libnyumaya.so
-```
-
-For Linux
-```
-python streaming_example.py --libpath ../lib/linux/libnyumaya.so
-```
-
-For Mac
-```
-python streaming_example.py --libpath ../lib/mac/libnyumaya.dylib
-```
-
 
 The demo captures audio from the default microphone.
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.

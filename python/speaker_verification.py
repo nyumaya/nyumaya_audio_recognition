@@ -12,10 +12,7 @@ sys.path.append('./src')
 
 from libnyumaya import AudioRecognition,FeatureExtractor,SpeakerVerification
 
-if platform.system() == "Darwin":
-	from cross_record import AudiostreamSource
-else:
-	from record import AudiostreamSource
+from auto_platform import AudiostreamSource, play_command,default_libpath
 
 fingerprints=[]
 enrolling = 5
@@ -72,10 +69,7 @@ def label_stream(labels,libpath,verification_path ,graph,sensitivity):
 
 	print("Bufsize: " + str(bufsize))
 
-	play_command = "play -q" if platform.system() == "Darwin" else "aplay"
-
 	print("Audio Recognition Version: " + detector.GetVersionString())
-
 
 	print("WARNING EXPERIMENTAL: The voice verification module can be use to verify if")
 	print("A command is issued by a certian speaker. It processes speech signals with a")
@@ -157,7 +151,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--libpath', type=str,
-		default='../lib/linux/libnyumaya.so',
+		default=default_libpath,
 		help='Path to Platform specific nyumaya_lib.')
 
 	parser.add_argument(

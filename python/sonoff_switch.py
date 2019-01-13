@@ -9,19 +9,14 @@ sys.path.append('./src')
 from libnyumaya import FeatureExtractor
 from multi_detector import MultiDetector
 
-if platform.system() == "Darwin":
-	from cross_record import AudiostreamSource
-else:
-	from record import AudiostreamSource
+from auto_platform import AudiostreamSource, play_command,default_libpath
+
 
 hotword_graph="../models/Hotword/marvin_small_0.3.tflite"
 hotword_labels="../models/Hotword/marvin_labels.txt"
 
-
 action_graph="../models/Command/on_off_big_0.3.tflite"
 action_labels="../models/Command/on_off_labels.txt"
-
-play_command = "play -q" if platform.system() == "Darwin" else "aplay"
 
 sonoff_ip="10.0.0.54"
 
@@ -86,12 +81,10 @@ def label_stream(libpath):
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 
-
 	parser.add_argument(
 		'--libpath', type=str,
-		default='../lib/linux/libnyumaya.so',
+		default=default_libpath,
 		help='Path to Platform specific nyumaya_lib.')
-
 
 
 	FLAGS, unparsed = parser.parse_known_args()

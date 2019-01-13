@@ -35,5 +35,7 @@ elif system == "Linux":
 elif system == "Windows":
 	print("Windows is currently not supported")
 
+else:
+	print("Your OS is currently not supported")
 
 

@@ -1,8 +1,3 @@
-import time
-import os
-import argparse
-import sys
-import datetime
 import platform
 
 play_command = None

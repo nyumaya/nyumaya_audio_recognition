@@ -3,7 +3,6 @@ import os
 import argparse
 import sys
 import datetime
-import platform
 import math
 
 

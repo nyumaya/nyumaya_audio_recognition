@@ -1,7 +1,6 @@
 import time
 import argparse
 import sys
-import platform
 
 
 sys.path.append('./src')
@@ -9,7 +8,7 @@ sys.path.append('./src')
 from libnyumaya import FeatureExtractor
 from multi_detector import MultiDetector
 
-from auto_platform import AudiostreamSource, play_command,default_libpath
+from auto_platform import AudiostreamSource,default_libpath
 
 
 hotword_graph="../models/Hotword/marvin_small_0.3.tflite"

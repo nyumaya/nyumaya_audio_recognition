@@ -2,7 +2,6 @@ import time
 import os
 import argparse
 import sys
-import platform
 
 sys.path.append('./src')
 

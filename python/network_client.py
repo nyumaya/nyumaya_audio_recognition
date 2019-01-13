@@ -1,15 +1,12 @@
 import time
-import os
 import argparse
 import sys
-import datetime
-import platform
 import socket
 
 sys.path.append('./src')
 
 from libnyumaya import FeatureExtractor
-from auto_platform import AudiostreamSource, play_command,default_libpath
+from auto_platform import AudiostreamSource,default_libpath
 
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

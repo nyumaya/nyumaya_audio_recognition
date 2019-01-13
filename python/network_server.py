@@ -5,7 +5,6 @@ import sys
 import os
 sys.path.append('./src')
 
-from libnyumaya import FeatureExtractor
 from multi_detector import MultiDetector
 
 libpath = "../lib/linux/libnyumaya.so"
@@ -26,11 +25,11 @@ def light_on():
 def light_off():
 	print("Turning light off")
 	os.system("curl http://" + sonoff_ip +"/cm?cmnd=Power%20Off &")
-	
+
 def detected_something_callback():
 	#os.system(play_command + " ./resources/tone-beep.wav")
 	print("Detected Something")
-	
+
 def reset_history_callback():
 	print("Reset History")
 

@@ -9,11 +9,8 @@ import platform
 sys.path.append('./src')
 
 from libnyumaya import AudioRecognition,FeatureExtractor
+from auto_platform import AudiostreamSource, play_command,default_libpath
 
-if platform.system() == "Darwin":
-	from cross_record import AudiostreamSource
-else:
-	from record import AudiostreamSource
 
 
 def label_stream(labels,libpath ,graph,sensitivity):
@@ -27,8 +24,6 @@ def label_stream(labels,libpath ,graph,sensitivity):
 	detector.SetSensitivity(sensitivity)
 
 	bufsize = detector.GetInputDataSize()
-
-	play_command = "play -q" if platform.system() == "Darwin" else "aplay"
 
 	print("Audio Recognition Version: " + detector.GetVersionString())
 
@@ -64,7 +59,7 @@ if __name__ == '__main__':
 
 	parser.add_argument(
 		'--libpath', type=str,
-		default='../lib/linux/libnyumaya.so',
+		default=default_libpath,
 		help='Path to Platform specific nyumaya_lib.')
 
 	parser.add_argument(

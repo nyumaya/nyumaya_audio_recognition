@@ -30,6 +30,10 @@ elif system == "Linux":
 	play_command = "aplay"
 	if(machine == "x86_64"):
 		default_libpath = '../lib/linux/libnyumaya.so'
+	elif(machine == "armv6l"):
+		default_libpath = '../lib/rpi/armv6/libnyumaya.so'
+	elif(machine == "armv7l"):
+		default_libpath = '../lib/rpi/armv7/libnyumaya.so'
 	else:
 		print("Machine not supported")
 		

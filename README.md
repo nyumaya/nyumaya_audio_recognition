@@ -11,7 +11,7 @@ To run an example
 ```
 git clone --depth 1 https://github.com/nyumaya/nyumaya_audio_recognition.git
 cd nyumaya_audio_recognition/python 
-python streaming_example.py --libpath ../lib/rpi/armv7/libnyumaya.so
+python streaming_example.py
 ```
 
 The demo captures audio from the default microphone.

@@ -3,6 +3,15 @@ from libnyumaya import AudioRecognition
 
 #TODO: Optimize: More error handling
 
+def command_starts_with_history(cmd,history):
+	index = 0
+
+	while index < len(history) and index < len(cmd):
+		if(history[index] != cmd[index]):
+			return -1
+		index += 1
+		
+	return index
 
 class MultiDetector():
 
@@ -20,10 +29,9 @@ class MultiDetector():
 		self.max_last_frames = 5
 
 	def get_possible_words(self,history):
-
 		words = []
 		for cmd in self.commands:
-			index = self.command_starts_with_history(cmd['command'],history)
+			index = command_starts_with_history(cmd['command'],history)
 
 			if(index >= len(cmd['command'])):
 				print ("Error index out of range:")
@@ -53,18 +61,9 @@ class MultiDetector():
 		if len(self.last_frames) > self.max_last_frames:
 			self.last_frames.pop(0)
 
-	def command_starts_with_history(self,cmd,history):
-		index = 0
 
-		while index < len(history) and index < len(cmd):
-			if(history[index] != cmd[index]):
-				return -1
-			index += 1
-			
-		return index
 
 	def add_command(self,command,callback_function):
-		
 		if(len(command.split(",")) == 0):
 			print("No valid command")
 			return
@@ -96,9 +95,9 @@ class MultiDetector():
 				self.countdown = 0
 				self.last_frames = []
 				executed_cmd =  True
-			
+
 		return executed_cmd
-			
+
 	def check_timeout(self):
 
 		if(self.countdown > 0):

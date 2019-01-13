@@ -54,14 +54,14 @@ def cosine_similarity(v1,v2):
 
 def label_stream(labels,libpath,verification_path ,graph,sensitivity):
 	last_frames=[]
-	
+
 	#Keyword spotting has 200ms frames, Verifiyer takes 2 seconds of audio
 	max_last_frames = 10
 
 	audio_stream = AudiostreamSource()
 
 	extractor = FeatureExtractor(libpath)
-	
+
 	detector = AudioRecognition(libpath,graph,labels)
 	detector.SetSensitivity(sensitivity)
 
@@ -69,7 +69,7 @@ def label_stream(labels,libpath,verification_path ,graph,sensitivity):
 
 
 	bufsize = detector.GetInputDataSize()
-	
+
 	print("Bufsize: " + str(bufsize))
 
 	play_command = "play -q" if platform.system() == "Darwin" else "aplay"
@@ -84,9 +84,9 @@ def label_stream(labels,libpath,verification_path ,graph,sensitivity):
 	print("\n\n During enrolling a fingerprint of your voice is caputred. By default 5 samples")
 	print("Will be captured and averaged. The progam will output a similarity score between 0 and 1")
 	print("A value of 1 means totally similar, 0 means different.")
-	
+
 	print("Currently a threshold of 0.95 seems good")
-	
+
 	print("This module should not be run on a Pi Zero, as it uses excessive CPU")
 	print("Verification can also be helpful to reduce false positives of non speech signals")
 
@@ -106,7 +106,7 @@ def label_stream(labels,libpath,verification_path ,graph,sensitivity):
 				last_frames.pop(0)
 
 			prediction = detector.RunDetection(features)
-		
+
 			if(prediction):
 				now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")
 				print(detector.GetPredictionLabel(prediction) + " " + now)
@@ -125,9 +125,9 @@ def label_stream(labels,libpath,verification_path ,graph,sensitivity):
 					fingerprints.append(features)
 				else:
 					print("Completed")
-				
+
 				print(features)
-				
+
 				avg_fingerprint = get_averaged_fingerprint()
 
 				if(avg_fingerprint):

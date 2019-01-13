@@ -13,7 +13,7 @@ if platform.system() == "Darwin":
 	from cross_record import AudiostreamSource
 else:
 	from record import AudiostreamSource
-	
+
 hotword_graph="../models/Hotword/marvin_small_0.3.tflite"
 hotword_labels="../models/Hotword/marvin_labels.txt"
 
@@ -32,11 +32,11 @@ def light_on():
 def light_off():
 	print("Turning light off")
 	os.system("curl http://" + sonoff_ip +"/cm?cmnd=Power%20Off &")
-	
+
 def detected_something_callback():
 	os.system(play_command + " ./resources/tone-beep.wav")
 	print("Detected Something")
-	
+
 def reset_history_callback():
 	print("Reset History")
 
@@ -45,23 +45,23 @@ def stop():
 
 
 def label_stream(libpath):
-	
+
 	extractor = FeatureExtractor(libpath)
 	extractor_gain=1.0
 
 	mDetector = MultiDetector(libpath,timeout=20)
-	
+
 	mDetector.add_detector(action_graph,action_labels,0.8)
 	mDetector.add_detector(hotword_graph,hotword_labels,0.5)
-	
+
 	mDetector.add_command("marvin,on",light_on)
 	mDetector.add_command("marvin,off",light_off)
-	
+
 	mDetector.add_reset_history_callback(reset_history_callback)
 	mDetector.add_detected_callback(detected_something_callback)
 
 	bufsize = mDetector.GetInputDataSize()
-	
+
 	audio_stream = AudiostreamSource()
 
 	audio_stream.start()

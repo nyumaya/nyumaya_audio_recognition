@@ -85,7 +85,7 @@ mDetector.add_command("stop",stop)
 The source code for building the library can be found [here](https://github.com/nyumaya/nyumaya_audio_recognition_lib).
 You will most likely have to modify the CMakeLists.txt 
 
-In order to run the example code on a non linux system you can use change the example code to include cross_record instead of record.
+Supporting a new platform is very easy. After compiling the library and moving it to lib/<myboard> you have to modify the file src/auto_platform.py . You can run the script with python auto_platform.py and it will output your system and machine information. All you have to do is setting the default library path and wether to use arecord or pydub as audio source.
 
 You might have to modify the python bindings.
 

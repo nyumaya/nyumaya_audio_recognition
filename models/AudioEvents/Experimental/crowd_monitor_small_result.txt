@@ -1,0 +1,37 @@
+/mnt/Data/tmp/crowd_monitor_conv-conv/best/conv-conv.tflite
+5875451044ca405be58aaff0f0f9aa86
+
+Accuracy clean 
+Sens: 0.1 Accuracy: 0.9116945107398569
+Sens: 0.2 Accuracy: 0.9236276849642004
+Sens: 0.3 Accuracy: 0.9236276849642004
+Sens: 0.4 Accuracy: 0.9355608591885441
+Sens: 0.5 Accuracy: 0.9522673031026253
+Sens: 0.6 Accuracy: 0.9522673031026253
+Sens: 0.7 Accuracy: 0.9522673031026253
+Sens: 0.8 Accuracy: 0.9522673031026253
+Sens: 0.9 Accuracy: 0.9522673031026253
+
+
+Accuracy noisy 
+Sens: 0.1 Accuracy: 0.7708830548926014
+Sens: 0.2 Accuracy: 0.801909307875895
+Sens: 0.3 Accuracy: 0.801909307875895
+Sens: 0.4 Accuracy: 0.8186157517899761
+Sens: 0.5 Accuracy: 0.8424821002386635
+Sens: 0.6 Accuracy: 0.8472553699284009
+Sens: 0.7 Accuracy: 0.8472553699284009
+Sens: 0.8 Accuracy: 0.8520286396181385
+Sens: 0.9 Accuracy: 0.8520286396181385
+
+
+False predictions per hour
+Sens: 0.1 False Per Hour: 6.181253734446468
+Sens: 0.2 False Per Hour: 13.86099322269814
+Sens: 0.3 False Per Hour: 13.86099322269814
+Sens: 0.4 False Per Hour: 18.356450484113754
+Sens: 0.5 False Per Hour: 31.46820082990929
+Sens: 0.6 False Per Hour: 38.58600816048401
+Sens: 0.7 False Per Hour: 38.58600816048401
+Sens: 0.8 False Per Hour: 44.20532973725353
+Sens: 0.9 False Per Hour: 44.20532973725353

@@ -1,0 +1,37 @@
+/mnt/Data/tmp/alexa_hotword_conv-conv/best/conv-conv.tflite
+a0c873196e9b516c4ff4cec9979119ce
+
+Accuracy clean 
+Sens: 0.1 Accuracy: 0.8571428571428572
+Sens: 0.2 Accuracy: 0.8693009118541033
+Sens: 0.3 Accuracy: 0.8693009118541033
+Sens: 0.4 Accuracy: 0.8905775075987842
+Sens: 0.5 Accuracy: 0.9787234042553191
+Sens: 0.6 Accuracy: 0.9817629179331308
+Sens: 0.7 Accuracy: 0.9817629179331308
+Sens: 0.8 Accuracy: 0.9848024316109423
+Sens: 0.9 Accuracy: 0.9848024316109423
+
+
+Accuracy noisy 
+Sens: 0.1 Accuracy: 0.6717325227963526
+Sens: 0.2 Accuracy: 0.7082066869300911
+Sens: 0.3 Accuracy: 0.7082066869300911
+Sens: 0.4 Accuracy: 0.7142857142857143
+Sens: 0.5 Accuracy: 0.8693009118541033
+Sens: 0.6 Accuracy: 0.8753799392097265
+Sens: 0.7 Accuracy: 0.8753799392097265
+Sens: 0.8 Accuracy: 0.8814589665653495
+Sens: 0.9 Accuracy: 0.8814589665653495
+
+
+False predictions per hour
+Sens: 0.1 False Per Hour: 1.8731071922565055
+Sens: 0.2 False Per Hour: 2.2477286307078064
+Sens: 0.3 False Per Hour: 2.2477286307078064
+Sens: 0.4 False Per Hour: 2.6223500691591077
+Sens: 0.5 False Per Hour: 10.86402171508773
+Sens: 0.6 False Per Hour: 12.924439626569887
+Sens: 0.7 False Per Hour: 12.924439626569887
+Sens: 0.8 False Per Hour: 14.235614661149441
+Sens: 0.9 False Per Hour: 14.235614661149441

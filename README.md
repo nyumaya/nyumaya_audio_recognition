@@ -89,6 +89,9 @@ Supporting a new platform is very easy. After compiling the library and moving i
 
 You might have to modify the python bindings.
 
+## WebDemo
+
+An experimental miminal web demo is available [here](https://nyumaya.com/demo/). This currently only works with firefox and requires to set javascript.options.shared_memory in about:config to True
 
 ## Credits:
 - [honk](https://github.com/castorini/honk) For inspiration and model ideas

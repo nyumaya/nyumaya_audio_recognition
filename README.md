@@ -91,7 +91,8 @@ You might have to modify the python bindings.
 
 ## WebDemo
 
-An experimental miminal web demo is available [here](https://nyumaya.com/demo/). This currently only works with a recent version of firefox.
+An experimental miminal web demo is available [here](https://nyumaya.com/demo/). 
+This has been tested with recent versions of Chrome and Firefox.
 
 ## Credits:
 - [honk](https://github.com/castorini/honk) For inspiration and model ideas

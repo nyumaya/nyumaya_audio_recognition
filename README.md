@@ -17,7 +17,10 @@ python streaming_example.py
 The demo captures audio from the default microphone.
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
+## WebDemo
 
+An experimental web demo is available [here](https://nyumaya.com/demo/). 
+This has been tested with recent versions of Chrome and Firefox.
 
 ## Model Architectures
 - Small model  (CPU Pi0: 20% CPU Pi3 one core: 6%)
@@ -89,10 +92,7 @@ Supporting a new platform is very easy. After compiling the library and moving i
 
 You might have to modify the python bindings.
 
-## WebDemo
 
-An experimental miminal web demo is available [here](https://nyumaya.com/demo/). 
-This has been tested with recent versions of Chrome and Firefox.
 
 ## Credits:
 - [honk](https://github.com/castorini/honk) For inspiration and model ideas

@@ -92,6 +92,8 @@ Supporting a new platform is very easy. After compiling the library and moving i
 
 You might have to modify the python bindings.
 
+## Feature Requests:
+[![Feature Requests](http://feathub.com/nyumaya/nyumaya_audio_recognition?format=svg)](http://feathub.com/nyumaya/nyumaya_audio_recognition)
 
 
 ## Credits:

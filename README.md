@@ -17,7 +17,10 @@ python streaming_example.py
 The demo captures audio from the default microphone.
 For each application, different model architectures are available which are a tradeoff between accuracy and cpu/mem usage.
 
+## WebDemo
 
+An experimental web demo is available [here](https://nyumaya.com/demo/). 
+This has been tested with recent versions of Chrome and Firefox.
 
 ## Model Architectures
 - Small model  (CPU Pi0: 20% CPU Pi3 one core: 6%)
@@ -88,6 +91,9 @@ You will most likely have to modify the CMakeLists.txt
 Supporting a new platform is very easy. After compiling the library and moving it to lib/<myboard> you have to modify the file src/auto_platform.py . You can run the script with python auto_platform.py and it will output your system and machine information. All you have to do is setting the default library path and wether to use arecord or pydub as audio source.
 
 You might have to modify the python bindings.
+
+## Feature Requests:
+[![Feature Requests](http://feathub.com/nyumaya/nyumaya_audio_recognition?format=svg)](http://feathub.com/nyumaya/nyumaya_audio_recognition)
 
 
 ## Credits:

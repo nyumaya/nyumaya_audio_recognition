@@ -33,7 +33,7 @@ class AudioRecognition(object):
 			AudioRecognition.lib.RunDetection.restype = c_int
 
 			AudioRecognition.lib.RunRawDetection.argtypes = [c_void_p, POINTER(c_uint8),c_int]
-			AudioRecognition.lib.RunRawDetection.restype =  POINTER(c_int)
+			AudioRecognition.lib.RunRawDetection.restype =  POINTER(c_uint8)
 			
 		self.obj=AudioRecognition.lib.create_audio_recognition(modelpath.encode('ascii'))
 
@@ -71,7 +71,8 @@ class AudioRecognition(object):
 		pcm = c_uint8 * datalen
 		pcmdata = pcm.from_buffer_copy(data)
 		prediction = AudioRecognition.lib.RunRawDetection(self.obj,pcmdata,datalen)
-		return prediction
+		re = [prediction[i] for i in range(2)]
+		return re
 
 
 	def GetPredictionLabel(self,index):

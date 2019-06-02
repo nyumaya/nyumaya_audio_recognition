@@ -14,6 +14,9 @@ from auto_platform import AudiostreamSource,default_libpath
 hotword_graph="../models/Hotword/marvin_small_0.3.tflite"
 hotword_labels="../models/Hotword/marvin_labels.txt"
 
+#Note: subset_small_0.3 and subset_big_0.3 currently have a very low accuracy. 
+#A newer model for on/off gives much better results. Take a look at 
+#sonoff_switch.py for usage details.
 
 action_graph="../models/Command/subset_small_0.3.tflite"
 action_labels="../models/Command/subset_labels.txt"

@@ -27,6 +27,8 @@ class MultiDetector():
 		self.history=[]
 		self.last_frames = []
 		self.max_last_frames = 5
+		self.detected_callback = None
+		self.history_callback = None
 
 	def get_possible_words(self,history):
 		words = []

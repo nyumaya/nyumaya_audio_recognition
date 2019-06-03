@@ -99,4 +99,4 @@ You might have to modify the python bindings.
 ## Credits:
 - [honk](https://github.com/castorini/honk) For inspiration and model ideas
 - Peter Warden for releasing the Speech Command Dataset
--  The library uses [kissfft](https://github.com/mborgerding/kissfft)
+

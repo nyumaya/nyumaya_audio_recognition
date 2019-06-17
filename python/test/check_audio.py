@@ -3,6 +3,8 @@ import sys
 import platform
 import struct
 
+sys.path.append('../src')
+
 if platform.system() == "Darwin":
 	from cross_record import AudiostreamSource
 else:

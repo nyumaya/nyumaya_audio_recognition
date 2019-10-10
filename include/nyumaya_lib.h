@@ -1,52 +1,69 @@
 #ifndef NYUMAYA_AUDIO_RECOGNITION_H
 #define NYUMAYA_AUDIO_RECOGNITION_H
 
-#include <string>
-
 class AudioRecognitionImpl;
-class SpeakerVerificationImpl;
 class FeatureExtractor;
+
+#define DEFAULT_VIS  __attribute__ ((visibility ("default") ))
 
 extern "C"
 {
 
-
-	const char* GetVersionString(){return "0.0.3";}
+	const char* getVersionString() DEFAULT_VIS;
 
 	//Audio Recognition
-	AudioRecognitionImpl* create_audio_recognition(const char* modelPath);
-	
-	//@param array_length    Number of int16_t samples
-	//@param data            Signed int16 pcm data
-	int RunDetection(AudioRecognitionImpl*impl,const uint8_t* const data,const int mel_length); 
-	
-	void SetSensitivity(AudioRecognitionImpl*impl,float sens);
- 	
-	size_t GetInputDataSize(AudioRecognitionImpl*impl);
-	
+	AudioRecognitionImpl* createAudioRecognition() DEFAULT_VIS;
 
-	//Speaker Verification
-	SpeakerVerificationImpl* create_speaker_verification(const char*modelPath);
+	void deleteAudioRecognition(AudioRecognitionImpl*impl) DEFAULT_VIS;
+	
+	//Open Audio Recognition Model by Filename
+	//@param modelPath: Zero Terminate char array of model filename
+	int openModel(AudioRecognitionImpl*impl,const char*modelPath) DEFAULT_VIS;
 
-	float* VerifySpeaker(SpeakerVerificationImpl*impl,const int16_t* const data,const int array_length);
+	//Sometimes it's not possible to load files (eg. Android). 
+	//This method allows to load a model from a binary buffer
+	//@param binaryModel: char array of the binary read model file
+	//@param len: Length of the binary model file
+	int loadModelFromBuffer(AudioRecognitionImpl*impl,const char*binaryModel,int len) DEFAULT_VIS;
+
+	//Input Mel Features and get the raw probabilities of the labels
+	uint8_t* runRawDetection(AudioRecognitionImpl*impl,const uint8_t* const data,const int mel_length) DEFAULT_VIS;
+
 	
+	//Input Mel Features and get the index of the detected label if recognized
+	//@param array_length    Number of mel features
+	//@param data            Signed uint8_t mel features
+	int runDetection(AudioRecognitionImpl*impl,const uint8_t* const data,const int mel_length) DEFAULT_VIS;
 	
-	
+	//Set Detection Sensitivity
+	//@param sens [0-1] 0: Low detection rate 1: High detection rate
+	void setSensitivity(AudioRecognitionImpl*impl,float sens) DEFAULT_VIS;
+
+ 	//Retrieve the number of Mel Features the Detector Expects
+	size_t getInputDataSize(AudioRecognitionImpl*impl) DEFAULT_VIS;
+
+
 	//Feature Extractor
-	FeatureExtractor* create_feature_extractor(size_t nfft=512,size_t melcount = 40,size_t sample_rate=16000,
-	    size_t lowerf=20, size_t upperf=8000,float window_len=0.03,float shift=0.01);
+	FeatureExtractor* createFeatureExtractor(size_t nfft=512,size_t melcount=40,size_t sample_rate=16000,
+	    size_t lowerf=20, size_t upperf=8000,float window_len=0.03,float shift=0.01) DEFAULT_VIS;
 
-	int signal_to_mel(FeatureExtractor*impl,const int16_t * const pcm, size_t len,uint8_t*result,float gain);
+	void deleteFeatureExtractor(FeatureExtractor*impl) DEFAULT_VIS;
+
+	//Extract Mel-Spectrogram Features from PCM Audio Data
+	//@param pcm: Single Channel 16kHZ PCM encoded audio data
+	//@param len: Number of 
+	//@param result:
+	//@param gain
+	int signalToMel(FeatureExtractor*impl,const int16_t * const pcm, size_t len,uint8_t*result,float gain) DEFAULT_VIS;
 	
-	size_t get_melcount(FeatureExtractor*impl);
-		
-	void remove_dc_offset(FeatureExtractor*impl,bool value);
-	
+
+	//Returns the number of Chosen Mel Features per frame
+	size_t getMelcount(FeatureExtractor*impl) DEFAULT_VIS;
+
 
 }
 
 
-
-
-
 #endif
+
+

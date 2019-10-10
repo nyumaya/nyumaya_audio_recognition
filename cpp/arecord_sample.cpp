@@ -76,11 +76,12 @@ int main (int argc, char *argv[])
 {
 
 	//New Instance of Audio Recognizer
-	AudioRecognitionImpl *audio_recognizer = create_audio_recognition(argv[2]);
-	SetSensitivity(audio_recognizer,0.5);
-	int buffer_size = GetInputDataSize(audio_recognizer);
+	AudioRecognitionImpl *audio_recognizer = createAudioRecognition();
+	openModel(audio_recognizer,argv[2]);
+	setSensitivity(audio_recognizer,0.5);
+	int buffer_size = getInputDataSize(audio_recognizer);
 	
-	FeatureExtractor* feature_extractor = create_feature_extractor();
+	FeatureExtractor* feature_extractor = createFeatureExtractor();
 	
 	//Open the default Soundcard
 	snd_pcm_t *capture_handle;
@@ -100,9 +101,9 @@ int main (int argc, char *argv[])
 		uint8_t melfeatures[800];
 		
 		float gain = 1.0;
-		int mel_len = signal_to_mel(feature_extractor,(int16_t*)buffer,buffer_size/2,melfeatures,gain);
+		int mel_len = signalToMel(feature_extractor,(int16_t*)buffer,buffer_size/2,melfeatures,gain);
 		
-		int res = RunDetection(audio_recognizer,melfeatures,mel_len);
+		int res = runDetection(audio_recognizer,melfeatures,mel_len);
 
 		if(res != 0){
 			std::cout << "Keyword detected" << std::endl;

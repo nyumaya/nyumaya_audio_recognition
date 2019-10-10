@@ -72,6 +72,9 @@ Supporting a new platform is very easy. After compiling the library and moving i
 
 You might have to modify the python bindings.
 
+## Android:
+
+For a minimal Android example take a look at [this](https://github.com/yodakohl/AudioRecognition_AndroidTest)
 
 
 

@@ -24,11 +24,11 @@ elif system == "Linux":
 	from record import AudiostreamSource
 	play_command = "aplay"
 	if(machine == "x86_64"):
-		default_libpath = '../lib/linux/libnyumaya.so'
+		default_libpath = '../../lib/linux_x86_64/libnyumaya_premium.so'
 	elif(machine == "armv6l"):
-		default_libpath = '../lib/rpi/armv6/libnyumaya.so'
+		default_libpath = '../../lib/rpi/armv6/libnyumaya_premium.so'
 	elif(machine == "armv7l"):
-		default_libpath = '../lib/rpi/armv7/libnyumaya.so'
+		default_libpath = '../../lib/rpi/armv7/libnyumaya_premium.so'
 	else:
 		print("Machine not supported")
 		

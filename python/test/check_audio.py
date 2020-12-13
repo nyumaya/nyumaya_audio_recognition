@@ -3,13 +3,10 @@ import sys
 import platform
 import struct
 
-sys.path.append('../src')
-
 if platform.system() == "Darwin":
 	from cross_record import AudiostreamSource
 else:
 	from record import AudiostreamSource
-
 
 audio_stream = AudiostreamSource()
 
@@ -17,12 +14,9 @@ mean      = 0
 avg_level = 0
 avg_sum   = 0
 max_level = 0
-
 bufsize = 256
-
 frame_sum = 0
 frame_len = 0
-
 clipcount = 0
 
 audio_stream.start()
@@ -69,7 +63,7 @@ if(avg_level/(abs(mean)+1) > 10):
 	print("Your Mic has no DC-offset")
 else:
 	print("Your Mic has a DC-offset: Don't worry it will be removed automagically")
-	
+
 
 audio_stream.stop()
 

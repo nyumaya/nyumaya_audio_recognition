@@ -38,7 +38,7 @@ class RingBuffer():
 		# TODO: Check for buffer overrun
 		# Case A: Read pos was smaller than write pos
 		# Case B: Read pos was bigger than write pos
-		self.write_pos_old = self.write_pos
+
 		# Data fitting into remaining buffer
 		if((self.write_pos + datalen) <= self.buffer_size):
 			self.buffer[self.write_pos:self.write_pos+datalen] = data[:]

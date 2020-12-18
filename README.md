@@ -1,8 +1,7 @@
 # Detect simple voice commands and audio events on small embedded sytems
 Nyumaya offline audio classification. Libraries are avialable for **Linux**, **WASM** and **RaspberryPi**.
 
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0402219fb22244feb10c04d4befcf3dc)](https://app.codacy.com/app/yodakohl/nyumaya_audio_recognition?utm_source=github.com&utm_medium=referral&utm_content=nyumaya/nyumaya_audio_recognition&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/fa3ffbfff7fa4554acad93e044b24fdd)](https://www.codacy.com/gh/nyumaya/nyumaya_audio_recognition/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nyumaya/nyumaya_audio_recognition&amp;utm_campaign=Badge_Grade)
 [![GitHub Release](https://github-basic-badges.herokuapp.com/release/nyumaya/nyumaya_audio_recognition.svg)]()
 
 To run an example

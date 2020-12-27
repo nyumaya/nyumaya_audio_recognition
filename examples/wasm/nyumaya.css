@@ -1,0 +1,142 @@
+@keyframes example {
+  0%   {background-color: white;}
+  10%  {background-color: blue;}
+  100% {background-color: white;}
+}
+
+/* The element to apply the animation to */
+.trigger-animation {
+	background-color: white;
+	animation-name: example;
+	animation-duration: 1s;
+}
+
+center {
+
+	padding: 30px;
+	text-align: center;
+	font-size: 35px;
+
+}
+
+.spacing {
+	text-align: center;
+	height: 115px;
+}
+
+.info {
+	text-align: center;
+
+}
+
+.canvas_frame {
+ 	/*width: 50%;*/
+	
+	width: 450px;
+	height: 115px;
+	margin: 0 auto;
+	padding:25px;
+	text-align: center;
+	font-size: 35px;
+
+}
+
+header {
+	background-color: #666;
+	padding: 30px;
+	text-align: center;
+	font-size: 35px;
+	color: white;
+}
+
+.buttonwrapper {
+	position: relative;
+	width: 10%; 
+	margin: auto;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.wrapper {
+	position: relative;
+	width: 50%; 
+	margin: auto;
+	text-align: center;
+	vertical-align: middle;
+}
+
+th {
+	font-size: 25px;
+}
+
+td {
+	text-align: left;
+	font-size: 25px;
+}
+
+.float_div {
+	float: left;
+	padding: 20px; 
+}
+
+.rcorners {
+	border-radius: 15px;
+	border: 6px solid #000;
+ 
+}
+
+
+.settings {
+	border-radius: 15px;
+	border: 6px solid #000;
+	padding: 20px; 
+	margin: 0 auto;
+
+}
+
+.onoffswitch {
+	position: relative; width: 90px;
+	-webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+	display: none;
+}
+.onoffswitch-label {
+	display: block; overflow: hidden; cursor: pointer;
+	border: 2px solid #999999; border-radius: 20px;
+}
+.onoffswitch-inner {
+	display: block; width: 200%; margin-left: -100%;
+	transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+	display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+	font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+	box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+	content: "ON";
+	padding-left: 10px;
+	background-color: #34A7C1; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+	content: "OFF";
+	padding-right: 10px;
+	background-color: #EEEEEE; color: #999999;
+	text-align: right;
+}
+.onoffswitch-switch {
+	display: block; width: 18px; margin: 6px;
+	background: #FFFFFF;
+	position: absolute; top: 0; bottom: 0;
+	right: 56px;
+	border: 2px solid #999999; border-radius: 20px;
+	transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+	margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+	right: 0px; 
+}
+

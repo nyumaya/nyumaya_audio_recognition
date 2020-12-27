@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"> 
+	<title>Nyumaya Audio Recognition</title>
+</head>
+
+<body>
+	<script src="./jquery-3.3.1.min.js"></script>
+	<script src="./mic.js"></script>
+	<script src="./nyumaya_premium.js" charset="UTF-8"></script>
+
+
+	<link rel="stylesheet" type="text/css" href="nyumaya.css">
+	<audio id="beep">
+		<source src="./resources/tone-beep.wav" type="audio/wav">
+		Your browser does not support the audio element.
+	</audio>
+
+
+	<script>
+		Module.onRuntimeInitialized = async _ => {
+			run_hotword_detection()
+		}
+	</script>
+
+
+	<header>Web Demo of Nyumaya Audio Recognition</header>
+
+	<div class="info"><h4> This demo runs locally in your browser. No audio data is sent to a server </h4></div>
+	<div class="spacing"><h3> Say "Marvin" to trigger the hotword </h3></div>
+
+	<div class="canvas_frame">
+		<canvas id="viewport" style="transform:scale(4);margin-top:35px" width="120" height="40"></canvas>
+	</div>
+
+	<div class="buttonwrapper" id="detectionArea">
+	</div>
+
+	<div class="wrapper" >
+		<table class="settings" id="SettingsTable">
+		
+		<thead>
+		<tr>
+		<th>Model</th>
+		<th>Detect</th>
+		<th colspan="2">Sensitivity</th>
+		</tr>
+		</thead>
+
+		<tbody></tbody>
+		</table>
+	</div>
+
+</body>
+</html>
+
+
+
+
+

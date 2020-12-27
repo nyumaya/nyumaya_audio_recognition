@@ -17,10 +17,10 @@ def detectKeywords(libpath):
 
 	extactor_gain = 1.0
 
-	keywordIdFirefox = detector.addModel('../../models/Hotword/firefox_v1.0.0.premium',0.6)
-	keywordIdSheila = detector.addModel('../../models/Hotword/sheila_v1.0.0.premium',0.6)
-	keywordIdMarvin = detector.addModel('../../models/Hotword/marvin_v1.0.0.premium',0.6)
-	keywordIdAlexa = detector.addModel('../../models/Hotword/alexa_v1.0.0.premium',0.6)
+	keywordIdFirefox = detector.addModel('../../models/Hotword/firefox_v1.2.0.premium',0.6)
+	keywordIdSheila = detector.addModel('../../models/Hotword/sheila_v1.2.0.premium',0.6)
+	keywordIdMarvin = detector.addModel('../../models/Hotword/marvin_v1.2.0.premium',0.6)
+	keywordIdAlexa = detector.addModel('../../models/Hotword/alexa_v1.2.0.premium',0.6)
 
 	bufsize = detector.getInputDataSize()
 

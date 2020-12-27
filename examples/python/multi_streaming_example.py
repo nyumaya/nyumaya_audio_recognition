@@ -32,10 +32,10 @@ def label_stream(libpath):
 
 	mDetector = MultiDetector(libpath,timeout=20)
 
-	mDetector.add_word("../../models/Hotword/firefox_hotword.premium","firefox",0.5)
-	mDetector.add_word("../../models/Command/light_command.premium","light",0.8)
-	mDetector.add_word("../../models/Command/off_command.premium","off",0.8)
-	mDetector.add_word("../../models/Command/stop_command.premium","stop",0.8)
+	mDetector.add_word("../../models/Hotword/firefox_v1.2.0.premium","firefox",0.5)
+	mDetector.add_word("../../models/Command/light_v1.2.0.premium","light",0.8)
+	mDetector.add_word("../../models/Command/off_v1.2.0.premium","off",0.8)
+	mDetector.add_word("../../models/Command/stop_v1.2.0.premium","stop",0.8)
 
 	mDetector.add_command("firefox,light",light_on)
 	mDetector.add_command("firefox,off",light_off)

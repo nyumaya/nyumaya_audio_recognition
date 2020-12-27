@@ -2,7 +2,6 @@
 Nyumaya offline audio classification. Libraries are avialable for **Linux**, **WASM** and **RaspberryPi**.
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/fa3ffbfff7fa4554acad93e044b24fdd)](https://www.codacy.com/gh/nyumaya/nyumaya_audio_recognition/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nyumaya/nyumaya_audio_recognition&amp;utm_campaign=Badge_Grade)
-[![GitHub Release](https://github-basic-badges.herokuapp.com/release/nyumaya/nyumaya_audio_recognition.svg)]()
 
 To run an example
 

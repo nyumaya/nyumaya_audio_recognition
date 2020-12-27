@@ -23,7 +23,7 @@ This has been tested with recent versions of Chrome and Firefox.
 ## Performance V1.0
 
 - Pi Zero: CPU 40%
-- Pi 3: CPU
+- Pi 3: CPU one core: 12%
 - Pi 4: CPU one core: 4%
 
 
@@ -37,7 +37,7 @@ This has been tested with recent versions of Chrome and Firefox.
 
 ## Versioning
 
-Models and the Library are Versioned with <major>.<minor>.<revision>
+Models and the Library are Versioned with \<major\>.\<minor\>.\<revision\>
 Models must match the <major>.<minor> version of the library to be compatible.
 
 ## Sensitivity

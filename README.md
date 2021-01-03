@@ -37,7 +37,7 @@ This has been tested with recent versions of Chrome and Firefox.
 ## Versioning
 
 Models and the Library are Versioned with \<major\>.\<minor\>.\<revision\>
-Models must match the <major>.<minor> version of the library to be compatible.
+Models must match the \<major\>.\<minor\> version of the library to be compatible.
 
 ## Sensitivity
 

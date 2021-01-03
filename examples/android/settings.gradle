@@ -1,0 +1,2 @@
+include ':app', ':audiorecognition'
+rootProject.name='KeywordSpotting'

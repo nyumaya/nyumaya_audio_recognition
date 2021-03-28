@@ -18,23 +18,23 @@ class NyumayaLibrary {
 
     external fun deleteAudioRecognition(impl:Long)
 
-    external fun signalToMel(impl:Long,pcm:ByteArray,gain:Float) :ByteArray
+    external fun signalToMel(impl:Long, pcm:ByteArray, gain:Float) :ByteArray
 
     external fun getMelcount(impl:Long) :Int
 
-    external fun setSensitivity(impl:Long,sensitivity:Float,modelNumber:Int)
+    external fun setSensitivity(impl:Long, sensitivity:Float, modelNumber:Int)
 
     external fun getInputDataSize(impl:Long) :Int
 
-    external fun runDetection(impl:Long,data:ByteArray):Int
+    external fun runDetection(impl:Long, data:ByteArray):Int
 
-    external fun addModelFromBuffer(impl:Long,data:ByteArray):Int
+    external fun addModelFromBuffer(impl:Long, data:ByteArray):Int
 
-    external fun addModel(impl:Long,path:String,sensitivity: Float):Int
+    external fun addModel(impl:Long, path:String, sensitivity: Float):Int
 
-    external fun setActive(impl:Long, active:Boolean,modelNumber:Int):Int;
+    external fun setActive(impl:Long, active:Boolean, modelNumber:Int):Int
 
-    external fun deleteModel(impl:Long, modelNumber:Int):Int;
+    external fun deleteModel(impl:Long, modelNumber:Int):Int
 
     fun printVersion() {
         println(getVersionString())
@@ -75,14 +75,14 @@ class AudioRecognition(n:NyumayaLibrary){
         fpointer = nlib.createAudioRecognition()
     }
 
-    fun addModel(mpath:String,sensitivity:Float): Int
+    fun addModel(mpath:String, sensitivity:Float): Int
     {
-        return nlib.addModel(fpointer,mpath,sensitivity);
+        return nlib.addModel(fpointer,mpath,sensitivity)
     }
 
-    fun setActive(active:Boolean,modelNumber:Int):Int
+    fun setActive(active:Boolean, modelNumber:Int):Int
     {
-        return nlib.setActive(fpointer,active,modelNumber);
+        return nlib.setActive(fpointer,active,modelNumber)
     }
 
     fun deleteModel(modelNumber:Int):Int
@@ -104,7 +104,7 @@ class AudioRecognition(n:NyumayaLibrary){
         return nlib.runDetection(fpointer,data)
     }
 
-    fun setSensitivity(sensitivity: Float,modelNumber:Int) {
+    fun setSensitivity(sensitivity:Float, modelNumber:Int) {
         return nlib.setSensitivity(fpointer,sensitivity,modelNumber)
     }
 

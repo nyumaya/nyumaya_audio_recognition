@@ -1,4 +1,4 @@
-package com.example.keywordspotting
+package com.nyumaya.audiorecognition
 
 import android.media.AudioFormat
 import android.media.MediaRecorder
@@ -46,7 +46,7 @@ class AudioRecorder {
         if (RingBufferReadPos <= RingBufferWritePos) {
             return numBytes <= (RingBufferWritePos - RingBufferReadPos)
         } else {
-            var avail = (RingBufferSize - RingBufferReadPos) + RingBufferWritePos
+            val avail = (RingBufferSize - RingBufferReadPos) + RingBufferWritePos
             return numBytes <= avail
         }
     }
@@ -65,23 +65,23 @@ class AudioRecorder {
         }
         //Can read in one block
         if((RingBufferReadPos + numBytes) <= RingBufferSize){
-            var slice = RingBuffer.copyOfRange(RingBufferReadPos,RingBufferReadPos+numBytes)
+            val slice = RingBuffer.copyOfRange(RingBufferReadPos,RingBufferReadPos+numBytes)
             RingBufferReadPos += numBytes
             RingBufferLock.unlock();
             return slice
         }
 
         //Need to concatenate
-        var first_part = RingBuffer.copyOfRange(RingBufferReadPos,RingBufferSize) //-1?
-        var first_len = (RingBufferSize - RingBufferReadPos)
-        var second_len = numBytes - first_len
-        var second_part = RingBuffer.copyOfRange(0,second_len) //-1?
+        val first_part = RingBuffer.copyOfRange(RingBufferReadPos,RingBufferSize) //-1?
+        val first_len = (RingBufferSize - RingBufferReadPos)
+        val second_len = numBytes - first_len
+        val second_part = RingBuffer.copyOfRange(0,second_len) //-1?
 
         RingBufferReadPos += numBytes
         if(RingBufferReadPos > RingBufferSize) {
             RingBufferReadPos %= RingBufferSize
         }
-        var slice = first_part + second_part
+        val slice = first_part + second_part
 
         RingBufferLock.unlock();
         return slice
@@ -101,11 +101,11 @@ class AudioRecorder {
 
         } else{
             //Write first part into buffer
-            var first_len = RingBufferSize - RingBufferWritePos
+            val first_len = RingBufferSize - RingBufferWritePos
             System.arraycopy(data, 0, RingBuffer, RingBufferWritePos, first_len)
 
             //Write second part wrapped around
-            var second_len = numBytes - first_len
+            val second_len = numBytes - first_len
             System.arraycopy(data, first_len, RingBuffer, 0, second_len)
 
             RingBufferWritePos = second_len
@@ -124,15 +124,12 @@ class AudioRecorder {
                 //Blocking Read of bufferSize Bytes
                 //Buffer Read result returns number of read bytes
                 val buffer = ByteArray(bufferSize)
-                var bufferReadResult = mediaRecorder?.read(buffer, 0, bufferSize);
-                var readBytes = (bufferReadResult ?:0)
-
+                val bufferReadResult = mediaRecorder?.read(buffer, 0, bufferSize);
+                val readBytes = (bufferReadResult ?:0)
 
                 writeRingBuffer(buffer,readBytes)
                 //println("Read " + readBytes + " Bytes")
             }
-
         }
     }
-
 }

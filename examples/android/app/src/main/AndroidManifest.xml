@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.keywordspotting">
 
-
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
+        <service
+            android:name="com.nyumaya.audiorecognition.nyumaya_listener"
+            android:label="NyumayaListener" >
+        </service>
 
         <activity
             android:name=".MainActivity"
@@ -21,7 +24,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

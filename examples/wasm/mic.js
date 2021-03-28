@@ -20,10 +20,10 @@ function run_hotword_detection()
 	console.log(api.version());
 	FeatureExtractor = api.createFeatureExtractor(512,40,16000,20,8000,0.03,0.01)
 
-	load_file_from_server("alexa_v1.2.0.premium","Alexa");
-	load_file_from_server("marvin_v1.2.0.premium","Marvin");
-	load_file_from_server("sheila_v1.2.0.premium","Sheila");
-	load_file_from_server("firefox_v1.2.0.premium","Firefox");
+	load_file_from_server("alexa_v1.4.5.premium","Alexa");
+	load_file_from_server("marvin_v1.4.5.premium","Marvin");
+	load_file_from_server("sheila_v1.4.5.premium","Sheila");
+	load_file_from_server("firefox_v1.4.5.premium","Firefox");
 
 	//Buffer for drawing frequency spectrogram
 	var arrayData = new Array(4800).fill(0);

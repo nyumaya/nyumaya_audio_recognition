@@ -13,13 +13,11 @@ print("Release:" + release)
 print("Machine:" + machine)
 print("Uname:" + str(uname))
 
-
 if system == "Darwin":
-	play_command ="play -q"
-	
 	from cross_record import AudiostreamSource
+	play_command ="play -q"
 	default_libpath = '../lib/mac/libnyumaya.dylib'
-	
+
 elif system == "Linux":
 	from record import AudiostreamSource
 	play_command = "aplay"
@@ -31,7 +29,8 @@ elif system == "Linux":
 		default_libpath = '../../lib/rpi/armv7/libnyumaya_premium.so'
 	else:
 		print("Machine not supported")
-		
+		print("Please setup a match for your machine in python/src/auto_platform.py")
+
 elif system == "Windows":
 	print("Windows is currently not supported")
 

@@ -1,36 +1,39 @@
 package com.example.keywordspotting
 
 import android.Manifest
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
+import android.os.IBinder
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-
-import com.nyumaya.audiorecognition.AudioRecognition
-import com.nyumaya.audiorecognition.FeatureExtractor
-import com.nyumaya.audiorecognition.NyumayaLibrary
-
-
+import com.google.android.material.snackbar.Snackbar
+import com.nyumaya.audiorecognition.nyumaya_listener
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.concurrent.thread
+
 
 class MainActivity : AppCompatActivity() {
 
     private val RECORD_REQUEST_CODE = 101
-    private var audioRecorder = AudioRecorder()
-    private var nyumayaLib = NyumayaLibrary()
-    private var featureExtractor = FeatureExtractor(nyumayaLib)
-    private var audioRecognizer = AudioRecognition(nyumayaLib)
+    private var mp: MediaPlayer ? = null
 
     private fun requestPermission(){
         ActivityCompat.requestPermissions(this,
             arrayOf(Manifest.permission.RECORD_AUDIO),
             RECORD_REQUEST_CODE)
+    }
+
+    fun keywordDetectedCallback(keywordID:Int)
+    {
+        println("keywordDetectedCallback: " + keywordID)
+        mp?.start()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -41,7 +44,6 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this,"Permission Denied",Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this,"Permission Granted",Toast.LENGTH_SHORT).show()
-                    audioRecorder.startRecording()
                 }
             }
         }
@@ -56,46 +58,32 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+        mp = MediaPlayer.create(this, R.raw.ding)
 
         requestPermission()
 
-        //Detection Thread
-        thread(start = true) {
+        startService(Intent(this, nyumaya_listener::class.java))
 
-            var modelData = application.assets.open("alexa_v1.2.0.premium").readBytes()
+        var myService: nyumaya_listener? = null
+        var isBound = false
 
-            println("Model Data Len =  " + modelData.size)
+        val myConnection = object : ServiceConnection {
+            override fun onServiceConnected(className: ComponentName,
+                                            service: IBinder) {
+                val binder = service as nyumaya_listener.nyumaya_listener_binder
+                myService = binder.getService()
+                isBound = true
+                myService?.setDetectedCallback(::keywordDetectedCallback)
+                myService?.listen()
+            }
 
-            var modelNumber = audioRecognizer.addModelFromBuffer(modelData)
-
-            println("Added Model Number" + modelNumber)
-
-            audioRecognizer.setSensitivity(0.5F,modelNumber)
-            //var melCount = featureExtractor.getMelcount()
-            var recordSize = 6400 //audioRecognizer.getInputDataSize()*2
-            nyumayaLib.printVersion()
-
-            while(true) {
-
-                var audioBuffer = audioRecorder.readRingBuffer(recordSize)
-
-                if(audioBuffer != null) {
-                    //println("SUCCESSFULLY READ audio Buffer")
-                    var mels = featureExtractor.signalToMel(audioBuffer, 1.0F)
-                    //println("MEL SIZE: " + mels.size )
-                    var result = audioRecognizer.runDetection(mels)
-
-                    if(result != 0)
-                        println("Detection result: " + result)
-
-                    //FIXME: Remove Sleep after Reading Ring Buffer is blocking
-                    Thread.sleep(100)
-                } else {
-                    Thread.sleep(100)
-                    //println("Failed to read audio Buffer")
-                }
+            override fun onServiceDisconnected(name: ComponentName) {
+                isBound = false
             }
         }
+
+        val intent = Intent(this, nyumaya_listener::class.java)
+        bindService(intent, myConnection, Context.BIND_AUTO_CREATE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

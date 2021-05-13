@@ -20,10 +20,10 @@ function run_hotword_detection()
 	console.log(api.version());
 	FeatureExtractor = api.createFeatureExtractor(512,40,16000,20,8000,0.03,0.01)
 
-	load_file_from_server("alexa_v1.4.5.premium","Alexa");
-	load_file_from_server("marvin_v1.4.5.premium","Marvin");
-	load_file_from_server("sheila_v1.4.5.premium","Sheila");
-	load_file_from_server("firefox_v1.4.5.premium","Firefox");
+	load_file_from_server("alexa_v2.0.23.premium","Alexa");
+	load_file_from_server("marvin_v2.0.23.premium","Marvin");
+	load_file_from_server("sheila_v2.0.23.premium","Sheila");
+	load_file_from_server("firefox_v2.0.23.premium","Firefox");
 
 	//Buffer for drawing frequency spectrogram
 	var arrayData = new Array(4800).fill(0);
@@ -37,7 +37,7 @@ function run_hotword_detection()
 
 	var first = true //For printing Info once
 	var label_index = 0; //FIXME: Temporary while we don't use real keyword ids yet
-	var mel_slice_size=800
+	var mel_slice_size=640 //800 for v1.x
 	var prediction_heap  = Module._malloc(mel_slice_size * 1);
 	var pcm_heap = Module._malloc(1600 * 2); //1486
 

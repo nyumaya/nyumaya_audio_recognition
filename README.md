@@ -21,7 +21,7 @@ This has been tested with recent versions of Chrome and Firefox.
 
 ## Performance V1.0
 
-- Pi Zero: CPU 40%
+- Pi Zero: CPU 30%
 - Pi 3: CPU one core: 12%
 - Pi 4: CPU one core: 4%
 

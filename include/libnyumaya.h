@@ -37,9 +37,6 @@ extern "C"
 	//@param len: Length of the binary model file
 	int addModelFromBuffer(AudioRecognitionImpl*impl,const char*binaryModel,int len,int &modelNumber) DEFAULT_VIS;
 
-	//Input Mel Features and get the raw probabilities of the labels
-	uint8_t* runRawDetection(AudioRecognitionImpl*impl,const uint8_t* const data,const int mel_length) DEFAULT_VIS;
-
 	//Input Mel Features and get the index of the detected label if recognized
 	//@param array_length    Number of mel features
 	//@param data            Signed uint8_t mel features

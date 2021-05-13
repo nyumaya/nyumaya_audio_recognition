@@ -6,12 +6,8 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-find_package(Threads REQUIRED)
-
-
-LINK_DIRECTORIES(../../lib/linux)
-find_library(NYUMAYA_LIB NAMES libnyumaya_premium nyumaya_premium PATHS ../../lib/linux)
+LINK_DIRECTORIES(../../lib/linux_x86_64)
+find_library(NYUMAYA_LIB NAMES libnyumaya_premium.2.0.0 PATHS ../../lib/linux_x86_64)
 
 
 add_executable (arecord_sample arecord_sample.cpp)

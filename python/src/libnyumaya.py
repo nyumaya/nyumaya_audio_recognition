@@ -33,9 +33,6 @@ class AudioRecognition(object):
 			AudioRecognition.lib.runDetection.argtypes = [c_void_p, POINTER(c_uint8),c_int]
 			AudioRecognition.lib.runDetection.restype = c_int
 
-			AudioRecognition.lib.runRawDetection.argtypes = [c_void_p, POINTER(c_uint8),c_int]
-			AudioRecognition.lib.runRawDetection.restype =  POINTER(c_uint8)
-
 			AudioRecognition.lib.addModel.argtypes = [c_void_p, c_char_p,c_float]
 			AudioRecognition.lib.addModel.restype = c_int
 
@@ -64,7 +61,7 @@ class AudioRecognition(object):
 			version_string = version_string[:-1]
 			major,minor,rev= version_string.split('.')
 
-		if major != "1":
+		if major != "2":
 				print("Your library version is not compatible with this API")
 
 	def addModel(self,path,sensitivity=0.5):
@@ -100,23 +97,6 @@ class AudioRecognition(object):
 		pcmdata = pcm.from_buffer_copy(data)
 		prediction = AudioRecognition.lib.runDetection(self.obj,pcmdata,datalen)
 		return prediction
-
-
-	def runRawDetection(self,data):
-		datalen = int(len(data))
-		pcm = c_uint8 * datalen
-		pcmdata = pcm.from_buffer_copy(data)
-		prediction = AudioRecognition.lib.runRawDetection(self.obj,pcmdata,datalen)
-		re = [prediction[i] for i in range(2)]
-		return re
-
-
-	def getPredictionLabel(self,index):
-		if(self.labels_list):
-			return self.labels_list[index]
-
-	def setGain(self,gain):
-		pass
 
 	def setSensitivity(self,sens,modelNumber):
 		AudioRecognition.lib.setSensitivity(self.obj,sens,modelNumber)

@@ -70,7 +70,7 @@ class nyumaya_listener : Service() {
         //Detection Thread
         thread(start = true) {
 
-            val modelData = application.assets.open("alexa_v1.4.5.premium").readBytes()
+            val modelData = application.assets.open("alexa_v2.0.23.premium").readBytes()
 
             println("Model Data Len =  " + modelData.size)
 
@@ -78,15 +78,20 @@ class nyumaya_listener : Service() {
 
             println("Added Model Number " + modelNumber)
 
-            audioRecognizer.setSensitivity(0.5F,modelNumber)
-            println("Set Model " + modelNumber + " Sensitivity to 0.5")
+            val sensitivity = 0.8F
+            audioRecognizer.setSensitivity(sensitivity,modelNumber)
+            println("Set Model " + modelNumber + " Sensitivity to " + sensitivity)
+
+            //Just testing if setting active false and true works
+            //Default is active = true
             audioRecognizer.setActive(false,modelNumber)
             println("Set Model " + modelNumber + " Active to false")
             audioRecognizer.setActive(true,modelNumber);
             println("Set Model " + modelNumber + " Active to true")
 
-            //var melCount = featureExtractor.getMelcount()
-            val recordSize = 6400 //audioRecognizer.getInputDataSize()*2
+            val recordSize = audioRecognizer.getInputDataSize()*2
+            println("recordSize " + recordSize)
+
             nyumayaLib.printVersion()
             audioRecorder.startRecording()
             while(true) {
@@ -100,8 +105,6 @@ class nyumaya_listener : Service() {
                     if(result != 0) {
                         detectedCallback?.invoke(result)
                     }
-                    //FIXME: Remove Sleep after Reading Ring Buffer is blocking
-                    Thread.sleep(100)
                 } else {
                     Thread.sleep(100)
                     //println("Failed to read audio Buffer")
@@ -109,7 +112,6 @@ class nyumaya_listener : Service() {
             }
         }
     }
-
 }
 
 

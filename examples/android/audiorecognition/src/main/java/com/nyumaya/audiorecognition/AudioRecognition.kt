@@ -94,10 +94,8 @@ class AudioRecognition(n:NyumayaLibrary){
         return nlib.addModelFromBuffer(fpointer,data)
     }
 
-    //Number of 16 bit samples means 6400 bytes
     fun getInputDataSize(): Int {
-        return 3200
-        //return nlib.getInputDataSize(fpointer)
+        return nlib.getInputDataSize(fpointer)
     }
 
     fun runDetection(data:ByteArray): Int {

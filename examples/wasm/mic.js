@@ -141,19 +141,20 @@ function run_hotword_detection()
 	function addModel(name)
 	{
 		console.log("Adding Model " + name);
-		//var modelIndex = label_index;
-		label_index = label_index + 1; //FIXME use addModel index
-		var modelIndex = 0;
-		transfer32ToHeap(pcm_heap,modelIndex);
-		success = api.addModel(detector,get_filepath(name),0.5,pcm_heap)
-		append_setting(name,true,label_index);
 
-		if(success == 0){
-			console.log("Added Model " + name);
-		} else {
+		var modelIndexPtr = Module._malloc(4); //32 bit Integer
+
+		success = api.addModel(detector,get_filepath(name),0.5,modelIndexPtr)
+		var label_index = new Int32Array(Module.HEAP32.buffer, modelIndexPtr, 4)[0];
+		Module._free(modelIndexPtr);
+
+		if(success != 0){
 			console.log("Failed to add Model " + name);
+			return;
 		}
 
+		append_setting(name,true,label_index);
+		console.log("Added Model Index " + label_index);
 		api.setSensitivity(detector,0.5,label_index);
 	}
 
@@ -291,12 +292,6 @@ function interpolateArray(data, newSampleRate, oldSampleRate)
 	newData[fitCount - 1] = data[data.length - 1]; // for new allocation
 	return newData;
 };
-
-function transfer32ToHeap(heapSpace,arr)
-{
-	Module.HEAP32.set(arr, heapSpace >> 1);
-	return heapSpace;
-}
 
 function transfer16ToHeap(heapSpace,arr)
 {

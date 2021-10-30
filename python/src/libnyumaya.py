@@ -36,6 +36,12 @@ class AudioRecognition(object):
 			AudioRecognition.lib.addModel.argtypes = [c_void_p, c_char_p,c_float]
 			AudioRecognition.lib.addModel.restype = c_int
 
+			AudioRecognition.lib.addContinousModel.argtypes = [c_void_p, c_char_p]
+			AudioRecognition.lib.addContinousModel.restype = c_int
+
+			AudioRecognition.lib.getContinousResult.argtypes = [c_void_p, c_int,POINTER(c_float)]
+			AudioRecognition.lib.getContinousResult.restype = c_int
+
 			AudioRecognition.lib.addModelFromBuffer.argtypes = [c_void_p, POINTER(c_char_p),c_int]
 			AudioRecognition.lib.addModelFromBuffer.restype =  c_int
 
@@ -66,9 +72,18 @@ class AudioRecognition(object):
 
 	def addModel(self,path,sensitivity=0.5):
 		modelNumber = c_int()
-		#modelNumberBuffer = pcm.from_buffer_copy(modelNumber)
-
 		success = AudioRecognition.lib.addModel(self.obj,path.encode('ascii'),sensitivity, byref(modelNumber))
+		if(success != 0):
+			print("Libnyumaya: Failed to open model")
+			return -1
+
+		#FIXME: Throw error on failure
+
+		return modelNumber.value
+
+	def addContinousModel(self,path):
+		modelNumber = c_int()
+		success = AudioRecognition.lib.addContinousModel(self.obj,path.encode('ascii'), byref(modelNumber))
 		if(success != 0):
 			print("Libnyumaya: Failed to open model")
 			return -1
@@ -90,6 +105,15 @@ class AudioRecognition(object):
 			print("Libnyumaya: Failed to remove model")
 
 		return success
+
+	def getContinousResult(self, modelNumber):
+		result = (c_float * 16)()
+
+		success = AudioRecognition.lib.getContinousResult(self.obj, modelNumber,result)
+		if(success != 0):
+			print("Failed to get continous result")
+		re = [result[i] for i in range(2)]
+		return re
 
 	def runDetection(self,data):
 		datalen = int(len(data))

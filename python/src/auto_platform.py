@@ -25,8 +25,10 @@ elif system == "Linux":
 		default_libpath = '../../lib/linux_x86_64/libnyumaya_premium.so.2.3.0'
 	elif(machine == "armv6l"):
 		default_libpath = '../../lib/rpi/armv6/libnyumaya_premium.so.2.3.0'
+		
+	#Pi3 says it's armv7 although its armv8
 	elif(machine == "armv7l"):
-		default_libpath = '../../lib/rpi/armv7/libnyumaya_premium.so.2.3.0'
+		default_libpath = '../../lib/rpi/armv8/libnyumaya_premium.so.2.3.0'
 	else:
 		print("Machine not supported")
 		print("Please setup a match for your machine in python/src/auto_platform.py")

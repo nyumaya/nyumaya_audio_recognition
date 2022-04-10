@@ -67,7 +67,7 @@ class AudioRecognition(object):
 			version_string = version_string[:-1]
 			major,minor,rev= version_string.split('.')
 
-		if major != "2":
+		if major != "3":
 				print("Your library version is not compatible with this API")
 
 	def addModel(self,path,sensitivity=0.5):
@@ -139,7 +139,7 @@ class FeatureExtractor(object):
 	lib = None
 	obj = None
 
-	def __init__(self,libpath,nfft=512,melcount=40,sample_rate=16000,lowerf=20,upperf=8000,window_len=0.03,shift=0.01):
+	def __init__(self,libpath,nfft=1024,melcount=80,sample_rate=16000,lowerf=50,upperf=4000,window_len=0.03,shift=0.01):
 
 		self.melcount = melcount
 		self.shift =  sample_rate*shift

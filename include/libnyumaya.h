@@ -51,8 +51,8 @@ extern "C"
 
 
 	//Feature Extractor
-	FeatureExtractor* createFeatureExtractor(size_t nfft=512,size_t melcount=40,size_t sample_rate=16000,
-	    size_t lowerf=20, size_t upperf=8000,float window_len=0.03,float shift=0.01) DEFAULT_VIS;
+	FeatureExtractor* createFeatureExtractor(size_t nfft=1024,size_t melcount=80,size_t sample_rate=16000,
+	    size_t lowerf=50, size_t upperf=4000,float window_len=0.03,float shift=0.01) DEFAULT_VIS;
 
 	void deleteFeatureExtractor(FeatureExtractor*impl) DEFAULT_VIS;
 

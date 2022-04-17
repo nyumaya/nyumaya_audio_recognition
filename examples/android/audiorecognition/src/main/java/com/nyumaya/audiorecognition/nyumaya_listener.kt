@@ -70,7 +70,7 @@ class nyumaya_listener : Service() {
         //Detection Thread
         thread(start = true) {
 
-            val modelData = application.assets.open("alexa_v1.4.5.premium").readBytes()
+            val modelData = application.assets.open("alexa_v3.0.35.premium").readBytes()
 
             println("Model Data Len =  " + modelData.size)
 

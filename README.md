@@ -19,9 +19,9 @@ The python demo captures audio from the default alsa microphone.
 A web demo is available [here](https://nyumaya.com/demo/). 
 This has been tested with recent versions of Chrome and Firefox.
 
-## Performance V1.0
+## Performance V3.0
 
-- Pi Zero: CPU 30%
+- Pi Zero: CPU 55%
 - Pi 3: CPU one core: 12%
 - Pi 4: CPU one core: 4%
 
@@ -32,7 +32,7 @@ This has been tested with recent versions of Chrome and Firefox.
 - Sheila Hotword
 - Firefox Hotword
 - Alexa Hotword
-- Commands (yes,no,stop,light,on,off)
+- View Glass Hotword
 
 ## Versioning
 

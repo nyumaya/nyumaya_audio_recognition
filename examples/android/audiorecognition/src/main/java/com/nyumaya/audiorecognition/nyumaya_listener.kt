@@ -86,7 +86,7 @@ class nyumaya_listener : Service() {
             println("Set Model " + modelNumber + " Active to true")
 
             //var melCount = featureExtractor.getMelcount()
-            val recordSize = 6400 //audioRecognizer.getInputDataSize()*2
+            val recordSize = audioRecognizer.getInputDataSize() * 2
             nyumayaLib.printVersion()
             audioRecorder.startRecording()
             while(true) {

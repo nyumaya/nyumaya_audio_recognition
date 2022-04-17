@@ -9,8 +9,8 @@ class NyumayaLibrary {
 
     external fun getVersionString(): String
 
-    external fun createFeatureExtractor(nfft:Int=512,melcount:Int=40,sample_rate:Int=16000,
-                                        lowerf:Int=20,upperf:Int=8000,window_len:Float=0.03F,shift:Float=0.01F): Long
+    external fun createFeatureExtractor(nfft:Int=1024,melcount:Int=80,sample_rate:Int=16000,
+                                        lowerf:Int=50,upperf:Int=4000,window_len:Float=0.03F,shift:Float=0.01F): Long
 
     external fun deleteFeatureExtractor(impl:Long)
 
@@ -96,7 +96,7 @@ class AudioRecognition(n:NyumayaLibrary){
 
     //Number of 16 bit samples means 6400 bytes
     fun getInputDataSize(): Int {
-        return 3200
+        return 2600
         //return nlib.getInputDataSize(fpointer)
     }
 

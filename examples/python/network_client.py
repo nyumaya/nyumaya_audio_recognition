@@ -3,14 +3,14 @@ import argparse
 import sys
 import socket
 
-sys.path.append('./src')
+sys.path.append('../../python/src')
 
-from libnyumaya import FeatureExtractor
+from libnyumaya import FeatureExtractor,AudioRecognition
 from auto_platform import AudiostreamSource,default_libpath
 
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect(('10.0.0.52', 9999))
+s.connect(('10.0.0.40', 9999))
 
 
 def send_features(features):
@@ -23,7 +23,9 @@ def label_stream(libpath):
 	extractor = FeatureExtractor(libpath)
 	extactor_gain=16.0
 
-	bufsize = 3200
+	#FIXME: This is just used for bufsize
+	detector = AudioRecognition(default_libpath)
+	bufsize = detector.getInputDataSize()
 
 	audio_stream.start()
 	try:
@@ -33,7 +35,7 @@ def label_stream(libpath):
 				time.sleep(0.01)
 				continue
 
-			features = extractor.signal_to_mel(frame,extactor_gain)
+			features = extractor.signalToMel(frame,extactor_gain)
 			send_features(features)
 
 	except KeyboardInterrupt:

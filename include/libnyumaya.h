@@ -37,9 +37,6 @@ extern "C"
 	//@param len: Length of the binary model file
 	int addModelFromBuffer(AudioRecognitionImpl*impl,const char*binaryModel,int len,int &modelNumber) DEFAULT_VIS;
 
-	//Input Mel Features and get the raw probabilities of the labels
-	uint8_t* runRawDetection(AudioRecognitionImpl*impl,const uint8_t* const data,const int mel_length) DEFAULT_VIS;
-
 	//Input Mel Features and get the index of the detected label if recognized
 	//@param array_length    Number of mel features
 	//@param data            Signed uint8_t mel features
@@ -54,8 +51,8 @@ extern "C"
 
 
 	//Feature Extractor
-	FeatureExtractor* createFeatureExtractor(size_t nfft=512,size_t melcount=40,size_t sample_rate=16000,
-	    size_t lowerf=20, size_t upperf=8000,float window_len=0.03,float shift=0.01) DEFAULT_VIS;
+	FeatureExtractor* createFeatureExtractor(size_t nfft=1024,size_t melcount=80,size_t sample_rate=16000,
+	    size_t lowerf=50, size_t upperf=4000,float window_len=0.03,float shift=0.01) DEFAULT_VIS;
 
 	void deleteFeatureExtractor(FeatureExtractor*impl) DEFAULT_VIS;
 

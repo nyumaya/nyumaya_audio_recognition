@@ -2,7 +2,7 @@
 from ctypes import *
 
 import sys
-
+import os
 class AudioRecognition(object):
 
 	lib = None
@@ -33,11 +33,14 @@ class AudioRecognition(object):
 			AudioRecognition.lib.runDetection.argtypes = [c_void_p, POINTER(c_uint8),c_int]
 			AudioRecognition.lib.runDetection.restype = c_int
 
-			AudioRecognition.lib.runRawDetection.argtypes = [c_void_p, POINTER(c_uint8),c_int]
-			AudioRecognition.lib.runRawDetection.restype =  POINTER(c_uint8)
-
 			AudioRecognition.lib.addModel.argtypes = [c_void_p, c_char_p,c_float]
 			AudioRecognition.lib.addModel.restype = c_int
+
+			AudioRecognition.lib.addContinousModel.argtypes = [c_void_p, c_char_p]
+			AudioRecognition.lib.addContinousModel.restype = c_int
+
+			AudioRecognition.lib.getContinousResult.argtypes = [c_void_p, c_int,POINTER(c_float)]
+			AudioRecognition.lib.getContinousResult.restype = c_int
 
 			AudioRecognition.lib.addModelFromBuffer.argtypes = [c_void_p, POINTER(c_char_p),c_int]
 			AudioRecognition.lib.addModelFromBuffer.restype =  c_int
@@ -64,14 +67,27 @@ class AudioRecognition(object):
 			version_string = version_string[:-1]
 			major,minor,rev= version_string.split('.')
 
-		if major != "1":
+		if major != "3":
 				print("Your library version is not compatible with this API")
 
 	def addModel(self,path,sensitivity=0.5):
-		modelNumber = c_int()
-		#modelNumberBuffer = pcm.from_buffer_copy(modelNumber)
+		if( not os.path.exists(path)):
+			print("Libnyumaya: Model path {} does not exist".format(path))
+			return -1
 
+		modelNumber = c_int()
 		success = AudioRecognition.lib.addModel(self.obj,path.encode('ascii'),sensitivity, byref(modelNumber))
+		if(success != 0):
+			print("Libnyumaya: Failed to open model")
+			return -1
+
+		#FIXME: Throw error on failure
+
+		return modelNumber.value
+
+	def addContinousModel(self,path):
+		modelNumber = c_int()
+		success = AudioRecognition.lib.addContinousModel(self.obj,path.encode('ascii'), byref(modelNumber))
 		if(success != 0):
 			print("Libnyumaya: Failed to open model")
 			return -1
@@ -94,29 +110,21 @@ class AudioRecognition(object):
 
 		return success
 
+	def getContinousResult(self, modelNumber):
+		result = (c_float * 16)()
+
+		success = AudioRecognition.lib.getContinousResult(self.obj, modelNumber,result)
+		if(success != 0):
+			print("Failed to get continous result")
+		re = [result[i] for i in range(2)]
+		return re
+
 	def runDetection(self,data):
 		datalen = int(len(data))
 		pcm = c_uint8 * datalen
 		pcmdata = pcm.from_buffer_copy(data)
 		prediction = AudioRecognition.lib.runDetection(self.obj,pcmdata,datalen)
 		return prediction
-
-
-	def runRawDetection(self,data):
-		datalen = int(len(data))
-		pcm = c_uint8 * datalen
-		pcmdata = pcm.from_buffer_copy(data)
-		prediction = AudioRecognition.lib.runRawDetection(self.obj,pcmdata,datalen)
-		re = [prediction[i] for i in range(2)]
-		return re
-
-
-	def getPredictionLabel(self,index):
-		if(self.labels_list):
-			return self.labels_list[index]
-
-	def setGain(self,gain):
-		pass
 
 	def setSensitivity(self,sens,modelNumber):
 		AudioRecognition.lib.setSensitivity(self.obj,sens,modelNumber)
@@ -135,7 +143,7 @@ class FeatureExtractor(object):
 	lib = None
 	obj = None
 
-	def __init__(self,libpath,nfft=512,melcount=40,sample_rate=16000,lowerf=20,upperf=8000,window_len=0.03,shift=0.01):
+	def __init__(self,libpath,nfft=1024,melcount=80,sample_rate=16000,lowerf=50,upperf=4000,window_len=0.03,shift=0.01):
 
 		self.melcount = melcount
 		self.shift =  sample_rate*shift

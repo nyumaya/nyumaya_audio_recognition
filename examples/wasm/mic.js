@@ -1,7 +1,7 @@
-
+var melcount = 80
+var default_sensitivity = 0.85
 function run_hotword_detection()
 {
-
 	const api = {
 		version: Module.cwrap('getVersionString', 'string', []),
 		createFeatureExtractor: Module.cwrap('createFeatureExtractor', 'number', ['number','number','number','number','number','number','number']),
@@ -18,28 +18,28 @@ function run_hotword_detection()
 	var model_paths = {};
 
 	console.log(api.version());
-	FeatureExtractor = api.createFeatureExtractor(512,40,16000,20,8000,0.03,0.01)
+	FeatureExtractor = api.createFeatureExtractor(1024,melcount,16000,50,4000,0.03,0.01)
 
-	load_file_from_server("alexa_v1.4.5.premium","Alexa");
-	load_file_from_server("marvin_v1.4.5.premium","Marvin");
-	load_file_from_server("sheila_v1.4.5.premium","Sheila");
-	load_file_from_server("firefox_v1.4.5.premium","Firefox");
+
+	load_file_from_server("marvin_v3.0.41.premium","Marvin");
+	load_file_from_server("sheila_v3.0.35.premium","Sheila");
+	load_file_from_server("alexa_v3.0.35.premium","Alexa");
+	load_file_from_server("firefox_v3.0.35.premium","Firefox");
 
 	//Buffer for drawing frequency spectrogram
-	var arrayData = new Array(4800).fill(0);
+	var arrayData = new Array(4800*2).fill(0);
 
 	//Buffer holding meldata. Used for feeding the
 	//mel_slice_sized parts to the detector
 	var melLogback = Array()
 
 	//Buffer for passing back meldata from wasm to js
-	var mel_result = Module._malloc(2080)
+	var mel_result = Module._malloc(2080*2)
 
 	var first = true //For printing Info once
-	var label_index = 0; //FIXME: Temporary while we don't use real keyword ids yet
-	var mel_slice_size=800
+	var mel_slice_size=640*2 //800 for v1.x
 	var prediction_heap  = Module._malloc(mel_slice_size * 1);
-	var pcm_heap = Module._malloc(1600 * 2); //1486
+	var pcm_heap = Module._malloc(1600 * 2 *2); //1486
 
 
 	function save_file_to_storage(data,name,path){
@@ -87,8 +87,10 @@ function run_hotword_detection()
 
 	function get_slider(name)
 	{
-		markup = '<td><input id="detect_sensitivity'+name+'" type="range" min="0" max="100" step="1" value="50"></td>' +
-			'<td><div id="sliderAmount'+name+'">0.5</div></td>'
+		markup = '<td><input id="detect_sensitivity' + name + 
+		'" type="range" min="0" max="100" step="1" value=' +
+		default_sensitivity*100 + '></td>' +
+		'<td><div id="sliderAmount'+name+'">'+default_sensitivity+'</div></td>'
 		return markup
 	}
 
@@ -105,8 +107,8 @@ function run_hotword_detection()
 			switch_model_active(currentIndex,this.checked);
 		};
 
-		var slide = document.getElementById('detect_sensitivity'+name);
-		var sliderDiv = document.getElementById("sliderAmount"+name);
+		var slide = document.getElementById('detect_sensitivity' + name);
+		var sliderDiv = document.getElementById("sliderAmount" + name);
 	
 		slide.onchange = function() {
 			sliderDiv.innerHTML = this.value/100.0;
@@ -141,20 +143,21 @@ function run_hotword_detection()
 	function addModel(name)
 	{
 		console.log("Adding Model " + name);
-		//var modelIndex = label_index;
-		label_index = label_index + 1; //FIXME use addModel index
-		var modelIndex = 0;
-		transfer32ToHeap(pcm_heap,modelIndex);
-		success = api.addModel(detector,get_filepath(name),0.5,pcm_heap)
-		append_setting(name,true,label_index);
 
-		if(success == 0){
-			console.log("Added Model " + name);
-		} else {
+		var modelIndexPtr = Module._malloc(4); //32 bit Integer
+
+		success = api.addModel(detector,get_filepath(name), default_sensitivity, modelIndexPtr)
+		var label_index = new Int32Array(Module.HEAP32.buffer, modelIndexPtr, 4)[0];
+		Module._free(modelIndexPtr);
+
+		if(success != 0){
 			console.log("Failed to add Model " + name);
+			return;
 		}
 
-		api.setSensitivity(detector,0.5,label_index);
+		append_setting(name,true,label_index);
+		console.log("Added Model Index " + label_index);
+		api.setSensitivity(detector, default_sensitivity, label_index);
 	}
 
 	function remove_detector(name)
@@ -249,7 +252,7 @@ function draw(data)
 			for (var y=0; y<height; y++) {
 
 				var pixelindex = (x + y * width) * 4;
-				var dataindex = (x * height + 40-y );
+				var dataindex = (x * height *2 + melcount-(y*2) );
 	
 				imagedata.data[pixelindex]   = 255 - data[dataindex] * 2
 				imagedata.data[pixelindex+1] = 255 - data[dataindex]
@@ -286,7 +289,6 @@ function interpolateArray(data, newSampleRate, oldSampleRate)
 		const data_after = data[after]
 
 		newData[i] = data_before + (data_after - data_before) * atPoint;
-		
 	}
 	newData[fitCount - 1] = data[data.length - 1]; // for new allocation
 	return newData;

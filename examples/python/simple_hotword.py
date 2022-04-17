@@ -18,10 +18,10 @@ def detectKeywords(libpath):
 	extactor_gain = 1.0
 
 	#Add one or more keyword models
-	keywordIdFirefox = detector.addModel('../../models/Hotword/firefox_v1.4.5.premium',0.6)
-	keywordIdSheila = detector.addModel('../../models/Hotword/sheila_v1.4.5.premium',0.6)
-	keywordIdMarvin = detector.addModel('../../models/Hotword/marvin_v1.4.5.premium',0.6)
-	keywordIdAlexa = detector.addModel('../../models/Hotword/alexa_v1.4.5.premium',0.6)
+	keywordIdFirefox = detector.addModel('../../models/Hotword/firefox_v3.0.35.premium',0.85)
+	keywordIdSheila = detector.addModel('../../models/Hotword/sheila_v3.0.35.premium',0.85)
+	keywordIdMarvin = detector.addModel('../../models/Hotword/marvin_v3.0.41.premium',0.85)
+	keywordIdAlexa =  detector.addModel('../../models/Hotword/alexa_v3.0.35.premium',0.85)
 
 	bufsize = detector.getInputDataSize()
 
@@ -36,7 +36,6 @@ def detectKeywords(libpath):
 				continue
 
 			features = extractor.signalToMel(frame,extactor_gain)
-
 			prediction = detector.runDetection(features)
 			if(prediction != 0):
 				now = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")

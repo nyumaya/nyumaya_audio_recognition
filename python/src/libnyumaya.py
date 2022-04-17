@@ -2,7 +2,7 @@
 from ctypes import *
 
 import sys
-
+import os
 class AudioRecognition(object):
 
 	lib = None
@@ -71,6 +71,10 @@ class AudioRecognition(object):
 				print("Your library version is not compatible with this API")
 
 	def addModel(self,path,sensitivity=0.5):
+		if( not os.path.exists(path)):
+			print("Libnyumaya: Model path {} does not exist".format(path))
+			return -1
+
 		modelNumber = c_int()
 		success = AudioRecognition.lib.addModel(self.obj,path.encode('ascii'),sensitivity, byref(modelNumber))
 		if(success != 0):

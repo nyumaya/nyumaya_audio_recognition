@@ -1,8 +1,6 @@
 import time
-import os
 import argparse
 import sys
-import datetime
 
 sys.path.append('../../python/src')
 
@@ -32,7 +30,7 @@ def detectKeywords(libpath):
 				continue
 
 			features = extractor.signalToMel(frame,extactor_gain)
-			prediction = detector.runDetection(features)
+			_ = detector.runDetection(features)
 
 			vadResult = detector.getContinousResult(keywordVAD)
 

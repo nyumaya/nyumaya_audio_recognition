@@ -1,5 +1,5 @@
-
-from ctypes import *
+from ctypes import c_void_p, c_size_t, c_float, c_int, c_uint8
+from ctypes import cdll, POINTER, c_int16, c_char_p, c_bool, byref
 
 import sys
 import os

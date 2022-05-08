@@ -14,7 +14,6 @@ import time
 import os
 import argparse
 import sys
-import datetime
 import wave
 
 sys.path.append('../../python/src')
@@ -24,6 +23,7 @@ from auto_platform import AudiostreamSource, play_command,default_libpath
 
 bytesPerSample = 2
 framesPerSecond = 16000
+saveDirectory = "./activations"
 
 def save_wav(data,path):
 	print("saving wav to " + path)
@@ -34,27 +34,41 @@ def save_wav(data,path):
 	wav.writeframes(data)
 	wav.close()
 
+def ensure_dir(file_path):
+	if not os.path.exists(file_path):
+		os.makedirs(file_path)
+
+
+#Add one or more keyword models
+models = [
+	('../../models/Hotword/alexa_v3.0.35.premium',0.90,'alexa_3_35_090'),
+]
+
 def recordActivations(libpath):
 
 	audio_stream = AudiostreamSource()
 	extractor = FeatureExtractor(libpath)
-	detector = AudioRecognition(libpath)
+
+	detectors = {}
+	framebuffersFront = {}
+	framebuffersBack = {}
 
 	extactor_gain = 1.0
-
-	recordBefore = 1.5 # Seconds before the activation
+	recordBefore = 2.5 # Seconds before the activation
 	recordAfter = 0.5 # Seconds after the activation
 
 	activationCount = 0
-	saveDirectory = "./"
+	ensure_dir(saveDirectory)
+
 	rbFrontSize = int(recordBefore*bytesPerSample*framesPerSecond)
 	rbBackSize = int(recordAfter*bytesPerSample*framesPerSecond)
 
-	framebufferFront = bytearray()
-	framebufferBack = bytearray()
-
-	#Add one or more keyword models
-	keywordId = detector.addModel('../../models/Hotword/marvin_v2.0.23.premium',0.95)
+	for mpath,msens,mname in models:
+		detector = AudioRecognition(libpath)
+		detector.addModel(mpath,msens)
+		detectors[mname] = detector
+		framebuffersFront[mname] = bytearray()
+		framebuffersBack[mname] = bytearray()
 
 	bufsize = detector.getInputDataSize()
 
@@ -68,28 +82,33 @@ def recordActivations(libpath):
 			if(not frame):
 				time.sleep(0.01)
 				continue
-			#Fill audio before the activation
-			framebufferFront = framebufferFront + frame
-			if(len(framebufferFront) > rbFrontSize):
-				framebufferFront = framebufferFront[-rbFrontSize:]
+
+			for mname in detectors:
+				#Fill audio before the activation
+				framebuffersFront[mname] = framebuffersFront[mname] + frame
+				if(len(framebuffersFront[mname]) > rbFrontSize):
+					framebuffersFront[mname] = framebuffersFront[mname][-rbFrontSize:]
 
 			features = extractor.signalToMel(frame,extactor_gain)
-			prediction = detector.runDetection(features)
-			if(prediction != 0):
-				#Fill audio after the activation
-				while(len(framebufferBack) < rbBackSize):
-					frame = audio_stream.read(bufsize*2,bufsize*2)
-					if(not frame):
-						time.sleep(0.01)
-						continue
 
-					framebufferBack = framebufferBack + frame
+			for mname in detectors:
+				detector = detectors[mname]
+				prediction = detector.runDetection(features)
+				if(prediction != 0):
+					#FIXME: Record after is currently ignored
+					#Fill audio after the activation
+					#while(len(framebuffersBack[mname]) < rbBackSize):
+					#	frame = audio_stream.read(bufsize*2,bufsize*2)
+					#	if(not frame):
+					#		time.sleep(0.01)
+					#		continue
+					#	framebuffersBack[mname] = framebuffersBack[mname] + frame
 
-				savePath = saveDirectory + "activation_{}.wav".format(activationCount)
-				save_wav(framebufferFront+framebufferBack,savePath)
-				print("Saving Activation to {}".format(savePath))
-				activationCount += 1
-				os.system(play_command + " ../resources/ding.wav")
+					savePath = saveDirectory + "/activation_{}_{}_{}.wav".format(mname, activationCount, time.time_ns())
+					save_wav(framebuffersFront[mname],savePath)
+					#save_wav(framebufferFront+framebufferBack,savePath)
+					print("Saving Activation to {}".format(savePath))
+					activationCount += 1
 
 	except KeyboardInterrupt:
 		print("Terminating")

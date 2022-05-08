@@ -1,24 +1,25 @@
-var melcount = 80
-var default_sensitivity = 0.85
+var melcount = 80;
+var defaultSensitivity = 0.85;
+
 function run_hotword_detection()
 {
 	const api = {
-		version: Module.cwrap('getVersionString', 'string', []),
-		createFeatureExtractor: Module.cwrap('createFeatureExtractor', 'number', ['number','number','number','number','number','number','number']),
-		signalToMel: Module.cwrap('signalToMel', 'number', ['number','number','number','number']),
-		createAudioRecognition: Module.cwrap('createAudioRecognition', 'number', []),
-		deleteAudioRecognition: Module.cwrap('deleteAudioRecognition', 'number', ['string']),
-		addModel: Module.cwrap( 'addModel', 'number', ['number','string','number','number']),
-		setActive: Module.cwrap('setActive','number', ['number','number','number']),
-		runDetection: Module.cwrap( 'runDetection', 'number', ['number','number','number']),
-		setSensitivity: Module.cwrap( 'setSensitivity', '', ['number','number','number'])
+		version: Module.cwrap("getVersionString", "string", []),
+		createFeatureExtractor: Module.cwrap("createFeatureExtractor", "number", ["number","number","number","number","number","number","number"]),
+		signalToMel: Module.cwrap("signalToMel", "number", ["number","number","number","number"]),
+		createAudioRecognition: Module.cwrap("createAudioRecognition", "number", []),
+		deleteAudioRecognition: Module.cwrap("deleteAudioRecognition", "number", ["string"]),
+		addModel: Module.cwrap( "addModel", "number", ["number","string","number","number"]),
+		setActive: Module.cwrap("setActive","number", ["number","number","number"]),
+		runDetection: Module.cwrap( "runDetection", "number", ["number","number","number"]),
+		setSensitivity: Module.cwrap( "setSensitivity", "", ["number","number","number"])
 	};
 
 	var detector = api.createAudioRecognition();
 	var model_paths = {};
 
 	console.log(api.version());
-	FeatureExtractor = api.createFeatureExtractor(1024,melcount,16000,50,4000,0.03,0.01)
+	FeatureExtractor = api.createFeatureExtractor(1024,melcount,16000,50,4000,0.03,0.01);
 
 
 	load_file_from_server("marvin_v3.0.41.premium","Marvin");
@@ -31,10 +32,10 @@ function run_hotword_detection()
 
 	//Buffer holding meldata. Used for feeding the
 	//mel_slice_sized parts to the detector
-	var melLogback = Array()
+	var melLogback = Array();
 
 	//Buffer for passing back meldata from wasm to js
-	var mel_result = Module._malloc(2080*2)
+	var mel_result = Module._malloc(2080*2);
 
 	var first = true //For printing Info once
 	var mel_slice_size=640*2 //800 for v1.x
@@ -45,7 +46,7 @@ function run_hotword_detection()
 	function save_file_to_storage(data,name,path){
 		console.log("Saving Model " + path);
 		console.log("DataLen " + data.byteLength);
-		var stream = FS.open(path, 'w+');
+		var stream = FS.open(path, "w+");
 		var uint8View = new Uint8Array(data);
 		FS.write(stream, uint8View, 0, data.byteLength, 0);
 		FS.close(stream);
@@ -55,8 +56,8 @@ function run_hotword_detection()
 	function load_file_from_server(url,model_name){
 		var xhr=new XMLHttpRequest();
 		xhr.open("GET","models/Hotword/"+url, true);
-		xhr.responseType = 'arraybuffer';
-		xhr.addEventListener('load',function(){
+		xhr.responseType = "arraybuffer";
+		xhr.addEventListener("load",function(){
 			if (xhr.status === 200){
 				save_file_to_storage(xhr.response,model_name,url)
 				addModel(model_name)
@@ -89,8 +90,8 @@ function run_hotword_detection()
 	{
 		markup = '<td><input id="detect_sensitivity' + name + 
 		'" type="range" min="0" max="100" step="1" value=' +
-		default_sensitivity*100 + '></td>' +
-		'<td><div id="sliderAmount'+name+'">'+default_sensitivity+'</div></td>'
+		defaultSensitivity*100 + '></td>' +
+		'<td><div id="sliderAmount'+name+'">'+defaultSensitivity+'</div></td>'
 		return markup
 	}
 
@@ -107,7 +108,7 @@ function run_hotword_detection()
 			switch_model_active(currentIndex,this.checked);
 		};
 
-		var slide = document.getElementById('detect_sensitivity' + name);
+		var slide = document.getElementById("detect_sensitivity" + name);
 		var sliderDiv = document.getElementById("sliderAmount" + name);
 	
 		slide.onchange = function() {
@@ -120,17 +121,17 @@ function run_hotword_detection()
 	function add_label(name,currentIndex)
 	{
 		console.log("Adding label " + name);
-		var div = document.createElement('h1');
-		div.className = 'rcorners';
-		div.id=currentIndex + "_lbl" ;
+		var div = document.createElement("h1");
+		div.className = "rcorners";
+		div.id=currentIndex + "_lbl";
 		div.innerHTML = name;
-		document.getElementById('detectionArea').appendChild(div)
+		document.getElementById("detectionArea").appendChild(div);
 	}
 
 	function switch_model_active(currentIndex,checked)
 	{
 		console.log("Switching Model Active " + currentIndex + " " + checked);
-		api.setActive(detector,checked,currentIndex)
+		api.setActive(detector,checked,currentIndex);
 	}
 
 	function remove_label(name)
@@ -146,7 +147,7 @@ function run_hotword_detection()
 
 		var modelIndexPtr = Module._malloc(4); //32 bit Integer
 
-		success = api.addModel(detector,get_filepath(name), default_sensitivity, modelIndexPtr)
+		success = api.addModel(detector,get_filepath(name), defaultSensitivity, modelIndexPtr)
 		var label_index = new Int32Array(Module.HEAP32.buffer, modelIndexPtr, 4)[0];
 		Module._free(modelIndexPtr);
 
@@ -157,7 +158,7 @@ function run_hotword_detection()
 
 		append_setting(name,true,label_index);
 		console.log("Added Model Index " + label_index);
-		api.setSensitivity(detector, default_sensitivity, label_index);
+		api.setSensitivity(detector, defaultSensitivity, label_index);
 	}
 
 	function remove_detector(name)
@@ -170,42 +171,42 @@ function run_hotword_detection()
 	function set_mel(event)
 	{
 		var input_buffer = event.inputBuffer.getChannelData(0);
-		var resampled = interpolateArray(input_buffer, 16000, event.inputBuffer.sampleRate)
-		var pcm_data = floatTo16BitPCM(resampled)
+		var resampled = interpolateArray(input_buffer, 16000, event.inputBuffer.sampleRate);
+		var pcm_data = floatTo16BitPCM(resampled);
 
-		transfer16ToHeap(pcm_heap,pcm_data)
+		transfer16ToHeap(pcm_heap,pcm_data);
 
-		var gain = 1.0
+		var gain = 1.0;
 
 		if(first == true){
-			console.log("SampleRate: " +  event.inputBuffer.sampleRate)
-			console.log("PCMLength: " +  pcm_data.length)
-			first = false
+			console.log("SampleRate: " +  event.inputBuffer.sampleRate);
+			console.log("PCMLength: " +  pcm_data.length);
+			first = false;
 		}
 
-		const res = api.signalToMel(FeatureExtractor,pcm_heap,pcm_data.length,mel_result,gain)
+		const res = api.signalToMel(FeatureExtractor,pcm_heap,pcm_data.length,mel_result,gain);
 
 		for (let v=0; v<res; v++) {
-			arrayData.shift()
-			dataelem = Module.HEAPU8[mel_result/Uint8Array.BYTES_PER_ELEMENT+v]
-			arrayData.push(dataelem)
-			melLogback.push(dataelem)
+			arrayData.shift();
+			dataelem = Module.HEAPU8[mel_result/Uint8Array.BYTES_PER_ELEMENT+v];
+			arrayData.push(dataelem);
+			melLogback.push(dataelem);
 		}
 
-		draw(arrayData)
+		draw(arrayData);
 	}
 
 	//Use audio, extract features and run detection
 	function check_audio(event)
 	{
-		set_mel(event)
+		set_mel(event);
 
 		while(melLogback.length > mel_slice_size)
 		{
-			var prediction_data = melLogback.slice(0,mel_slice_size)
-			transfer8ToHeap(prediction_heap,prediction_data)
+			var prediction_data = melLogback.slice(0,mel_slice_size);
+			transfer8ToHeap(prediction_heap,prediction_data);
 
-			detect()
+			detect();
 	
 			melLogback.splice(0, mel_slice_size);
 		}
@@ -219,7 +220,7 @@ function run_hotword_detection()
 			console.log("Detected!" + Date.now());
 			var beep = document.getElementById("beep");
 			beep.play();
-			console.log(detectionResult + "_lbl")
+			console.log(detectionResult + "_lbl");
 			var element = document.getElementById(detectionResult + "_lbl");
 			element.classList.remove("trigger-animation");
 			void element.offsetWidth;
@@ -228,9 +229,9 @@ function run_hotword_detection()
 	}
 
 	if (!check_media()){
-		alert("No media")
+		alert("No media");
 	} else {
-		start_media(check_audio)
+		start_media(check_audio);
 	}
 }
 
@@ -254,9 +255,9 @@ function draw(data)
 				var pixelindex = (x + y * width) * 4;
 				var dataindex = (x * height *2 + melcount-(y*2) );
 	
-				imagedata.data[pixelindex]   = 255 - data[dataindex] * 2
-				imagedata.data[pixelindex+1] = 255 - data[dataindex]
-				imagedata.data[pixelindex+2] = 255 - data[dataindex]
+				imagedata.data[pixelindex]   = 255 - data[dataindex] * 2;
+				imagedata.data[pixelindex+1] = 255 - data[dataindex];
+				imagedata.data[pixelindex+2] = 255 - data[dataindex];
 				imagedata.data[pixelindex+3] = 255;
 			}
 		}
@@ -285,8 +286,8 @@ function interpolateArray(data, newSampleRate, oldSampleRate)
 		const after = Math.ceil(tmp);
 
 		const atPoint = tmp - before;
-		const data_before = data[before]
-		const data_after = data[after]
+		const data_before = data[before];
+		const data_after = data[after];
 
 		newData[i] = data_before + (data_after - data_before) * atPoint;
 	}
@@ -322,7 +323,7 @@ function floatTo16BitPCM(input)
 		newData[i] = input[i]*32000;
 	}
 
-	return newData
+	return newData;
 }
 
 
@@ -334,9 +335,9 @@ function check_media()
 		navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia;
 
 	if (navigator.getUserMedia){
-		return true
+		return true;
 	} else {
-		return false
+		return false;
 	}
 }
 
@@ -347,7 +348,7 @@ function start_media(callback)
 			start_microphone(stream,callback);
 		},
 		function(e) {
-			alert('Error capturing audio.');
+			alert("Error capturing audio");
 		}
 	);
 }
@@ -361,10 +362,10 @@ function start_microphone(stream,callback)
 	window.microphone_stream.connect(window.gain_node);
 
 	window.script_processor_node = window.audioContext.createScriptProcessor(0, 1, 1);
-	console.log("Audio buffer size: " + script_processor_node.bufferSize) 
+	console.log("Audio buffer size: " + script_processor_node.bufferSize);
 	window.script_processor_node.onaudioprocess = callback;
 	window.microphone_stream.connect(window.script_processor_node);
-	window.script_processor_node.connect(window.audioContext.destination)
+	window.script_processor_node.connect(window.audioContext.destination);
 }
 
 

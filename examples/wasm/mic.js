@@ -1,7 +1,7 @@
 var melcount = 80;
 var defaultSensitivity = 0.85;
 
-function run_hotword_detection()
+function runHotwordDetection()
 {
 	const api = {
 		version: Module.cwrap("getVersionString", "string", []),
@@ -16,16 +16,10 @@ function run_hotword_detection()
 	};
 
 	var detector = api.createAudioRecognition();
-	var model_paths = {};
+	var modelPaths = {};
 
 	console.log(api.version());
 	FeatureExtractor = api.createFeatureExtractor(1024,melcount,16000,50,4000,0.03,0.01);
-
-
-	load_file_from_server("marvin_v3.0.41.premium","Marvin");
-	load_file_from_server("sheila_v3.0.35.premium","Sheila");
-	load_file_from_server("alexa_v3.0.35.premium","Alexa");
-	load_file_from_server("firefox_v3.0.35.premium","Firefox");
 
 	//Buffer for drawing frequency spectrogram
 	var arrayData = new Array(4800*2).fill(0);
@@ -37,10 +31,10 @@ function run_hotword_detection()
 	//Buffer for passing back meldata from wasm to js
 	var mel_result = Module._malloc(2080*2);
 
-	var first = true //For printing Info once
-	var mel_slice_size=640*2 //800 for v1.x
+	var first = true; //For printing Info once
+	var mel_slice_size = 640*2; //800 for v1.x
 	var prediction_heap  = Module._malloc(mel_slice_size * 1);
-	var pcm_heap = Module._malloc(1600 * 2 *2); //1486
+	var pcmHeap = Module._malloc(1600 * 2 *2); //1486
 
 
 	function save_file_to_storage(data,name,path){
@@ -50,7 +44,7 @@ function run_hotword_detection()
 		var uint8View = new Uint8Array(data);
 		FS.write(stream, uint8View, 0, data.byteLength, 0);
 		FS.close(stream);
-		model_paths[name] = path;
+		modelPaths[name] = path;
 	}
 
 	function load_file_from_server(url,model_name){
@@ -67,7 +61,7 @@ function run_hotword_detection()
 	}
 
 	function get_filepath(name){
-		return model_paths[name];
+		return modelPaths[name];
 	}
 
 	function get_switch(name,checked)
@@ -148,43 +142,37 @@ function run_hotword_detection()
 		var modelIndexPtr = Module._malloc(4); //32 bit Integer
 
 		success = api.addModel(detector,get_filepath(name), defaultSensitivity, modelIndexPtr)
-		var label_index = new Int32Array(Module.HEAP32.buffer, modelIndexPtr, 4)[0];
+		var labelIndex = new Int32Array(Module.HEAP32.buffer, modelIndexPtr, 4)[0];
 		Module._free(modelIndexPtr);
 
-		if(success != 0){
+		if(success !== 0){
 			console.log("Failed to add Model " + name);
 			return;
 		}
 
-		append_setting(name,true,label_index);
-		console.log("Added Model Index " + label_index);
-		api.setSensitivity(detector, defaultSensitivity, label_index);
-	}
-
-	function remove_detector(name)
-	{
-		console.log("Removing Detector " + name);
-		delete detectors[name];
+		append_setting(name,true,labelIndex);
+		console.log("Added Model Index " + labelIndex);
+		api.setSensitivity(detector, defaultSensitivity, labelIndex);
 	}
 
 	//Extract features from audio
-	function set_mel(event)
+	function setMel(event)
 	{
 		var input_buffer = event.inputBuffer.getChannelData(0);
 		var resampled = interpolateArray(input_buffer, 16000, event.inputBuffer.sampleRate);
-		var pcm_data = floatTo16BitPCM(resampled);
+		var pcmData = floatTo16BitPCM(resampled);
 
-		transfer16ToHeap(pcm_heap,pcm_data);
+		transfer16ToHeap(pcmHeap,pcmData);
 
 		var gain = 1.0;
 
 		if(first == true){
 			console.log("SampleRate: " +  event.inputBuffer.sampleRate);
-			console.log("PCMLength: " +  pcm_data.length);
+			console.log("PCMLength: " +  pcmData.length);
 			first = false;
 		}
 
-		const res = api.signalToMel(FeatureExtractor,pcm_heap,pcm_data.length,mel_result,gain);
+		const res = api.signalToMel(FeatureExtractor,pcmHeap,pcmData.length,mel_result,gain);
 
 		for (let v=0; v<res; v++) {
 			arrayData.shift();
@@ -197,9 +185,9 @@ function run_hotword_detection()
 	}
 
 	//Use audio, extract features and run detection
-	function check_audio(event)
+	function checkAudio(event)
 	{
-		set_mel(event);
+		setMel(event);
 
 		while(melLogback.length > mel_slice_size)
 		{
@@ -216,7 +204,7 @@ function run_hotword_detection()
 	{
 		var detectionResult = api.runDetection(detector,prediction_heap,mel_slice_size);
 
-		if(detectionResult != 0){
+		if(detectionResult !== 0){
 			console.log("Detected!" + Date.now());
 			var beep = document.getElementById("beep");
 			beep.play();
@@ -228,10 +216,16 @@ function run_hotword_detection()
 		}
 	}
 
-	if (!check_media()){
+
+	load_file_from_server("marvin_v3.0.41.premium","Marvin");
+	load_file_from_server("sheila_v3.0.35.premium","Sheila");
+	load_file_from_server("alexa_v3.0.35.premium","Alexa");
+	load_file_from_server("firefox_v3.0.35.premium","Firefox");
+
+	if (!checkMedia()){
 		alert("No media");
 	} else {
-		start_media(check_audio);
+		startMedia(checkAudio);
 	}
 }
 
@@ -293,7 +287,7 @@ function interpolateArray(data, newSampleRate, oldSampleRate)
 	}
 	newData[fitCount - 1] = data[data.length - 1]; // for new allocation
 	return newData;
-};
+}
 
 function transfer32ToHeap(heapSpace,arr)
 {
@@ -316,10 +310,10 @@ function transfer8ToHeap(heapSpace,arr)
 
 function floatTo16BitPCM(input)
 {
-	const in_len = input.length
-	var newData = new Int16Array(in_len);
+	const inLen = input.length
+	var newData = new Int16Array(inLen);
 
-	for (var i = 0; i < in_len; i++){
+	for (var i = 0; i < inLen; i++){
 		newData[i] = input[i]*32000;
 	}
 
@@ -328,7 +322,7 @@ function floatTo16BitPCM(input)
 
 
 
-function check_media()
+function checkMedia()
 {
 	if (!navigator.getUserMedia)
 		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
@@ -341,11 +335,11 @@ function check_media()
 	}
 }
 
-function start_media(callback)
+function startMedia(callback)
 {
 	navigator.getUserMedia({audio:true},
 		function(stream) {
-			start_microphone(stream,callback);
+			startMicrophone(stream,callback);
 		},
 		function(e) {
 			alert("Error capturing audio");
@@ -353,7 +347,7 @@ function start_media(callback)
 	);
 }
 
-function start_microphone(stream,callback)
+function startMicrophone(stream,callback)
 {
 	window.audioContext = new AudioContext();
 	window.gain_node = window.audioContext.createGain();

@@ -1,6 +1,6 @@
-# This example waits for a keyword detection and 
-# then saves the audio around the detection into 
-# a file located at saveDirectory with the name 
+# This example waits for a keyword detection and
+# then saves the audio around the detection into
+# a file located at saveDirectory with the name
 # activation_X where X is an increasing number
 # The recordBefore and recordAfter specify the length
 # of the audio before and after the activation
@@ -19,7 +19,7 @@ import wave
 sys.path.append('../../python/src')
 
 from libnyumaya import AudioRecognition, FeatureExtractor
-from auto_platform import AudiostreamSource, play_command,default_libpath
+from auto_platform import AudiostreamSource, default_libpath
 
 bytesPerSample = 2
 framesPerSecond = 16000

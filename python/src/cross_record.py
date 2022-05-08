@@ -15,7 +15,7 @@ class AudiostreamSource(Thread):
 
 	def __init__(self,sample_rate=16000,channels=1,audio_length=80):
 		Thread.__init__(self)
-		
+
 		self.p = pyaudio.PyAudio()
 
 		self.running = False
@@ -48,7 +48,7 @@ class AudiostreamSource(Thread):
 			rate=self.sample_rate,
 			input=True,
 			frames_per_buffer=self.blocksize)
-			
+
 		self.running = True
 		while self.mic_stream and self.running:
 			input_data = self.mic_stream.read(self.blocksize)

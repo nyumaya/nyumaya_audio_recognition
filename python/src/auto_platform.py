@@ -25,7 +25,7 @@ elif system == "Linux":
 		default_libpath = '../../lib/linux_x86_64/libnyumaya_premium.so.3.0.0'
 	elif(machine == "armv6l"):
 		default_libpath = '../../lib/rpi/armv6/libnyumaya_premium.so.3.0.0'
-		
+
 	#Pi3 says it's armv7 although its armv8
 	elif(machine == "armv7l"):
 		default_libpath = '../../lib/rpi/armv8/libnyumaya_premium.so.3.0.0'

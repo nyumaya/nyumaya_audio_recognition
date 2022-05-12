@@ -1,5 +1,9 @@
 var melcount = 80;
 var defaultSensitivity = 0.85;
+var imagedata;
+var context;
+var canvas_width;
+var canvas_height;
 
 function runHotwordDetection()
 {
@@ -19,7 +23,7 @@ function runHotwordDetection()
 	var modelPaths = {};
 
 	console.log(api.version());
-	FeatureExtractor = api.createFeatureExtractor(1024,melcount,16000,50,4000,0.03,0.01);
+	FeatureExtractor = api.createFeatureExtractor(1024, melcount, 16000, 50, 4000, 0.03, 0.01);
 
 	//Buffer for drawing frequency spectrogram
 	var arrayData = new Array(4800*2).fill(0);
@@ -167,8 +171,8 @@ function runHotwordDetection()
 		var gain = 1.0;
 
 		if(first == true){
-			console.log("SampleRate: " +  event.inputBuffer.sampleRate);
-			console.log("PCMLength: " +  pcmData.length);
+			//console.log("SampleRate: " +  event.inputBuffer.sampleRate);
+			//console.log("PCMLength: " +  pcmData.length);
 			first = false;
 		}
 
@@ -205,10 +209,10 @@ function runHotwordDetection()
 		var detectionResult = api.runDetection(detector,prediction_heap,mel_slice_size);
 
 		if(detectionResult !== 0){
-			console.log("Detected!" + Date.now());
+			//console.log("Detected!" + Date.now());
 			var beep = document.getElementById("beep");
 			beep.play();
-			console.log(detectionResult + "_lbl");
+			//console.log(detectionResult + "_lbl");
 			var element = document.getElementById(detectionResult + "_lbl");
 			element.classList.remove("trigger-animation");
 			void element.offsetWidth;
@@ -220,7 +224,8 @@ function runHotwordDetection()
 	load_file_from_server("marvin_v3.0.41.premium","Marvin");
 	load_file_from_server("sheila_v3.0.35.premium","Sheila");
 	load_file_from_server("alexa_v3.0.35.premium","Alexa");
-	load_file_from_server("firefox_v3.0.35.premium","Firefox");
+
+	setupCanvas();
 
 	if (!checkMedia()){
 		alert("No media");
@@ -229,38 +234,35 @@ function runHotwordDetection()
 	}
 }
 
+function setupCanvas()
+{
+	var canvas = document.getElementById("viewport");
+	context = canvas.getContext("2d");
+
+	canvas_width = canvas.width;
+	canvas_height = canvas.height;
+
+	imagedata = context.createImageData(canvas_width, canvas_height);
+}
 
 
 function draw(data)
 {
-	var canvas = document.getElementById("viewport"); 
-	var context = canvas.getContext("2d");
+	for (var x = 0; x < canvas_width; x++) {
+		for (var y = 0; y < canvas_height; y++) {
 
-	const width = canvas.width;
-	const height = canvas.height;
- 
-	var imagedata = context.createImageData(width, height);
- 
-	function createImage() {
+			var pixelindex = (x + y * canvas_width) * 4;
+			var dataindex = (x * canvas_height * 2 + melcount-(y*2) );
 
-		for (var x=0; x<width; x++) {
-			for (var y=0; y<height; y++) {
-
-				var pixelindex = (x + y * width) * 4;
-				var dataindex = (x * height *2 + melcount-(y*2) );
-	
-				imagedata.data[pixelindex]   = 255 - data[dataindex] * 2;
-				imagedata.data[pixelindex+1] = 255 - data[dataindex];
-				imagedata.data[pixelindex+2] = 255 - data[dataindex];
-				imagedata.data[pixelindex+3] = 255;
-			}
+			imagedata.data[pixelindex]   = 255 - data[dataindex] * 2;
+			imagedata.data[pixelindex+1] = 255 - data[dataindex];
+			imagedata.data[pixelindex+2] = 255 - data[dataindex];
+			imagedata.data[pixelindex+3] = 255;
 		}
 	}
 
-	createImage();
-	
 	context.putImageData(imagedata, 0, 0);
-	context.rect(0, 0, width, height);
+	context.rect(0, 0, canvas_width, canvas_height);
 	context.stroke();
 }
 
@@ -320,8 +322,6 @@ function floatTo16BitPCM(input)
 	return newData;
 }
 
-
-
 function checkMedia()
 {
 	if (!navigator.getUserMedia)
@@ -339,7 +339,7 @@ function startMedia(callback)
 {
 	navigator.getUserMedia({audio:true},
 		function(stream) {
-			startMicrophone(stream,callback);
+			startMicrophone(stream, callback);
 		},
 		function(e) {
 			alert("Error capturing audio");
@@ -356,7 +356,7 @@ function startMicrophone(stream,callback)
 	window.microphone_stream.connect(window.gain_node);
 
 	window.script_processor_node = window.audioContext.createScriptProcessor(0, 1, 1);
-	console.log("Audio buffer size: " + script_processor_node.bufferSize);
+	//console.log("Audio buffer size: " + script_processor_node.bufferSize);
 	window.script_processor_node.onaudioprocess = callback;
 	window.microphone_stream.connect(window.script_processor_node);
 	window.script_processor_node.connect(window.audioContext.destination);

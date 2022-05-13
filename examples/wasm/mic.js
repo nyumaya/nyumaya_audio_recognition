@@ -128,20 +128,20 @@ function runHotwordDetection()
 
 	function switch_model_active(currentIndex,checked)
 	{
-		console.log("Switching Model Active " + currentIndex + " " + checked);
+		//console.log("Switching Model Active " + currentIndex + " " + checked);
 		api.setActive(detector,checked,currentIndex);
 	}
 
 	function remove_label(name)
 	{
-		console.log("Removing label " + name);
+		//console.log("Removing label " + name);
 		var lbl_name = (index+1) + "_lbl" ;
 		document.getElementById(lbl_name).remove();
 	}
 
 	function addModel(name)
 	{
-		console.log("Adding Model " + name);
+		//console.log("Adding Model " + name);
 
 		var modelIndexPtr = Module._malloc(4); //32 bit Integer
 
@@ -155,7 +155,7 @@ function runHotwordDetection()
 		}
 
 		append_setting(name,true,labelIndex);
-		console.log("Added Model Index " + labelIndex);
+		//console.log("Added Model Index " + labelIndex);
 		api.setSensitivity(detector, defaultSensitivity, labelIndex);
 	}
 
@@ -241,7 +241,7 @@ function setupCanvas()
 
 	canvas_width = canvas.width;
 	canvas_height = canvas.height;
-
+	context.rect(0, 0, canvas_width, canvas_height);
 	imagedata = context.createImageData(canvas_width, canvas_height);
 }
 
@@ -262,7 +262,6 @@ function draw(data)
 	}
 
 	context.putImageData(imagedata, 0, 0);
-	context.rect(0, 0, canvas_width, canvas_height);
 	context.stroke();
 }
 

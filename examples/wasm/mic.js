@@ -226,12 +226,7 @@ function runHotwordDetection()
 	load_file_from_server("alexa_v3.0.35.premium","Alexa");
 
 	setupCanvas();
-
-	if (!checkMedia()){
-		alert("No media");
-	} else {
-		startMedia(checkAudio);
-	}
+	startMedia(checkAudio);
 }
 
 function setupCanvas()
@@ -321,30 +316,23 @@ function floatTo16BitPCM(input)
 	return newData;
 }
 
-function checkMedia()
-{
-	if (!navigator.getUserMedia)
-		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
-		navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia;
-
-	if (navigator.getUserMedia){
-		return true;
-	} else {
-		return false;
-	}
-}
 
 function startMedia(callback)
 {
-	navigator.getUserMedia({audio:true},
-		function(stream) {
-			startMicrophone(stream, callback);
-		},
-		function(e) {
-			alert("Error capturing audio");
+	const constraints = {
+		audio: true,
+		video: false
+	};
+	navigator.mediaDevices.getUserMedia(constraints)
+		.then((mediaStream) => {
+			startMicrophone(mediaStream, callback);
 		}
-	);
+	)
+	.catch((err) => {
+		alert("Cannot access microphone");
+	});
 }
+
 
 function startMicrophone(stream,callback)
 {

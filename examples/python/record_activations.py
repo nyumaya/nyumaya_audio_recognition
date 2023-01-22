@@ -41,7 +41,7 @@ def ensure_dir(file_path):
 
 #Add one or more keyword models
 models = [
-	('../../models/Hotword/alexa_v3.0.35.premium',0.90,'alexa_3_35_090'),
+	('../../models/Hotword/alexa_v3.1.286.premium',0.95,'alexa_3_1_286'),
 ]
 
 def recordActivations(libpath):

@@ -221,9 +221,9 @@ function runHotwordDetection()
 	}
 
 
-	load_file_from_server("marvin_v3.0.41.premium","Marvin");
-	load_file_from_server("sheila_v3.0.35.premium","Sheila");
-	load_file_from_server("alexa_v3.0.35.premium","Alexa");
+	load_file_from_server("marvin_v3.1.286.premium","Marvin");
+	load_file_from_server("sheila_v3.1.286.premium","Sheila");
+	load_file_from_server("alexa_v3.1.286.premium","Alexa");
 
 	setupCanvas();
 	startMedia(checkAudio);

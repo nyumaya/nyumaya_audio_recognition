@@ -19,9 +19,9 @@ The python demo captures audio from the default alsa microphone.
 A web demo is available [here](https://nyumaya.com/demo/). 
 This has been tested with recent versions of Chrome and Firefox.
 
-## Performance V3.0
+## Performance V3.1
 
-- Pi Zero: CPU 55%
+- Pi Zero: CPU 52%
 - Pi 3: CPU one core: 12%
 - Pi 4: CPU one core: 4%
 

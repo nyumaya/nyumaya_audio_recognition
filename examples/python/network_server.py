@@ -13,7 +13,7 @@ serversocket.bind(('', 9999))
 serversocket.listen(5) # become a server socket, maximum 5 connections
 
 detector = AudioRecognition(default_libpath)
-keywordIdFirefox = detector.addModel('../../models/Hotword/firefox_v2.0.23.premium',0.8)
+keywordIdFirefox = detector.addModel('../../models/Hotword/alexa_v3.1.286.premium',0.8)
 
 connection, address = serversocket.accept()
 

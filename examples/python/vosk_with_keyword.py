@@ -26,7 +26,7 @@ def detectKeywords(libpath):
 	extactor_gain = 1.0
 
 	#Add one or more keyword models
-	keywordIdAlexa = detector.addModel('../../models/Hotword/alexa_v3.0.35.premium',0.85)
+	keywordIdAlexa = detector.addModel('../../models/Hotword/alexa_v3.1.286.premium',0.85)
 
 	bufsize = detector.getInputDataSize()
 

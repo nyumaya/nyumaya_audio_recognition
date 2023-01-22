@@ -7,8 +7,8 @@
 int main (int argc, char *argv[])
 {
 	AudioRecognitionImpl *audio_recognizer = createAudioRecognition();
-	int keywordId = -1;
-	addModel(audio_recognizer,argv[1], 0.5, keywordId);
+	int32_t keywordId = -1;
+	addModel(audio_recognizer,argv[1], 0.5, &keywordId);
 
 	int buffer_size = getInputDataSize(audio_recognizer);
 

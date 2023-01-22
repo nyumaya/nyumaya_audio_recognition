@@ -81,9 +81,9 @@ int main (int argc, char *argv[])
 
 	//New Instance of Audio Recognizer
 	AudioRecognitionImpl *audio_recognizer = createAudioRecognition();
-	int keywordId = -1;
+	int32_t keywordId = -1;
 	float sensitivity = 0.8;
-	int success = addModel(audio_recognizer, argv[2], sensitivity, keywordId);
+	int success = addModel(audio_recognizer, argv[2], sensitivity, &keywordId);
 	if(success == 0){
 		std::cout << "Successfully created model" << std::endl;
 	} else {

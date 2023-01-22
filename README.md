@@ -1,7 +1,9 @@
 # Detect simple voice commands and audio events on small embedded sytems
-Nyumaya offline audio classification. Libraries are avialable for **Linux**, **WASM** and **RaspberryPi**.
+Nyumaya offline audio classification. Libraries are avialable for **Linux**, **WASM** and **RaspberryPi**, **ESP32S3**.
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/fa3ffbfff7fa4554acad93e044b24fdd)](https://www.codacy.com/gh/nyumaya/nyumaya_audio_recognition/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nyumaya/nyumaya_audio_recognition&amp;utm_campaign=Badge_Grade)
+
+For esp32s3 support look at its [example](https://github.com/nyumaya/nyumaya_esp32_s3_box) and [library](https://github.com/nyumaya/libnyumaya_esp32)
 
 To run an example
 

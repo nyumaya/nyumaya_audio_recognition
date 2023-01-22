@@ -7,7 +7,7 @@ set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 LINK_DIRECTORIES(../../lib/linux_x86_64)
-find_library(NYUMAYA_LIB NAMES libnyumaya_premium.so.3.0.0 PATHS ../../lib/linux_x86_64)
+find_library(NYUMAYA_LIB NAMES libnyumaya_premium.so.3.1.0 PATHS ../../lib/linux_x86_64)
 
 
 add_executable (arecord_sample arecord_sample.cpp)

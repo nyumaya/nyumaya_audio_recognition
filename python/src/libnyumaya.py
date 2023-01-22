@@ -1,5 +1,5 @@
-from ctypes import c_void_p, c_size_t, c_float, c_int, c_uint8
-from ctypes import cdll, POINTER, c_int16, c_char_p, c_bool, byref
+from ctypes import c_void_p, c_size_t, c_float, c_int, c_uint8, c_int32
+from ctypes import cdll, POINTER, c_int16, c_char_p, c_bool, byref, pointer
 
 import sys
 import os
@@ -33,20 +33,20 @@ class AudioRecognition(object):
 			AudioRecognition.lib.runDetection.argtypes = [c_void_p, POINTER(c_uint8),c_int]
 			AudioRecognition.lib.runDetection.restype = c_int
 
-			AudioRecognition.lib.addModel.argtypes = [c_void_p, c_char_p,c_float]
+			AudioRecognition.lib.addModel.argtypes = [c_void_p, c_char_p,c_float, POINTER(c_int32)]
 			AudioRecognition.lib.addModel.restype = c_int
 
-			AudioRecognition.lib.addContinousModel.argtypes = [c_void_p, c_char_p]
+			AudioRecognition.lib.addContinousModel.argtypes = [c_void_p, c_char_p, POINTER(c_int32)]
 			AudioRecognition.lib.addContinousModel.restype = c_int
 
-			AudioRecognition.lib.getContinousResult.argtypes = [c_void_p, c_int,POINTER(c_float)]
+			AudioRecognition.lib.getContinousResult.argtypes = [c_void_p, c_int, POINTER(c_float)]
 			AudioRecognition.lib.getContinousResult.restype = c_int
 
-			AudioRecognition.lib.addModelFromBuffer.argtypes = [c_void_p, POINTER(c_char_p),c_int]
-			AudioRecognition.lib.addModelFromBuffer.restype =  c_int
+			AudioRecognition.lib.addModelFromBuffer.argtypes = [c_void_p, POINTER(c_char_p), POINTER(c_int32)]
+			AudioRecognition.lib.addModelFromBuffer.restype = c_int
 
 			AudioRecognition.lib.deleteAudioRecognition.argtypes = [c_void_p]
-			AudioRecognition.lib.deleteAudioRecognition.restype =  None
+			AudioRecognition.lib.deleteAudioRecognition.restype = None
 
 		self.obj=AudioRecognition.lib.createAudioRecognition()
 		self.checkVersion()
@@ -74,46 +74,42 @@ class AudioRecognition(object):
 		if( not os.path.exists(path)):
 			print("Libnyumaya: Model path {} does not exist".format(path))
 			return -1
-
-		modelNumber = c_int()
-		success = AudioRecognition.lib.addModel(self.obj,path.encode('ascii'),sensitivity, byref(modelNumber))
+		modelNumber = c_int32()
+		success = AudioRecognition.lib.addModel(self.obj, path.encode('ascii'), sensitivity, pointer(modelNumber))
 		if(success != 0):
 			print("Libnyumaya: Failed to open model")
 			return -1
 
 		#FIXME: Throw error on failure
-
 		return modelNumber.value
 
 	def addContinousModel(self,path):
-		modelNumber = c_int()
-		success = AudioRecognition.lib.addContinousModel(self.obj,path.encode('ascii'), byref(modelNumber))
+		modelNumber = c_int32()
+		success = AudioRecognition.lib.addContinousModel(self.obj, path.encode('ascii'), pointer(modelNumber))
 		if(success != 0):
 			print("Libnyumaya: Failed to open model")
 			return -1
 
 		#FIXME: Throw error on failure
-
 		return modelNumber.value
 
 	def setActive(self,modelNumber,active):
-		success = AudioRecognition.lib.setActive(self.obj,active,modelNumber)
+		success = AudioRecognition.lib.setActive(self.obj, active, modelNumber)
 		if(success != 0):
 			print("Libnyumaya: Failed to set model active")
 
 		return success
 
 	def removeModel(self,modelNumber):
-		success = AudioRecognition.lib.removeModel(self.obj,modelNumber)
+		success = AudioRecognition.lib.removeModel(self.obj, modelNumber)
 		if(success != 0):
 			print("Libnyumaya: Failed to remove model")
 
 		return success
 
 	def getContinousResult(self, modelNumber):
-		result = (c_float * 16)()
-
-		success = AudioRecognition.lib.getContinousResult(self.obj, modelNumber,result)
+		result = (c_float*16)()
+		success = AudioRecognition.lib.getContinousResult(self.obj, modelNumber, result)
 		if(success != 0):
 			print("Failed to get continous result")
 		re = [result[i] for i in range(2)]
@@ -123,11 +119,11 @@ class AudioRecognition(object):
 		datalen = int(len(data))
 		pcm = c_uint8 * datalen
 		pcmdata = pcm.from_buffer_copy(data)
-		prediction = AudioRecognition.lib.runDetection(self.obj,pcmdata,datalen)
+		prediction = AudioRecognition.lib.runDetection(self.obj, pcmdata, datalen)
 		return prediction
 
 	def setSensitivity(self,sens,modelNumber):
-		AudioRecognition.lib.setSensitivity(self.obj,sens,modelNumber)
+		AudioRecognition.lib.setSensitivity(self.obj, sens, modelNumber)
 
 	def getVersionString(self):
 		return str(AudioRecognition.lib.getVersionString(self.obj))

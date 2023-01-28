@@ -27,6 +27,7 @@ This has been tested with recent versions of Chrome and Firefox.
 - Pi 3: CPU one core: 12%
 - Pi 4: CPU one core: 4%
 - i.MX8 CPU one core: 4%
+- i.MX6 CPU one core: 11.9% (CortexA9)
 
 ## Free models:
 

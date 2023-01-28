@@ -5,7 +5,8 @@ import sys
 sys.path.append('../../python/src')
 
 from libnyumaya import AudioRecognition, FeatureExtractor
-from auto_platform import AudiostreamSource,default_libpath
+from auto_platform import AudiostreamSource, default_libpath
+from datetime import datetime
 
 def detectKeywords(libpath):
 
@@ -14,9 +15,9 @@ def detectKeywords(libpath):
 	detector = AudioRecognition(libpath)
 
 	extactor_gain = 1.0
-	vad_threshold = 0.2
+	vad_threshold = 0.5
 
-	keywordVAD = detector.addContinousModel('../../models/Hotword/vad_16.premium')
+	keywordVAD = detector.addContinousModel('../../models/Hotword/vad_v3.1.262.premium')
 	bufsize = detector.getInputDataSize()
 
 	print("Audio Recognition Version: " + detector.getVersionString())
@@ -24,18 +25,16 @@ def detectKeywords(libpath):
 	audio_stream.start()
 	try:
 		while(True):
-			frame = audio_stream.read(bufsize*2,bufsize*2)
+			frame = audio_stream.read(bufsize*2, bufsize*2)
 			if(not frame):
 				time.sleep(0.01)
 				continue
-
-			features = extractor.signalToMel(frame,extactor_gain)
+			features = extractor.signalToMel(frame, extactor_gain)
 			_ = detector.runDetection(features)
 
 			vadResult = detector.getContinousResult(keywordVAD)
-
 			if(vadResult[1] > vad_threshold):
-				print("Speech detected")
+				print("Speech detected {}".format(datetime.now()))
 
 	except KeyboardInterrupt:
 		print("Terminating")

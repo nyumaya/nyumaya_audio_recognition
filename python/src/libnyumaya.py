@@ -24,13 +24,13 @@ class AudioRecognition(object):
 			AudioRecognition.lib.getInputDataSize.argtypes = [c_void_p]
 			AudioRecognition.lib.getInputDataSize.restype = c_size_t
 
-			AudioRecognition.lib.setSensitivity.argtypes = [c_void_p,c_float,c_int]
+			AudioRecognition.lib.setSensitivity.argtypes = [c_void_p, c_float, c_int]
 			AudioRecognition.lib.setSensitivity.restype = None
 
-			AudioRecognition.lib.setActive.argtypes = [c_void_p,c_bool,c_int]
+			AudioRecognition.lib.setActive.argtypes = [c_void_p, c_bool, c_int]
 			AudioRecognition.lib.setActive.restype = c_int
 
-			AudioRecognition.lib.runDetection.argtypes = [c_void_p, POINTER(c_uint8),c_int]
+			AudioRecognition.lib.runDetection.argtypes = [c_void_p, POINTER(c_uint8), c_int]
 			AudioRecognition.lib.runDetection.restype = c_int
 
 			AudioRecognition.lib.addModel.argtypes = [c_void_p, c_char_p,c_float, POINTER(c_int32)]
@@ -61,16 +61,16 @@ class AudioRecognition(object):
 		rev = None
 
 		if sys.version_info[0] < 3:
-			major,minor,rev= self.getVersionString().split('.')
+			major, minor, rev= self.getVersionString().split('.')
 		else:
 			version_string = self.getVersionString()[2:]
 			version_string = version_string[:-1]
-			major,minor,rev= version_string.split('.')
+			major, minor, rev= version_string.split('.')
 
 		if major != "3":
 				print("Your library version is not compatible with this API")
 
-	def addModel(self,path,sensitivity=0.5):
+	def addModel(self, path, sensitivity=0.5):
 		if( not os.path.exists(path)):
 			print("Libnyumaya: Model path {} does not exist".format(path))
 			return -1
@@ -83,7 +83,7 @@ class AudioRecognition(object):
 		#FIXME: Throw error on failure
 		return modelNumber.value
 
-	def addContinousModel(self,path):
+	def addContinousModel(self, path):
 		modelNumber = c_int32()
 		success = AudioRecognition.lib.addContinousModel(self.obj, path.encode('ascii'), pointer(modelNumber))
 		if(success != 0):
@@ -93,14 +93,14 @@ class AudioRecognition(object):
 		#FIXME: Throw error on failure
 		return modelNumber.value
 
-	def setActive(self,modelNumber,active):
+	def setActive(self, modelNumber, active):
 		success = AudioRecognition.lib.setActive(self.obj, active, modelNumber)
 		if(success != 0):
 			print("Libnyumaya: Failed to set model active")
 
 		return success
 
-	def removeModel(self,modelNumber):
+	def removeModel(self, modelNumber):
 		success = AudioRecognition.lib.removeModel(self.obj, modelNumber)
 		if(success != 0):
 			print("Libnyumaya: Failed to remove model")
@@ -115,14 +115,14 @@ class AudioRecognition(object):
 		re = [result[i] for i in range(2)]
 		return re
 
-	def runDetection(self,data):
+	def runDetection(self, data):
 		datalen = int(len(data))
 		pcm = c_uint8 * datalen
 		pcmdata = pcm.from_buffer_copy(data)
 		prediction = AudioRecognition.lib.runDetection(self.obj, pcmdata, datalen)
 		return prediction
 
-	def setSensitivity(self,sens,modelNumber):
+	def setSensitivity(self, sens, modelNumber):
 		AudioRecognition.lib.setSensitivity(self.obj, sens, modelNumber)
 
 	def getVersionString(self):
@@ -139,7 +139,7 @@ class FeatureExtractor(object):
 	lib = None
 	obj = None
 
-	def __init__(self,libpath,nfft=1024,melcount=80,sample_rate=16000,lowerf=50,upperf=4000,window_len=0.03,shift=0.01):
+	def __init__(self, libpath, nfft=1024, melcount=80, sample_rate=16000, lowerf=50, upperf=4000, window_len=0.03, shift=0.01):
 
 		self.melcount = melcount
 		self.shift =  sample_rate*shift
@@ -148,20 +148,20 @@ class FeatureExtractor(object):
 		if (not FeatureExtractor.lib):
 			FeatureExtractor.lib = cdll.LoadLibrary(libpath)
 
-			FeatureExtractor.lib.createFeatureExtractor.argtypes = [c_int,c_int,c_int,c_int,c_int,c_float,c_float]
+			FeatureExtractor.lib.createFeatureExtractor.argtypes = [c_int, c_int, c_int, c_int, c_int, c_float, c_float]
 			FeatureExtractor.lib.createFeatureExtractor.restype = c_void_p
 
 			FeatureExtractor.lib.getMelcount.argtypes = [c_void_p]
 			FeatureExtractor.lib.getMelcount.restype =  c_int
 
-			FeatureExtractor.lib.signalToMel.argtypes = [c_void_p, POINTER(c_int16),c_int,POINTER(c_uint8),c_float]
+			FeatureExtractor.lib.signalToMel.argtypes = [c_void_p, POINTER(c_int16), c_int, POINTER(c_uint8), c_float]
 			FeatureExtractor.lib.signalToMel.restype = c_int
 
 			FeatureExtractor.lib.deleteFeatureExtractor.argtypes = [c_void_p]
 			FeatureExtractor.lib.deleteFeatureExtractor.restype =  None
 
 
-		self.obj=FeatureExtractor.lib.createFeatureExtractor(nfft,melcount,sample_rate,lowerf,upperf,window_len,shift)
+		self.obj=FeatureExtractor.lib.createFeatureExtractor(nfft, melcount, sample_rate, lowerf, upperf, window_len, shift)
 
 	def __del__(self):
 		FeatureExtractor.lib.deleteFeatureExtractor(self.obj)
@@ -178,7 +178,7 @@ class FeatureExtractor(object):
 		
 		result = (c_uint8 * melsize)()
 
-		reslen = FeatureExtractor.lib.signalToMel(self.obj,pcmdata,datalen,result,gain)
+		reslen = FeatureExtractor.lib.signalToMel(self.obj, pcmdata, datalen, result, gain)
 
 		if(reslen != melsize):
 			print("Bad: melsize mismatch")

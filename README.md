@@ -1,4 +1,4 @@
-# Detect simple voice commands and audio events on small embedded sytems
+# Wakeword detection on small embedded sytems
 Nyumaya offline audio classification. Libraries are avialable for **Linux**, **WASM**, **RaspberryPi**, **ESP32S3**, **Android**.
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/fa3ffbfff7fa4554acad93e044b24fdd)](https://www.codacy.com/gh/nyumaya/nyumaya_audio_recognition/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nyumaya/nyumaya_audio_recognition&amp;utm_campaign=Badge_Grade)
@@ -28,6 +28,7 @@ This has been tested with recent versions of Chrome and Firefox.
 - Pi 4: CPU one core: 4%
 - i.MX8 CPU one core: 4%
 - i.MX6 CPU one core: 11.9% (CortexA9)
+- Android, low usage on a fairly old XIAOMI MI A3
 
 ## Free models:
 

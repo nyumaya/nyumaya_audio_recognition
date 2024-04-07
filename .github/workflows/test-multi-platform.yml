@@ -2,7 +2,7 @@ name: Test basic functionality on multiple platforms
 
 on:
   push:
-    branches: [ "experimental_mac_support" ]
+    branches: ['master', 'V3.1']
 
 jobs:
   build:

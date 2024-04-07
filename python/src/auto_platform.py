@@ -16,7 +16,7 @@ print("Uname:" + str(uname))
 if system == "Darwin":
 	from cross_record import AudiostreamSource
 	play_command ="play -q"
-	default_libpath = '../lib/mac/libnyumaya.dylib'
+	default_libpath = '../../lib/mac/x86_64/libnyumaya_premium.3.1.0.dylib'
 
 elif system == "Linux":
 	from record import AudiostreamSource

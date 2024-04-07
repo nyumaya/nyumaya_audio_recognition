@@ -1,0 +1,29 @@
+name: Test basic functionality on multiple platforms
+
+on:
+  push:
+    branches: ['master', 'V3.1']
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-13]
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install_Deps
+      run: |
+        if [ "${{ matrix.os }}" == "macos-13" ]; then
+          brew install portaudio
+          pip install pydub
+          pip install pyaudio
+        else
+          pip install pydub
+        fi
+    - name: Test
+      run: cd python/test ; python3 verify_marvin.py

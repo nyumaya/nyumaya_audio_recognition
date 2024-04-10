@@ -39,7 +39,7 @@ elif system == "Linux":
 		print("Please setup a match for your machine in python/src/auto_platform.py")
 
 elif system == "Windows":
-	print("Windows is currently not supported")
+	default_libpath = '../../lib/windows/x86_64/nyumaya_premium_3_1.dll'
 
 else:
 	print("Your OS is currently not supported")
